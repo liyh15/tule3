@@ -1,0 +1,197 @@
+*
+{
+	margin:0px;
+	padding:0px;
+	font-family:"microsoft yahei";
+}
+#head
+{
+	width:100%;
+	height:30px;
+	background:#F8F8F8;
+	border-bottom:1px solid #EEEEEE;
+}
+#head_one
+{
+	width:1200px;
+	height:30px;
+	margin:0 auto;
+}
+ul li
+{
+    list-style-type:none;
+}
+#head_one>ul
+{   
+	float:right;
+}
+#head_one>ul>li
+{
+	float:left;
+}
+#head_one>ul>li a:hover
+{
+	color:#FF8800;
+}
+#head_one>ul>li a
+{
+	width:65px;
+	text-align:center;
+}
+#head_one>ul>li>ul>li
+{
+   padding-left:10px;
+   border-left:1px solid #EEEEEE;
+   border-right:1px solid #EEEEEE;
+   border-bottom:1px solid #EEEEEE;
+   background-color: #F8F8F8;
+}
+#head_one>ul>li>ul
+{
+	display:none;
+}
+a
+{
+	height:25px;
+	display:inline-block;
+	font-family: "microsoft yahei";
+	text-decoration: none;
+	padding-top:5px;
+	color:#404040;
+	font-size:13px;
+}
+#head_one span
+{
+	
+	float:left;
+	font-family: "microsoft yahei";
+	color:#404040;
+	font-size:13px;
+}
+.head_left_b
+{
+   float:left;
+}
+.head_left
+{
+	float:left;
+}
+.head_right
+{
+	padding:5px 10px 0 10px;
+	text-align:center;
+}
+.head_right:hover
+{
+	color:#FF8800;
+}
+.head_left:hover
+{
+	color:#FF8800;
+}
+.my_order
+{
+	border-left:1px solid #FFFFFF;
+	border-right:1px solid #FFFFFF;
+}
+.my_order:hover
+{
+	border-left:1px solid #EEEEEE;
+	border-right:1px solid #EEEEEE;
+}
+#search
+{
+	width:100%;
+	height:87px;
+	padding:14px;
+	background: white;
+}
+#search_one
+{
+	width:1200px;
+	height:100px;
+	margin:0 auto;
+}
+
+#logo
+{
+	width:100px;
+	height:70px;
+}
+#title
+{
+	width:150px;
+	height:70px;
+}
+#search_input
+{
+	display:inline-block;
+	width:376px;
+	height:34px;
+	font-size:15px;
+	position:relative;
+	top:-30px;
+	left:136px;
+	border:3px solid #FF8800;
+}
+#search_button
+{
+	position:relative;
+	top:-16px;
+	left:130px;
+}
+#tel
+{
+	width:137px;
+	height:35px;
+	position:relative;
+	left:962px;
+	top:-65px;
+}
+.tel_a
+{
+	float:right;
+	font-size:10px;
+	color:#9C9BA5;
+}
+.tel_b
+{
+	position:absolute;
+	top:17px;
+	left:37px;
+	font-size:13px;
+	color:#FF8800;
+	font-weight: bold;
+}
+#menu
+{
+	width:100%;
+	height:40px;
+	background-color: #2DBB55;
+}
+#menu_list
+{
+	width:1200px;
+	height:40px;
+	margin:0 auto;
+}
+#menu_list>ul>li
+{
+	float:left;
+	padding:0px;
+	height:37px;
+	align:center;
+}
+#menu_list>ul>li>a
+{
+	
+	padding:0 10px;
+	padding-top:9px;
+	height:31px;
+	color:white;
+	font-size:18px
+}
+#menu_list>ul>li>a:hover
+{
+	background-color:#4ECF5B
+}

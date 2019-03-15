@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace：与当前xml文件对应的java接口 -->
+<mapper namespace="spring.mapper.OrderMapper">
+	<!-- 根据订单编号查询指定订单 -->
+	<select id="getOrderByOrderId" resultType="entity.MapperOrder">
+		SELECT
+			id,
+			user_id userId,
+			status,
+			traffic_date_arrange_id trafficDateArrangeId,
+			totle_price totlePrice,
+			passenger_id passengerId,
+			type,
+			oexplain,
+			reservation,
+			return_price returnPrice,
+			distribution_address distributionAddress,
+			contact_phone contactPhone,
+			create_time createTime,
+			time_close timeClose
+		FROM
+		    tule_order
+		WHERE
+		    id = #{id}
+		AND
+		    state = 1
+	</select>
+
+	<!-- 主动取消订单 -->
+	<update id="cancelOrderById">
+		UPDATE
+		 tule_order
+		SET
+		 status = 2
+		WHERE
+		 <if test="id != null" >
+             id = #{id}
+         </if>		
+		AND
+		 status = 4
+		AND
+		 state = 1
+	</update>
+
+	<!-- 定时取消订单 -->
+	<update id="cancelOrder">
+		UPDATE
+		 tule_order
+		SET
+		 status = 2
+		WHERE
+		 unix_timestamp(sysdate()) > unix_timestamp(time_close)
+		AND
+		 status = 4
+		AND
+		 state = 1
+	</update>
+    
+    <!-- 删除订单 -->
+	<update id="deleteOrderById">
+        UPDATE
+		  tule_order
+		SET
+		  state = 0
+		WHERE
+		 <if test="id != null" >
+             id = #{id}
+         </if>	
+		AND
+		  status != 4
+		AND
+		  state = 1
+	</update>
+</mapper>

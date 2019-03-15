@@ -1,0 +1,13 @@
+$(".menu").mouseover(function(){	
+	$(".menu_list").show();
+	$(".menu_list").css("postion","relative");
+});
+$(".menu").mouseout(function(){	
+	$(".menu_list").hide();	
+});
+$("#search_button").mouseover(function(){
+	$(this).children()[0].src="/traffic/image/search2.png";
+});
+$("#search_button").mouseout(function(){
+	$(this).children()[0].src="/traffic/image/search.png";
+});

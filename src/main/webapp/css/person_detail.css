@@ -1,0 +1,92 @@
+*, select {
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
+	font-family: "寰蒋闆呴粦";
+}
+body {
+	font-family: "微软雅黑";
+}
+#outer {
+	position: relative;
+}
+#title {
+	color: #22C332;
+	font-weight: bold;
+	font-size: 30px;
+	margin-left: 260px;
+}
+input[type="text"], input[type="date"] {
+	width: 333px;
+	height: 33px;
+	padding-left: 5px;
+}
+select {
+	width: 188px;
+	height: 33px;
+	padding-left: 5px;
+}
+#provinces, #city, #area {
+	width: 102px;
+}
+form>span {
+	display: inline-block;
+	width: 100px;
+	height: 20px;
+	line-height: 20px;
+	text-align: right;
+	margin-top: 35px;
+	margin-right: 20px;
+}
+.red {
+	color: red;
+}
+.info {
+	display: inline-block;
+	width: auto;
+	color: #999999;
+	font-size: 12px;
+	margin-top: 0px;
+	margin-left: 120px;
+}
+#head {
+	width: 100px;
+	position: absolute;
+	left: 550px;
+	top: 125px;
+}
+#head img{
+	width: 100px;
+	height: 100px;
+	background-color: blue;
+	border-radius: 50%;
+}
+#head label {
+	color: #22C332;
+	font-size: 14px;
+	text-align: center;
+	margin-top: 10px;
+	
+}
+#headImg {
+	display: none;
+}
+
+#edit, #save, #cancel {
+	width: 60px;
+	height: 26px;
+	color: #fff;
+	border: 0px;
+	background-color: #22C332; 
+    margin-left: 11px;
+    margin-top: 20px;
+}
+#edit {
+	margin-left: 154px
+}
+#save {
+	margin-left: 130px;
+}
+#save, #cancel {
+	display: none;
+}

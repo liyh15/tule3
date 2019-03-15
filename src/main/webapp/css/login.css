@@ -1,0 +1,206 @@
+body, div, form, input, span, a {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+body {
+	font-family: "寰蒋闆呴粦";
+}
+#header {
+	width: 100%;
+	height: 80px;
+}
+#header span {
+	color: #2993D1;
+	display: inline-block;
+	font-size: 30px;
+	line-height: 80px;
+	position: relative;
+	top: -20px;
+}
+#header img {
+	width: 60px;
+	height: 60px;
+	margin-left: 200px;
+	margin-top: 5px;
+}
+/*
+缃戦〉涓棿鍐呭澶ц竟妗嗙殑鏍峰紡
+ */
+#main {
+	width: 100%;
+	height: 700px;
+	background-image: url("../image/bg.jpg");
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+
+/*
+缃戦〉鏈�搴曢儴鐨勬牱寮�
+ */
+#footer {
+	width: 100%;
+	height: 148px;
+	text-align: center;
+	font-size: 12px;
+	margin-top: 40px;
+}
+#footer div {
+	margin-top: 15px;
+}
+#footer a {
+	color: #000;
+	text-decoration: none;
+	margin-left: 10px;
+}
+#footer #red {
+	color: red;
+}
+
+/*
+鏈�澶х殑div鏍峰紡
+ */
+#outer {
+	width: 350px;
+	height: 456px;
+	border: 0px;
+	margin: 12% auto;
+	border-radius: 7px;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+/*
+涓婅竟涓や釜div鐨勬牱寮�
+*/
+#login, #register {
+	width: 156px;
+	height: 35px;
+	line-height: 35px;
+	color: #eee;
+	font-size: 14px;
+	background-color: #34BB60;
+	text-align: center;
+	display: inline-block;
+	border-radius: 5px 5px 0 0;
+	margin-top: 10px;
+	cursor: pointer;
+}
+#login {
+	color: #34BB60;
+	background-color: #fff;
+	margin-left: 17px;
+}
+		
+/*涓や釜鍐呭琛ㄧ殑鏍峰紡
+*/
+#loginForm, #registerForm {
+	margin-left: 17px;
+}
+#loginForm form, #registerForm form {
+	width: 316px;
+	height: 342px;
+	background-color: #fff;
+}
+#registerForm {
+	display: none;
+}
+form input, form span {
+	margin-left: 60px;
+}
+		
+#loginName, #registerName, #loginPwd, #registerPwd, #register_again_pwd, #loginCode, #registerCode, .submit, .again_pwd {
+	width: 190px;
+	height: 30px;
+	font-size: 13px;
+	margin: 8px 0 3px 60px;
+}
+.submit {
+	width: 201px;
+}
+#loginForm input {
+	margin-top: 15px;
+}
+.name {
+	margin-top: 24px;
+}
+#registerForm input {
+	margin-top: 5px;
+}
+form input {
+	border-top: 0px;
+	border-left: 0px;
+	border-bottom: 2px solid #34BB60;
+	border-right: 0px;
+	border-radius: 5px;
+	padding-left: 10px;
+}
+#loginCode, #registerCode {
+	width: 95px;
+}
+#code {
+	width: 95px;
+	height: 30px;
+	position:relative;
+	top:39px;
+	color: #fff;
+	background-color: #34BB60;
+	border-radius: 5px;
+	display: inline-block;
+	cursor: pointer;
+}
+#code p
+{
+	color: #000;
+	font-size:11px;
+}
+form span {
+	font-size: 8px;
+	color: red;
+	display: none;
+}
+label {
+	color: #000;
+	font-size: 8px;
+}
+label a {
+	font-weight: bold;
+	cursor: pointer;
+}
+#protocol {
+	margin-bottom: 4px;
+	vertical-align: middle;
+}
+.submit {
+	color: #fff;
+	background-color: #34BB60;
+	border: 0px;
+	border-radius: 5px;
+}
+
+
+/*
+绗笁鏂圭殑鏍峰紡
+*/
+#th_part  {
+	color: #eee;
+	font-size: 8px;
+	margin-left: 17px;
+	margin-top: 5px;
+}
+#th_part hr {
+	width: 122px;
+	display: inline-block;
+}
+#th_part div {
+	width: 158px;
+	height: 43px;
+	display: inline-block;
+	margin-left: 70px;
+	margin-top: 5px;
+}
+#th_part img {
+	width: 40px;
+	height: 40px;
+	margin-left: 10px;
+	cursor: pointer;
+}

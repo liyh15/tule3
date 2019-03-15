@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace：与当前xml文件对应的java接口 -->
+<mapper namespace="spring.mapper.PassengerMapper">
+   <!-- 根据乘客们的编号查询乘客们的信息 -->
+   <select id="getPassengersById" resultType="entity.Passenger">
+       SELECT
+          id,
+          name,
+          personal_id personalId,
+          type,
+          user_id userId 
+       FROM 
+          tule_passenger 
+       WHERE
+          id 
+       IN
+          <foreach item = "item" collection="ids" index="index" open="(" separator="," close=")">
+              #{item}
+          </foreach>       
+   </select>
+   
+   <!-- 根据乘客的编号获取乘客的信息 -->
+   <select id="getPassengerById" resultType="entity.Passenger">
+       SELECT
+          id,
+          name,
+          personal_id personalId,
+          type,
+          user_id userId 
+       FROM 
+          tule_passenger 
+       WHERE
+          id = #{id}    
+   </select>
+</mapper>

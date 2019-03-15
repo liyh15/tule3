@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace：与当前xml文件对应的java接口 -->
+<mapper namespace="spring.mapper.StaticDataMapper">
+     <select id="getAllCity" resultType="entity.City">
+          SELECT
+              id,
+              name,
+              pinyin
+          FROM
+              tule_city
+     </select>
+</mapper>

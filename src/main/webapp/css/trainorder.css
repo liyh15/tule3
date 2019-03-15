@@ -1,0 +1,262 @@
+body,div,span,a{
+	margin: 0;
+	padding: 0;
+}
+*{
+	list-style-type: none;
+	text-decoration: none;
+}
+body{
+	font-size: 12px;
+	font-family: "microsoft yahei";
+}
+#main{
+	width: 1000px;
+	margin: 0 auto;
+	/* background-color: #ddd */;
+	/* height: 100px; */
+}
+#main .top{
+	padding-top: 10px;
+	padding-bottom: 8px;
+}
+#main .top{
+	font-size: 13px;
+}
+#main .top .sp{
+	color: black;
+	font-weight: bold;
+}
+#main .top .sp1{
+	color: #3c2d03;
+}
+.handle{
+	border: 1px solid #ddd;
+}
+.clz{
+	margin-left: 128px;
+	margin-top: 10px;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: bold;
+}
+.clz img{
+	position: relative;
+	top: 3px;
+}
+.dfk{
+	margin-left: 284px;
+	font-size: 14px;
+	font-weight: bold;
+}
+.dfk1{
+	margin-left: 278px;
+	font-size: 14px;
+	font-weight: bold;
+}
+.date{
+	display: block;
+	margin-top: 10px;
+	margin-left: 128px;
+}
+.time{
+	display: block;
+	margin-left: 136px;
+	margin-top: 2px;
+	margin-bottom: 20px;
+}
+.handle_bottom{
+	background: #F7F7F7;
+}
+.dqzt{
+	display:inline-block;
+	margin-left: 35px;
+	margin-top: 20px;
+	font-size: 13px;
+	font-weight: bold;
+}
+.ddje{
+	margin-left: 330px;
+	font-size: 16px;
+}
+.money{
+	font-size: 18px;
+	color: #F86A03;
+	font-weight: bold;
+}
+.jemx{
+	border-bottom:1px dashed #000;
+	margin-left: 95px;
+}
+.fkdjs{
+	display:inline-block;
+	margin-left: 35px;
+	margin-top: 1px;
+	font-size: 13px;
+	font-weight: bold;
+}
+.zt,.sjian{
+	color: #666;
+}
+.zysx{
+	display:inline-block;
+	margin-left: 35px;
+	margin-top: 1px;
+	font-size: 15px;
+	position: relative;
+	top: -10px;
+}
+.zysx1{
+	display:inline-block;
+	margin-left: 35px;
+	font-size: 15px;
+	position: relative;
+	top: -34px;
+}
+.qfk{
+	display: inline-block;
+	background: #FF8800;
+	color: white;
+	font-size: 20px;
+	padding: 10px 0 10px 40px;
+	margin-left: 370px;
+	width: 100px;
+	border-radius:5px;
+	position: relative;
+	top: -20px;
+}
+.qfk:HOVER{
+	background-color: #ff6a00;
+	cursor: pointer;
+}
+.qxdd{
+	display: inline-block;
+	background: #DDDDDD;
+	color: white;
+	font-size: 20px;
+	padding: 10px 0 10px 32px;
+	margin-left: 497px;
+	width: 108px;
+	border-radius:5px;
+	position: relative;
+	top: -12px;
+	margin-bottom: 20px;
+}
+.qxdd:HOVER{
+	background-color: #9e9797;
+	cursor: pointer;
+}
+.ccinformation,.personinformation,.ddinformation{
+	border: 1px solid #E1E2E6;
+	margin-top: 25px;
+}
+.ccxx,.ckxx,.ddxx{
+	padding: 10px 0px 10px 20px; 
+	background-color: #F9F9F9;
+	font-size: 17px;
+	font-weight: bold;
+}
+.tou{
+	display: inline-block;
+	margin-top: 20px;
+	margin-left: 20px;
+	margin-bottom:20px;
+	padding: 25px 30px 25px 35px;
+	font-size: 28px;
+	color: #666;
+	border-right: 1px solid #eee;
+	/* font-weight: bold; */
+}
+.start{
+	display: inline-block;
+	margin-left: 15px;
+}
+.start_time,.end_time{
+	display: inline-block;
+	position: relative;
+	top: 5px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #666;
+}
+.start_station,.end_station{
+	display: inline-block;
+	position: relative;
+	top: 13px;
+	font-weight: bold;
+	color: #666;
+}
+.start_date,.end_date{
+	display: inline-block;
+	color: #666;
+	position: relative;
+	top: 15px;
+}
+.all_time{
+	display: inline-block;
+	margin-left: 70px;
+	position: relative;
+	top: -10px;
+}
+.alltime{
+	color: #B6B0B2;
+	position: relative;
+	left: 8px;
+}
+.end{
+	display: inline-block;
+	margin-left: 80px;
+}
+.allinformation,.ddxxinformation{
+	padding: 20px 0 5px 0px;
+	color: #666;
+	font-size: 14px;
+	border-bottom: 1px solid #eee;
+}
+.information,.fkinformation{
+	padding: 5px 0 20px 0px;
+	color: #666;
+	font-size: 14px;
+}
+.fkinformation{
+	font-size: 13px;
+}
+.money1{
+	margin-left: 40px;
+	color: #FB6810;
+}
+.youhui{
+	margin-left: 40px;
+	color: #FB6810;
+}
+.money2{
+	margin-left: 53px;
+	color: #FB6810;
+}
+.money3{
+	margin-left: 50px;
+	color: #FB6810;
+}
+.phone{
+	border: 1px solid #E1E2E6;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	background-color: #F9F9F9;
+}
+.lxrdh{
+	display:inline-block;
+	padding: 10px 0px 10px 20px; 
+	font-size: 17px;
+	font-weight: bold;
+}
+.mobile{
+	font-size: 13px;
+}
+.information div{
+	display: inline-block;
+	text-align: center;
+}
+.fkinformation div{
+	display: inline-block;
+	text-align: center;
+}

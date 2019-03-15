@@ -1,0 +1,337 @@
+body {
+	background-color: #eee;
+}
+
+* {
+	text-decoration: none;
+	outline:none;
+}
+
+body, div, p, a, input {
+	border: none;
+	list-style: none;
+	/*margin: 0px; */
+	padding: 0px;
+	font-family: '微软雅黑';
+}
+
+#header1 {
+	background-image: url("../image/train_all.jpg");
+	background-repeat: no-repeat;
+	width: 100%;
+	height: 421px;
+	display: block;
+}
+
+#header1 a, #article a, #footer a {
+	display: inline;
+}
+
+#form {
+	width: 315px;
+	padding: 10px;
+	background-color: rgba(0, 0, 0, 0.4);
+	position: relative;
+	top: 50px;
+	left: 15%;
+	padding-top: 15px;
+	/* border: 1px solid #eee; */
+	color: white;
+}
+/*  #form #top{
+			border-bottom: 2px solid #eee;
+		} */
+/* #form span{
+			font-size: 20px;
+		} */
+/* #s1 a{
+			color: white;
+		} */
+#top {
+	padding-bottom: 10px;
+}
+
+#form #s1 a {
+	margin: 0 11px;
+	color: white;
+	padding-bottom: 10px;
+	font-size: 20px;
+}
+
+#form #s1 a {
+	border-bottom: 2px solid rgb(0, 0, 0, 0);
+}
+
+#form #s1 a:HOVER {
+	color: #32f11d;
+	border-bottom: 2px solid #32f11d;
+}
+
+#form #s2 a {
+	margin: 0px 10px;
+	color: white;
+	padding-bottom: 10px;
+	font-size: 20px;
+}
+
+#form #s2 a:HOVER {
+	color: #32f11d;
+	border-bottom: 2px solid #32f11d;
+}
+
+#form #s3 a {
+	padding-bottom: 10px;
+	color: white;
+	font-size: 20px;
+}
+
+#form #s3 a:HOVER {
+	color: #32f11d;
+	border-bottom: 2px solid #32f11d;
+}
+
+#form #hr {
+	width: 315px;
+}
+
+#form input {
+	width: 260px;
+	height: 30px;
+	margin: 10px 25px;
+	font-size: 18px;
+}
+
+#form .all {
+	margin: 8px 25px;
+}
+
+#form .div1 {
+	width: 60px;
+	height: 26px;
+	border-radius: 15px;
+	overflow: hidden;
+	z-index:1;
+	position: absolute;
+	bottom: 82px;
+	left: 235px;
+}
+
+#form .div1 .left {
+	position: absolute;
+	left: 4px;
+}
+
+#form .div1 .right {
+	position: absolute;
+	right: 4px;
+}
+
+#form .div2 {
+	width: 30px;
+	height: 20px;
+	border-radius: 9px;
+	background: #fff;
+	position: absolute;
+}
+
+#form .open1 {
+	background: #ddd;
+	cursor: pointer;
+}
+
+#form .open2 {
+	top: 3px;
+	left: 5px;
+}
+
+#form .close1 {
+	width: 60px;
+	height: 26px;
+	border-radius: 15px;
+	overflow: hidden;
+	position: absolute;
+	background: #5ee825;
+	cursor: pointer;
+}
+
+#form .close2 {
+	left: 25px;
+	top: 3px;
+}
+
+#form #search {
+	height: 50px;
+	background-color: #2acce6;
+	color: white;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+#article {
+	width: 1200px;
+	height: 250px;
+	margin: 15px auto;
+	border: 1px solid #eee;
+	background-color: white;
+	margin-bottom: 30px;
+}
+
+#article-top {
+	margin: 25px 15px 5px;
+}
+
+#article-top .art_s1 {
+	font-size: 18px;
+	color: #226109;
+	margin-right: 100px;
+}
+
+#article-top a {
+	color: black;
+	cursor: pointer;
+}
+
+#article-top a:HOVER {
+	background-color: green;
+	color: white;
+}
+
+#article-top .art_s2 {
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+#article-top .art_s3 {
+	margin: 0 5px;
+}
+
+#article-context .square {
+	width: 259px;
+	border-right: 1px dotted #eaeaea;
+	float: left;
+	font: 12px Simsun;
+	color: #333;
+	padding-top: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+#article-context a {
+	color: #404040;
+}
+
+#article-context p {
+	width: 250px;
+	position: relative;
+	line-height: 30px;
+	margin: 7px 5px;
+	font-family: Simsun;
+}
+
+#article-context p span {
+	position: absolute;
+	right: 0;
+	top: 0;
+	color: #f60;
+	font: 20px microsoft yahei;
+}
+
+#article-context p span i {
+	font-size: 12px;
+	color: #f60;
+	font-style: normal;
+}
+
+#article-context p span em {
+	color: #999;
+	font-size: 12px;
+	font-style: normal;
+}
+
+#article-context p:HOVER {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+#footer {
+	width: 1200px;
+	height: 300px;
+	color: #465a64;
+	margin: 0 auto;
+}
+
+#footer h2 {
+	display: block;
+	font: 18px/30px microsoft yahei;
+	color: #28546a;
+	padding-left: 10px;
+	border-bottom: 3px solid #42b312;
+	margin: 0;
+}
+
+#footer #question .square {
+	padding-left: 37px;
+	padding-right: 37px;
+}
+
+#question .square {
+	width: 226px;
+	float: left;
+	font: 12px microsoft yahei;
+	line-height: 25px;
+	padding-top: 25px;
+	color: #666;
+}
+
+#question .square h3 {
+	font: bold 16px microsoft yahei;
+	color: #465a64;
+	margin: 0;
+	padding: 0;
+}
+
+#question .square a {
+	color: #999;
+}
+
+#huan {
+	position: absolute;
+	left: 295px;
+	top: 79px;
+}
+
+#huan:HOVER {
+	cursor: pointer;
+}
+#citylistfirst{
+	position: absolute;
+	z-index:2;
+	top:95px;
+	left:34px;
+	background-color: #FFFFFF;
+}
+#citybuttonlist{
+	position: absolute;
+	border:2px solid #bababa;
+	z-index:2;
+	width:260px;
+	top:95px;
+	left:35px;
+	background-color: #FFFFFF;
+}
+#citybuttonlist p{
+	display: block;
+	padding-left:10px;
+	margin:0px;
+	height: 24px;
+	color:#000000;
+}
+#citybuttonlist p:hover{
+	background-color: #63ca33;
+}
+/* #citylistend{
+	z-index:2;
+	position: absolute;
+	top:144px;
+	left:34px;
+	background-color: #FFFFFF;
+} */

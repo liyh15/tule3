@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace：与当前xml文件对应的java接口 -->
+<mapper namespace="spring.mapper.TrainMapper">
+	<!-- 根据火车安排编号查询火车的安排信息 -->
+	<select id="getTrainArrangeById" resultType="entity.TrainArrange">
+		SELECT
+		tt.name trainName,
+		tta.start_time startTime,
+		tta.end_time endTime,
+		tta.t_time totalTime,
+		ttsa.`name` startStation,
+		ttsb.name endStation
+		FROM
+		tule_train_arrange tta
+		JOIN
+		tule_train tt
+		ON
+		tt.id = tta.train_id
+		JOIN
+		tule_train_station ttsa
+		ON
+		tta.start_id = ttsa.id
+		JOIN
+		tule_train_station ttsb
+		ON
+		tta.end_id = ttsb.id
+		WHERE
+		tta.id = #{id,jdbcType = INTEGER}
+	</select>
+
+	<select id="getTrainDateArrangeById" resultType="entity.TrainDateArrange">
+		SELECT
+		`day`,
+		train_arrange_id trainArrangeId,
+		`explain`,
+		id,
+		end_day endDay
+		FROM
+		tule_train_date_arrange
+		WHERE
+		id = #{id,jdbcType = INTEGER}
+	</select>
+</mapper>

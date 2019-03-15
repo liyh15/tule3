@@ -1,0 +1,338 @@
+body, div, ul, li, a {
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
+}
+body {
+	background-color: #f8f8f8;
+	font-family: "微软雅黑";
+}
+main {
+	position: relative;
+}
+/*
+璁剧疆椤堕儴瀵艰埅
+ */
+#navigation a {
+	color: #fff;
+	display: block;
+	width: 120px;
+	height: 60px;
+	text-decoration: none;
+}
+#navigation {
+	width: 100%;
+	height: 60px;
+	line-height: 60px;
+	background-color: #22C332;
+	color: #fff;
+	margin: 10px 0;
+}
+#navigation ul {
+	display: inline-block;
+}
+#navigation>ul>li {
+	width: 120px;
+	height: 60px;
+	text-align: center;
+	line-height: 60px;
+	font-size: 18px;
+	float: left;
+	margin-left: 70px;
+	font-family: "寰蒋闆呴粦";
+	list-style: none;
+	cursor: pointer;
+}
+#icon {
+	font-size: 30px;
+	float: left;
+	padding-left: 60px;
+	margin-left: 175px;
+	background-image: url("../image/logo.png");
+	background-size: 50px 50px;
+	background-repeat: no-repeat;
+	background-position: 5px center;
+}
+#back {
+	color: #eee;
+	font-size: 12px;
+	float: right;
+	margin-right: 90px;
+}
+#navigation .second {
+	background-image: url("../image/DownArror.png");
+	background-repeat: no-repeat;
+	background-size: 11px 6px;
+	background-position: 102px center;
+}
+#navigation .second:hover {
+	background-color: #20a832;
+	background-image: url("../image/UpArror.png");
+}
+
+/* 璁剧疆椤堕儴瀵艰埅浜岀骇鑿滃崟鐨剈l
+ */
+#navigation ul li ul {
+	display: none;
+	border-left: 1px solid darkgrey;
+	border-bottom: 1px solid darkgrey;
+	border-right: 1px solid darkgrey;
+	box-shadow: darkgrey 0px 3px 5px 3px;
+	position: relative;
+	z-index: 100;
+}
+
+
+/* 璁剧疆浜岀骇鑿滃崟鐨刲i
+ */
+#navigation ul li ul li {
+	height: 40px;
+	line-height: 40px;
+	font-size: 14px;
+	text-align: center;
+	background-color: #fff;
+}
+#navigation ul li ul li a {
+	color: #000;
+}
+#navigation ul li ul li a:hover {
+	color: #f80;
+}
+
+#navigation ul li:hover ul {
+	display: block;
+}
+
+/*
+璁剧疆宸﹁竟瀵艰埅
+ */
+#left_navigation {
+	width: 182px;
+	/*height: 469px;*/
+	background-color: #34BB60;
+	margin-left: 157px;
+	margin-top: 40px;
+	position: relative;
+}
+#left_navigation>ul>li {
+	width: 182px;
+	font-size: 18px;
+	vertical-align: middle;
+	text-align: center;
+	color: #eee;
+	text-decoration: none;
+	display: inline-block;
+	padding: 20px 0;
+	background-position: 
+}
+#left_navigation .second {
+	background-image: url("../image/DownArror.png");
+	background-repeat: no-repeat;
+	background-size: 11px 6px;
+	background-position: 127px 30px;
+}
+#left_navigation>ul>li>a {
+	color: #eee;
+	text-decoration: none;
+	display: inline-block;
+}
+
+/*
+璁剧疆宸﹁竟瀵艰埅鏍忕殑浜岀骇鑿滃崟
+ */
+#left_navigation>ul>li>ul {
+	display: none;
+}
+#left_navigation>ul>li>ul>li {
+	width: 182px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 13px;
+}
+#left_navigation>ul>li>ul>li>a {
+	color: #fff;
+	text-decoration: none;
+}
+
+/*
+璁剧疆宸︿笅鐨勬牱寮�
+*/
+#left_bottom_navigation {
+	display: inline-block;
+	width: 182px;
+	margin-left: 160px;
+	margin-top: 120px;
+}
+#left_bottom_navigation span {
+	display: inline-block;
+	width: 182px;
+	text-align: center;
+	margin-top: 5px;
+}
+#left_bottom_navigation img {
+	width: 87px;
+	display: inline-block;
+}
+
+/*
+璁剧疆鍙宠竟椤甸潰鐨勬牱寮� 
+ */
+#right{
+	position: absolute;
+	left: 395px;
+	top: 100px;
+}
+/* #right form {
+	display: inline-block;
+} */
+
+/*
+璁剧疆鍙宠竟瀵艰埅
+ */
+#right_navigation {
+	width: 990px;
+	background-color: #fff;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+#right_navigation>ul>li {
+	width: 150px;
+	height: 56px;
+	line-height: 56px;
+	color: #000;
+	font-weight: bold;
+	float: left;
+	text-align: center;
+	border: 1px solid #eee;
+	cursor: pointer;
+}
+#right_navigation>ul>#all_order {
+	color: blue;
+	box-sizing: border-box;
+	border-bottom: 3px solid blue;
+}
+
+/*
+璁剧疆鍙充笅鐨勫鑸爮
+ */
+#right_bottom_navigation {
+	width: 990px;
+	background-color: #eee;
+	position: absolute;
+	top: 68px;
+}
+#right_bottom_navigation>ul>li {
+	height: 56px;
+	line-height: 56px;
+	color: #666;
+	text-align: center;
+	font-size: 13px;
+	float: left;
+}
+#right_bottom_navigation .title {
+	margin-left: 20px;
+}
+#right_bottom_navigation>ul>li>select {
+	width: 104px;
+	height: 31px;
+	margin-left: 38px;
+}
+.type
+{
+	margin-left:87px;
+}
+#right_bottom_navigation .number{
+	margin-left: 47px;
+}
+#right_bottom_navigation .remain-time {
+	margin-left: 110px;
+}
+#right_bottom_navigation .price {
+	margin-left: 95px;
+}
+#right_bottom_navigation .status {
+	margin-left: 62px;
+}
+#right_bottom_navigation .operation {
+	margin-left: 73px;
+}
+
+/*
+瀹氫箟璁㈠崟璇︽儏鐨勬牸寮�
+ */
+#ticket {
+	width: 990px;
+	font-size: 14px;
+	background-color: #fff;
+	margin-top: 10px;
+	position: absolute;
+	top: 125px;
+}
+#ticket .single_ticket {
+	border-bottom: 2px solid #eee;
+	padding: 20px 20px;
+	/*position: absolute;*/
+}
+#ticket .single_ticket span {
+	display: inline-block;
+	text-align: center;
+}
+#ticket .single_ticket img {
+	width: 30px;
+	height: 30px;
+	margin-left: 5px;
+	display: inline-block;
+}
+#ticket .ticket_date {
+	margin-left: 5px;
+}
+#ticket .ticket_id {
+	margin-left: 70px;
+}
+#ticket .ticket_trip {
+	width: 175px;
+	margin-left: 20px;
+}
+#ticket .obligation {
+	margin-left: 738px;
+}
+#ticket .ticket_type {
+	width: 55px;
+}
+#ticket .ticket_num {
+	width: 30px;
+}
+#ticket .price {
+	width: 60px;
+}
+#ticket .remain-time {
+	width: 45px;
+}
+#ticket .ticket_type, #ticket .ticket_num, #ticket .trip_date, #ticket .price, #ticket .remain-time {
+	margin-left: 40px;
+}
+#ticket .price {
+	color: #FF6600;
+}
+#ticket .ticket_detail {
+	color: #22C332;
+	display: inline-block;
+	margin-top: 5px;
+	margin-left: 734px;
+}
+#ticket .operation {
+	width: 60px;
+	height: 30px;
+	line-height: 30px;
+	color: #FF6600;
+	margin-left: 40px;
+	border: 2px solid #FF6600;
+	text-align: center;
+}
+.deleteorder{
+	display: inline-block;
+	margin-left: 840px;
+	color:red;
+	cursor: pointer;
+}

@@ -1,0 +1,53 @@
+body, div, span, ul, li {
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
+}
+body {
+	font-family: "微软雅黑";
+}
+#title {
+	font-weight: bold;
+	padding-left: 10px;
+	box-sizing: border-box;
+	border-left: 3px solid #22C332;
+}
+#security>li {
+	width: 1028px;
+	height: 56px;
+	line-height: 56px;
+	border-bottom: 1px solid #eee;
+	overflow: hidden;
+}
+span {
+	display: inline-block;
+}
+.name, .value, .level, .operation {
+	font-size: 12px;
+}
+.name {
+	margin-left: 128px;
+}
+.value {
+	width: 380px;
+	color: #999999;
+	margin-left: 100px;
+}
+.level {
+	width: 95px;
+	height: 15px;
+	line-height: 15px;
+	text-align: center;
+	color: #fff;
+	background-color: #CCCCCC;
+	color: #fff;
+}
+.low {
+	background-color: #B5DEA4;
+}
+.operation {
+	color: #34BB5F;
+	font-weight: bold;
+	/*margin-left: 128px;*/
+	cursor: pointer;
+}

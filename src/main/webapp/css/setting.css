@@ -1,0 +1,54 @@
+* {
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
+}
+body {
+	font-family: "微软雅黑";
+}
+#title {
+	font-weight: bold;
+	padding-left: 10px;
+	box-sizing: border-box;
+	border-left: 3px solid #22C332;
+}
+form {
+	font-size: 12px;
+}
+input[type="password"], input[type="text"] {
+	width: 205px;
+	height: 25px;
+	margin: 10px 2px;
+	padding-left: 5px;
+}
+.name {
+	display: inline-block;
+	color: #000;
+	width: 70px;
+	text-align: right;
+	margin: 10px 2px;
+}
+input[type="submit"] {
+	width: 75px;
+	height: 30px;
+	color: #fff;
+	background-color: #FE9516;
+	font-weight: bold;
+	border: 0px;
+	margin-left: 75px;
+	margin-top: 15px;
+}
+.pwd_again_info
+{
+	color:red;
+}
+.pwd_info
+{
+	color:#B4B4B6;
+}
+.pwd_info, .pwd_again_info {
+	margin-left: 75px;
+}
+.pwd_again_info {
+	opacity: 0;
+}

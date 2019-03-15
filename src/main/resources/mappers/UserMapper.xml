@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace：与当前xml文件对应的java接口 -->
+<mapper namespace="spring.mapper.UserMapper">
+     <!-- 获取指定手机号对应的用户 -->
+     <select id="getUserByPhone" resultType="entity.User">
+          SELECT
+             id,
+             nickname nickName,
+             name,
+             phone,
+             birthday,
+             email,
+             live_city liveCity,
+             address,
+             married,
+             job,
+             education,
+             password,
+             pass_question passQuestion,
+             personal_id personalId,
+             paper_type paperType,
+             sex,
+             salt
+           FROM
+             tule_user
+           WHERE
+             phone=#{phone}  
+     </select>   
+     
+     <!--修改用户的密码-->
+     <update id="changeUserPass">
+         UPDATE 
+              tule_user
+         SET
+              password=#{newPass}
+         WHERE
+              phone=#{phone}     
+     </update>
+</mapper>
