@@ -215,6 +215,31 @@ function searchTrain(){
 }
 
 
-
+$(".onlyht").click(function(){
+	if($(this).attr("checked")) {
+		$(".J_Sleeper").parent().hide();
+		$(".left").each(function(index,element){
+			if($(element).text()!="余0张"){
+				$(element).parent().parent().show();
+			}		
+		});
+	} else {
+		$(".J_Sleeper").parent().show();
+	}
+	
+	$(".price").each(function(index,element){
+		var ishide = true;
+		$(element).children().each(function(index,element){
+			if($(element).css("display") != "none"){
+				ishide=false;
+			}
+		});
+		if(ishide){
+			$(element).parent().parent().hide();
+		}else{
+			$(element).parent().parent().show();
+		}
+	});
+});
 
 
