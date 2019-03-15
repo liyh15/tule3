@@ -46,7 +46,7 @@ public class CityDao {
 		return null;
 	}
 	/**
-	 * 添加城市
+	 * 增加城市
 	 * @param name
 	 *            添加的城市名称
 	 */
