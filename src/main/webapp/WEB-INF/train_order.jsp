@@ -249,7 +249,7 @@
 	    	    "type":"post",
 	    	    "success":function(data){
 	    	    	  alert(data.message);
-	    	    	  if(code != 200){
+	    	    	  if(code == 200){
 	    	    		     $(".zt").text("已取消");
 		                	 $(".fkdjs").remove();
 							 $(".sjian").remove();

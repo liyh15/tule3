@@ -1,6 +1,8 @@
 package spring.mapper;
 
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import entity.MapperOrder;
@@ -29,7 +31,7 @@ public interface OrderMapper {
      * 定时检索超时订单
      * @return
      */
-    public Integer cancelOrder();
+    public List<Integer> cancelOrder();
     
     /**
 	 * 通过订单的编号删除订单

@@ -44,19 +44,19 @@
 		 state = 1
 	</update>
 
-	<!-- 定时取消订单 -->
-	<update id="cancelOrder">
-		UPDATE
-		 tule_order
-		SET
-		 status = 2
-		WHERE
-		 unix_timestamp(sysdate()) > unix_timestamp(time_close)
+	<!-- 获取所有已超时的未付款订单 -->
+	<select id="cancelOrder" resultType="java.lang.Integer">
+		SELECT
+		  id
+		FROM
+		  tule_order
+        WHERE
+		  unix_timestamp(sysdate()) > unix_timestamp(time_close)
 		AND
-		 status = 4
+		  status = 4
 		AND
-		 state = 1
-	</update>
+		  state = 1
+	</select>
     
     <!-- 删除订单 -->
 	<update id="deleteOrderById">

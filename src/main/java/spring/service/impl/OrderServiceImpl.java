@@ -1,4 +1,6 @@
 package spring.service.impl;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -90,7 +92,12 @@ public class OrderServiceImpl implements IOrderService {
 	 * 定时检索超时订单
 	 */
 	public void cancelOrder() {
-		orderMapper.cancelOrder();
+		List<Integer> orderIds = orderMapper.cancelOrder();
+		if(orderIds.size() > 0){
+			for(Integer id : orderIds){
+				cancelOrderById(id);
+			}
+		}		
 	}
 
 	/**
