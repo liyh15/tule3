@@ -1,7 +1,9 @@
 package spring.service.impl;
+import java.io.File;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -13,6 +15,8 @@ import spring.service.ex.PassErrorException;
 public class UserServiceImpl implements IUserService {
 	@Autowired
 	private UserMapper userMapper;
+	@Value("#{user.headImage}")
+	public String userImageUrl;
 	/**
 	 * 用户修改密码
 	 * @param oldPass 旧密码
@@ -64,5 +68,38 @@ public class UserServiceImpl implements IUserService {
 	private String md5(String str)
 	{
 		return DigestUtils.md5DigestAsHex(str.getBytes()).toUpperCase();
+	}
+	
+	/**
+	 * 通过用户id获取用户的头像文件
+	 * @param id 用户id
+	 * @return
+	 */
+	public File getUserImageUrlByUserId(Integer id){
+		
+		String imageUrl = userMapper.getUserImageUrlByUserId(id);
+		if(null == imageUrl){
+			// 不存在返回系统默认的头像
+			return new File(userImageUrl);
+		}
+		File file = new File(imageUrl);
+		if(file.exists()){
+			// 存在返回用户子自定义的头像
+			return file;
+		} else {
+			// 不存在返回系统默认的头像
+			return new File(userImageUrl);
+		}
+	}
+	
+	/**
+	 * 上传头像路径到数据库
+	 * @param id
+	 * @param imageUrl
+	 * @return
+	 */
+	public Integer putHeadImage(Integer id, String imageUrl) {
+		Integer state = userMapper.putHeadImage(id, imageUrl);
+		return state;
 	}
 }

@@ -39,4 +39,5 @@ public interface OrderMapper {
 	 * @return
 	 */
 	public Integer deleteOrderById(@Param("id") Integer id);
+	
 }

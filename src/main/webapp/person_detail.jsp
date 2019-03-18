@@ -5,15 +5,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>个人详情页</title>
 <link rel="stylesheet" type="text/css" href="css/person_detail.css">
-<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="js/person_detail.js"></script>
-<script type="text/javascript" src="js/distpicker.data.js"></script>
-<script type="text/javascript" src="js/distpicker.js"></script> 
+
 </head>
 <body>
 	<div id="outer">
 		<span id="title">基本信息</span>
-		<form action="setup" method="POST">
+		<form action="setup" method="POST" id="form_id">
 			<span><span class="red">*</span>昵称: </span><input type="text" name="nickname" placeholder="未设置" value=${user.nickName } ><br>
 			<span class="info">昵称要求为4~16个字符, 支持中文, 英文, 数字, "_", "-"</span><br>
 			<span><span class="red">*</span>姓名: </span><input type="text" name="name" placeholder="未设置" value=${user.name } ><br>
@@ -125,8 +122,8 @@
 			</select>
 			<br>
 			<div id="head">
-				<img alt="头像正在加载中..." src="image/head.png" >
-				<input type="file" name="headImg" id="headImg" style="display: none">
+				<img alt="头像正在加载中..." src="user/imageUrl.do" id = "headImage">
+				<input type="file" name="file" id="headImg" style="display: none">
 				<label for="headImg">>>>更换头像</label>
 			</div>
 			<div>
@@ -138,4 +135,6 @@
 	</div>
 	
 </body>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/person_detail.js"></script>
 </html>

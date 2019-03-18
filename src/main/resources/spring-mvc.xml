@@ -23,6 +23,7 @@
 	<context:component-scan base-package="spring.controller" />
 	<context:component-scan base-package="spring.service.impl" />
 	<context:component-scan base-package="spring.compoment" />
+	<util:properties id="user" location="classpath:base.properties"/>
 	<!-- 视图解析器：根据视图名称得到视图资源 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

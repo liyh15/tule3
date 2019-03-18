@@ -38,4 +38,24 @@
          WHERE
               phone=#{phone}     
      </update>
+     
+     <!-- 获取用户的头像 -->
+     <select id="getUserImageUrlByUserId" resultType="java.lang.String">
+        SELECT
+           head_image
+        FROM
+           tule_user
+        WHERE
+           id = #{id}
+     </select>
+     
+     <!-- 上传头像文件路径到数据库 -->
+	<update id="putHeadImage">
+	   UPDATE
+	     tule_user
+	   SET
+	     head_image = #{image}
+	   WHERE
+	     id = #{id}
+	</update>
 </mapper>

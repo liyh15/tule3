@@ -6,7 +6,34 @@
 </head>
 <body>
 <form action="3" method="post">
-
+<div id="uploadForm">
+    <input id="file" type="file"/>
+    <button id="upload" type="button">upload</button></div> 
 </form>
 </body>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+$("#upload").click(function(){
+	var formData = new FormData();
+	formData.append('file', $('#file')[0].files[0]);
+	$.ajax({
+		"url":"user/putHeadImage.do",
+	    "data":formData,
+	    "dataType":"json",
+	    "type":"post",
+	    "contentType":false, //上传时的固定配置(添加就可以了)
+    	"processData":false, //上传时的固定配置(添加就可以了)
+	    "success":function(data){
+	    	  alert(data.message);
+	    	  if(data.state == 200) {
+	    		// 图片加载...
+	    			reader.onload = function(e) {
+	    				console.log(data.message);
+	    				$("div>img").attr("src", e.target.result);
+	    			}
+	    	  }
+	    }
+	}); 
+});
+</script>
 </html>

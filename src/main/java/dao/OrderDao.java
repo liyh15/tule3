@@ -47,7 +47,6 @@ public class OrderDao {
 				order.setCreateTime(created.substring(0, 19));
 				order.setUserId(userId);
 				order.setStatus(OrderUtil.getDisByName(status));
-				System.out.println(order.getStatus());
 				order.setType(type);
 				order.setTrafficDateArrangeId(tdai);
 				order.setTotlePrice(totlePrice);;

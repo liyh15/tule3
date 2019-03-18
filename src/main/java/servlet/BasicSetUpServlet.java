@@ -32,7 +32,6 @@ public class BasicSetUpServlet extends HttpServlet {
 			birthday = "2018-10-17";
 		}
 		String gender = request.getParameter("gender");
-		System.out.println(gender);
 		String city = request.getParameter("city");
 		// 得到城市的编号
 		if("请选择".equals(city)) {
@@ -69,11 +68,9 @@ public class BasicSetUpServlet extends HttpServlet {
 		
 		boolean flag = userService.basicSetUp(user);
 		if(flag) {
-			System.out.println("修改成功");
 			session.setAttribute("user", user);	
 			response.sendRedirect("orderlist");
 		} else {
-			System.out.println("修改失败");
 		}
 		
 	}

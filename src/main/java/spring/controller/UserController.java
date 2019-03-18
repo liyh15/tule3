@@ -1,5 +1,7 @@
 package spring.controller;
 import java.awt.image.RenderedImage;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Map;
@@ -17,9 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import entity.User;
 import spring.service.IUserService;
+import spring.service.ex.SystemException;
 import utils.CodeUtil;
 /**
  * 用户方面的控制器类
@@ -74,7 +79,7 @@ public class UserController extends BaseController {
 	@RequestMapping("/codePic.do")
 	public void codePic(HttpSession session,HttpServletResponse response)
 	{	
-    	OutputStream out;
+    	OutputStream out = null;
     	Map<String, Object> map = CodeUtil.generateCodeAndPic();
     	session.setAttribute("code",map.get("code").toString().toUpperCase());
 		try {
@@ -82,6 +87,12 @@ public class UserController extends BaseController {
 			ImageIO.write((RenderedImage) map.get("codePic"), "jpeg", out);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -102,5 +113,84 @@ public class UserController extends BaseController {
 		ResultResponse<Void> response=new ResultResponse<Void>();
 		response.setMessage("修改密码成功");
 		return response;
+	}
+	
+    /**
+     * 获取用户的头像
+     * @param session
+     */
+	@RequestMapping("/imageUrl.do")
+	public void getUserHeadImage(HttpSession session,HttpServletResponse response){
+		
+		User user = (User) session.getAttribute("user");
+		Integer id = user.getId();
+		File file = service.getUserImageUrlByUserId(id);
+		OutputStream outputStream = null;
+		FileInputStream inputStream = null;
+		try {
+			outputStream = response.getOutputStream();
+			inputStream = new FileInputStream(file);
+			byte [] b = new byte[1024];
+			int a = 0;
+			while((a = inputStream.read(b))!= -1){
+				outputStream.write(b, 0, a);
+			}
+		} catch (IOException e) {
+		}finally {
+			try {
+				outputStream.close();
+				inputStream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}		
+		}
+	}
+	
+	/**
+	 * 用户上传头像
+	 * @param file
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/putHeadImage.do",method = RequestMethod.POST)
+	@ResponseBody
+	public ResultResponse<String> putHeadImage(@RequestParam CommonsMultipartFile file,HttpSession session){
+		
+		String fileName = file.getOriginalFilename();
+		// 获取上传文件后缀
+		String index = fileName.substring(fileName.lastIndexOf("."));
+		String contentType = file.getContentType();
+		ResultResponse<String> resultResponse = new ResultResponse<String>();
+		// 规定只能上传jpg和png图片文件类型
+		if(contentType.equals("image/jpeg") || contentType.equals("image/png")) {
+			User user = (User) session.getAttribute("user");
+			Integer userId = user.getId();
+			String newFileName = userId+"headImage"+index;  //暂时默认
+			
+			File file2 = new File("D:\\tuleUserImage", newFileName);
+			try {
+				if(file2.exists()) {
+					file2.delete();
+				}
+				file.transferTo(file2);
+			} catch (Exception e) {
+				e.printStackTrace();
+                throw new SystemException("系统出现异常，请稍后重试");
+			}
+			// 获取文件的全路径
+			String path = file2.getPath();
+			Integer id = service.putHeadImage(userId, path);
+			if(id == 0) {
+				throw new SystemException("系统出现异常,请稍后重试");
+			}
+			resultResponse.setState(200);
+			resultResponse.setMessage("头像上传成功");
+			return resultResponse;
+		} else {
+			resultResponse.setState(500);
+			resultResponse.setMessage("请上传jpg或者png类型的图片文件");
+			return resultResponse;
+		}
+
 	}
 }
