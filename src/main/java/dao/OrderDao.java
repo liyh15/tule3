@@ -14,7 +14,7 @@ import utils.OrderUtil;
  */
 public class OrderDao {
 	/**
-	 * 通过用户编号查找到用户的订单集合
+	 * 通过用户编号查找到用户的订单集合嗯
 	 */
 	 public List<Order> getOrderByUserId(int userId)
 	 {
