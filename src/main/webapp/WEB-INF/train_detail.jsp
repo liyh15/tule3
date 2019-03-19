@@ -55,10 +55,8 @@
 	<div id="menu">
 		<div id="menu_list">
 			<ul>
-				<li><a href="main.jsp">首页</a></li>
-				<li><a href="#">机票</a></li>
-				<li><a href="train_main.jsp">火车票</a></li>
-				<li><a href="#">汽车票</a></li>
+				<li><a href="user/mainView.do">首页</a></li>
+	            <li><a href="user/trainView.do">火车票</a></li>
 			</ul>
 		</div>
 	</div>
@@ -66,8 +64,8 @@
 		<div class="top">
 			<div class="crumbs">
 				<p>
-					<input type="hidden" id="md"> <a href="#">首页 &gt;</a> <a
-						href="#">火车票 &gt;</a> <span id="J_Crumb">${trainArranges[0].startStation}到${trainArranges[0].endStation}火车票</span>
+					<input type="hidden" id="md"> <a href="user/mainView.do">首页 &gt;</a> <a
+						href="user/trainView.do">火车票 &gt;</a> <span id="J_Crumb">${trainArranges[0].startStation}到${trainArranges[0].endStation}火车票</span>
 				</p>
 			</div>
 
@@ -92,7 +90,7 @@
 								<!-- <div class="pkg_placholder">今天 出发</div>
                         <input name="start_time" type="text" class="input_date" readonly="readonly"/> -->
 								<input type="date" placeholder="时间"
-									value="${trainArranges[0].date}">
+									value="${trainArranges[0].date}" id="date">
 							</div>
 							<div class="pkg_button" id="J_SearchBtn">
 								<a onclick="searchTrain()">搜索列车</a>

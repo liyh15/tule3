@@ -43,7 +43,7 @@
 			<div class="order_box">
 				<h1 class="order_title">车次信息</h1>
 				<div class="tk_modify_btn">
-					<a href="http://localhost:8080/day09/%E7%81%AB%E8%BD%A6%E7%A5%A8%E8%AF%A6%E6%83%85%E9%A1%B5.jsp">修改车次></a>
+					<a href="user/trainView.do">修改车次></a>
 				</div>
 				<div class="order_content">
 					<div class="train_detail clearfix">

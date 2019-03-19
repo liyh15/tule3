@@ -52,13 +52,19 @@ public class TrainDao {
 		String sql = "select  * from tule_train_arrange ta join tule_train t on ta.train_id=t.id join tule_train_trip tt on ta.train_trip_id =tt.id "
 				+ "join tule_train_date_arrange td on ta.id=td.train_arrange_id join "
 				+ "tule_train_station tsa on ta.start_id=tsa.id join " + "tule_train_station tsb on ta.end_id=tsb.id   "
-				+ "where ta.start_id in(select id from tule_train_station where city_id=(select id from tule_city where name=?)) "
-				+ "and ta.end_id in (select id from tule_train_station where city_id=(select id from tule_city where name=?)) and td.day=?";
+				+ "where ta.start_id in(select id from tule_train_station where city_id=(select id from tule_city where name like ?)) "
+				+ "and ta.end_id in (select id from tule_train_station where city_id=(select id from tule_city where name like ?)) and td.day=?";
 		try {
 			connection = DBUtils.getConnection();
 			statement = connection.prepareStatement(sql);
-			statement.setString(1, startArea);
-			statement.setString(2, endArea);
+			if(startArea.contains("վ")){
+				startArea = startArea.substring(0,startArea.length()-1);
+			}
+			if(endArea.contains("վ")){
+				endArea = endArea.substring(0,endArea.length()-1);
+			}
+			statement.setString(1, "%"+startArea+"%");
+			statement.setString(2, "%"+endArea+"%");
 			statement.setString(3, date);
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {

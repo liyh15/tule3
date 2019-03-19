@@ -17,6 +17,9 @@ public class TrainSeacherServlet extends HttpServlet {
 		String startArea=request.getParameter("startArea");
 		String endArea=request.getParameter("endArea");
 		String date=request.getParameter("date");
+		System.out.println(startArea);
+		System.out.println(endArea);
+		System.out.println(date);
 		TrainDao trainDao=new TrainDao();
 		List<TrainArrange> trainArranges=trainDao.findTrain(startArea, endArea, date);
 		HttpSession session=request.getSession();

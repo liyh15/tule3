@@ -55,9 +55,7 @@
 	    <div id="menu_list">
 	       <ul>
 	          <li><a href="mainView.do">首页</a></li>
-	          <li><a href="">机票</a></li>
 	          <li><a href="train_main.jsp">火车票</a></li>
-	          <li><a href="">汽车票</a></li>
 	       </ul>
 	    </div>
 	</div>
@@ -65,7 +63,7 @@
 		<div id="header1">
 			<div id="form">
 				<form action="../trainseacher" method="post" onkeydown="if(event.keyCode == 13){return false;}">
-					<div id="top"><span id="s1"><a href="#">国内火车票</a></span><span id="s2"><a href="#">汽车票</a></span><span id="s3"><a href="#">租车</a></span></div>
+					<div id="top"><span id="s1"><a href="#">国内火车票</a></span><span id="s2"></span><span id="s3"></span></div>
 					<hr id="hr">
 					<!--autocomplete="off"给文本框加入这一行将不会自动提示-->
 					<input type="text" placeholder="请输入城市" id="p1" name="startArea" class="inputcitya" autocomplete="off"><br>

@@ -54,10 +54,8 @@
 	<div id="menu">
 	    <div id="menu_list">
 	       <ul>
-	          <li><a href="main.jsp">首页</a></li>
-	          <li><a href="air.jsp">机票</a></li>
+	          <li><a href="mainView.do">首页</a></li>
 	          <li><a href="trainView.do">火车票</a></li>
-	          <li><a href="BusIndex1.jsp">汽车票</a></li>
 	       </ul>
 	    </div>
 	</div>
