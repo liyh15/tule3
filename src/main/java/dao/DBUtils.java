@@ -16,7 +16,7 @@ public class DBUtils {
 	static
 	{
 		Properties properties=new Properties();
-		//在properties文件中字符串不用双引号括起来
+		//在properties文件中字符串不用双引号括起来呢
 		dataSource=new BasicDataSource();
 		dataSource.setMaxActive(15);
 		InputStream inputStream=DBUtils.class.getClassLoader().getResourceAsStream("jdbc.properties");
