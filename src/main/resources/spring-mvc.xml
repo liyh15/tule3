@@ -62,8 +62,27 @@
 
 	<!-- 此配置的id是必须填的 而且id的值必须是multipartResolver，我猜想应该是spring内部就是用这个名字来进行调用的 -->
 	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
-
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
+		<property name="maxUploadSize" value="1048576" />
+		<property name="maxUploadSizePerFile"  value="1048576"/>
+		<property name="defaultEncoding" value="utf-8"/>
+    </bean>
+    
+    <!-- 配置拦截器链 -->
+	<mvc:interceptors>
+		<!-- 配置第1个拦截器 -->
+		<mvc:interceptor>
+			<!-- 1. 拦截的路径 -->
+			<mvc:mapping path="/user/**" />  <!-- //这个路径代表user底下所有的路径及子路径 -->
+			<!-- 2. 例外的路径，不拦截的路径，即白名单,意思就是，本来是要拦截所有的路径的，但是 底下列出的这些是不需要拦截的 -->
+			<mvc:exclude-mapping path="/user/login.do" />
+			<mvc:exclude-mapping path="/user/mainView.do" />
+			<mvc:exclude-mapping path="/user/trainView.do" />
+			<mvc:exclude-mapping path="/user/codePic.do" />
+			<!-- 3. 指定拦截器类 -->
+			<bean class="cn.tedu.store.interceptor.LoginInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>
 
 

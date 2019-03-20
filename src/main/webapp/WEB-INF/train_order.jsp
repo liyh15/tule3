@@ -204,13 +204,15 @@
 	</body>
 	 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.4.2.min.js"></script>
 	 <script type="text/javascript">
-	    $(function() {
+	 var time;
+	 var ref;
+	 $(function() {
 			var timeClose="${timeClose}";
 			var minate;
 			var second;
-			var time;
+			
 			var myDate;
-			var ref = setInterval(function(){
+			ref = setInterval(function(){
 				myDate = (new Date()).valueOf();
 				time = timeClose - myDate; // 获取与规定过期时间的时间差
 				if(time > 0){
@@ -250,14 +252,7 @@
 	    	    "success":function(data){
 	    	    	  alert(data.message);
 	    	    	  if(data.state == 200){
-	    	    		     $(".zt").text("已取消");
-		                	 $(".fkdjs").remove();
-							 $(".sjian").remove();
-							 $(".sjiann").remove();
-							 $(".zysx").remove();
-							 $(".qfk").remove();
-							 $(".zysx1").remove();
-							 $(".qxdd").remove();
+	    	    		     window.location.reload();
 	    	    	  }                	
 	    	    }
 	    	});

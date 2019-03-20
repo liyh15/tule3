@@ -63,12 +63,12 @@
 	<div id="body">
 		<div id="body_menu">
 			<ul>
-				<li><a href="orderlist">
+				<li><a href="../orderlist">
 						<div>
 							<img src="${pageContext.request.contextPath }/image/plane2.png"></br>我的订单
 						</div>
 				</a></li>
-				<li><a href="train_main.jsp">
+				<li><a href="trainView.do">
 						<div>
 							<img src="${pageContext.request.contextPath }/image/train2.png"></br>火车票
 						</div>
