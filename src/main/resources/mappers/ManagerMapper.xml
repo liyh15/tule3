@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace：与当前xml文件对应的java接口 -->
+<mapper namespace="spring.mapper.ManagerMapper">
+    <!-- 通过管理员编号查询管理员实体 -->
+    <select id="getManagerById" resultType="entity.Manager">
+        SELECT
+           id,
+           name,
+           password,
+           salt,
+           phone
+        FROM
+           tule_manager
+        WHERE
+           phone = #{phone}
+    </select>
+    <!-- 创建以个管理员(一次性) -->
+    <insert id="createManager">
+       INSERT INTO
+         tule_manager(phone,password,salt)
+       VALUES(#{phone},#{password},#{salt})
+    </insert>
+</mapper>
