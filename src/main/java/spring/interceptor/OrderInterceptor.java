@@ -3,23 +3,18 @@ package spring.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
 import entity.User;
 
 /**
- * 基于用户的拦截器
+ * 关于订单层面的拦截器,拦截404页面
  * @author 李元浩
  *
  */
-public class UserInterceptor implements HandlerInterceptor {
+public class OrderInterceptor implements HandlerInterceptor {
 
-	/**
-	 * 拦截条件及被拦截响应时间
-	 */
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {		
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		if(user != null){
@@ -28,15 +23,16 @@ public class UserInterceptor implements HandlerInterceptor {
 		response.sendRedirect("login.do");
 		return false;
 	}
-	
+
 	public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, ModelAndView arg3)
 			throws Exception {
+		// TODO Auto-generated method stub
 		
 	}
 	
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object arg2, Exception arg3)
+	public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3)
 			throws Exception {
-		
+		// TODO Auto-generated method stub
 		
 	}
 }

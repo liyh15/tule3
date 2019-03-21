@@ -35,37 +35,37 @@ $(function() {
 		var size = Math.round(file.size/1024/1024);
 		if(size>3) {
 			alert("图片过大, 请选择小于3M的图片");
-		}		
-		// 创建一个读取对象
-		var reader = new FileReader();
-		// 将图片读取为base64格式
-		reader.readAsDataURL(file);
-		
-		 var url="user/putHeadImage.do";
-	     //上传文件时必须这样写
-		 var data=new FormData($("#form_id")[0]);
-	     $.ajax({
-	    	    "url":url,
-	    	    "data":data,
-	    	    "dataType":"json",
-	    	    "type":"post",
-	    	    "contentType":false, //上传时的固定配置(添加就可以了)
-    	    	"processData":false, //上传时的固定配置(添加就可以了)
-	    	    "success":function(data){
-	    	    	  alert(data.message);
-	    	    	  if(data.state == 200) {
-	    	    		  $.ajax({
-	    	    			  "url":"user/imageUrl.do" 	    			  
-	    	    		  });
-	    	    		  $("#headImage").remove();
-	    	    		  var head = $("<img alt=\"头像正在加载中...\" src=\"user/imageUrl.do\" id = \"headImage\">");
-	    	    		  $("#headImg").before(head);
-	    	    		
-	    	    	  }
-	    	    }
-	      });	
+		} else {
+			// 创建一个读取对象
+			var reader = new FileReader();
+			// 将图片读取为base64格式
+			reader.readAsDataURL(file);
+			
+			 var url="user/putHeadImage.do";
+		     //上传文件时必须这样写
+			 var data=new FormData($("#form_id")[0]);
+		     $.ajax({
+		    	    "url":url,
+		    	    "data":data,
+		    	    "dataType":"json",
+		    	    "type":"post",
+		    	    "contentType":false, //上传时的固定配置(添加就可以了)
+	    	    	"processData":false, //上传时的固定配置(添加就可以了)
+		    	    "success":function(data){
+		    	    	  alert(data.message);
+		    	    	  if(data.state == 200) {
+		    	    		  $.ajax({
+		    	    			  "url":"user/imageUrl.do" 	    			  
+		    	    		  });
+		    	    		  $("#headImage").remove();
+		    	    		  var head = $("<img alt=\"头像正在加载中...\" src=\"user/imageUrl.do\" id = \"headImage\">");
+		    	    		  $("#headImg").before(head);
+		    	    		
+		    	    	  }
+		    	    }
+		      });	
+		}				
 	});
-
 })
 
 
