@@ -93,4 +93,13 @@ public class ManagerController extends BaseController {
 	public void createManager() {
 		managerService.createManager();
 	}
+	
+	/**
+	 * 转发到管理员登录界面
+	 * @return
+	 */
+	@RequestMapping("/loginView.do")
+	public String managerLoginView(){
+		return "manager_login";
+	}
 }
