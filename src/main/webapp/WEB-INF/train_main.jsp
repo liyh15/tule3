@@ -9,9 +9,17 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/css/title_menu.css">
 	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.4.2.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/js/train.js"></script>		
+	<script type="text/javascript">
+	  var line = "${line}";
+	  if(line != "" && line != null) {
+		alert(line);
+	  }
+	</script>
 </head>
 <body>
-
+    <%
+       session.removeAttribute("line");
+    %>
 	<div id="head">
 		<div id="head_one">
 			<c:choose>
@@ -66,12 +74,12 @@
 					<div id="top"><span id="s1"><a href="#">国内火车票</a></span><span id="s2"></span><span id="s3"></span></div>
 					<hr id="hr">
 					<!--autocomplete="off"给文本框加入这一行将不会自动提示-->
-					<input type="text" placeholder="请输入城市" id="p1" name="startArea" class="inputcitya" autocomplete="off"><br>
+					<input type="text" placeholder="请输入城市" id="p1" name="startArea" class="inputcitya" autocomplete="off" value = "徐州"><br>
 					<!--tabindex="1" 表示当前组件可以获得焦点-->
 					<div id="citylistfirst" tabindex="1"></div>		
 					
 					<div id="citybuttonlist" tabindex="1"></div>	
-					<input type="text" placeholder="请输入城市" id="p2" name="endArea" class="inputcityb" autocomplete="off"><br>					
+					<input type="text" placeholder="请输入城市" id="p2" name="endArea" class="inputcityb" autocomplete="off" value = "南京"><br>					
 					<img src="${pageContext.request.contextPath }/image/huan1.jpg" id="huan" onclick="huanfn()">
 					<input type="date" placeholder="请选择时间" name="date"><br>
 					<div class="all">仅搜索高铁和动车
@@ -154,4 +162,5 @@
 	</footer>
 </body>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/js/head_menu.js"></script>
+	
 </html>

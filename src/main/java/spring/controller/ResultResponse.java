@@ -5,7 +5,7 @@ package  spring.controller;
  */
 public class ResultResponse<T> {
     private Integer state=200; //×´Ì¬Âë
-    private String message;     //×´Ì¬ÃèÊö
+    private String message = "³É¹¦";     //×´Ì¬ÃèÊö
     private T param;       //×´Ì¬²ÎÊı
 	public Integer getState() {
 		return state;

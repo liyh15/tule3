@@ -60,6 +60,7 @@ public class PassengerDao {
 	 * @param list乘客的集合
 	 */
 	public void addPassenger(List<Passenger> list) {
+		
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -70,8 +71,9 @@ public class PassengerDao {
 			for(int i=0;i<list.size();i++)
 			{
 				Passenger passenger=list.get(i);
-				if(isPassagenerExist(passenger.getPersonalId(), passenger.getType(),passenger.getUserId()))//判断用户是否存在
+				if(isPassagenerExist(passenger.getPersonalId(), passenger.getType(),passenger.getUserId()))
 				{
+					//判断用户是否存在
 					statement.setString(1, passenger.getName());
 					statement.setString(2, passenger.getPersonalId());
 					statement.setString(3, passenger.getType());				
@@ -156,6 +158,38 @@ public class PassengerDao {
 		}
     	return true;
     }
+    
+    /**
+     * 判断乘客数据是否正确
+     * 将会查询公民表来判断用户乘客数据是否存在
+     * @return
+     * @throws Exception 
+     */
+    public boolean judgeIsCorrect(Passenger passenger) throws Exception {
+    	
+    	Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		String sql = "select * from tule_citizen where personal_id = ? and name = ? and paper_type = ?";
+		try {
+			connection = DBUtils.getConnection();
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, passenger.getPersonalId());
+			statement.setString(2, passenger.getName());
+			statement.setString(3, passenger.getType());
+			resultSet=statement.executeQuery();
+			while(resultSet.next())
+			{
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtils.close(connection, resultSet, statement);
+		}
+    	throw new Exception("用户信息不正确");
+    }
+    
 	public static void main(String[] args) {
 		PassengerDao dao = new PassengerDao();
 		/*ArrayList<Passenger> passengers=new ArrayList<Passenger>();

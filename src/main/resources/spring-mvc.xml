@@ -79,6 +79,7 @@
 			<mvc:exclude-mapping path="/user/mainView.do" />
 			<mvc:exclude-mapping path="/user/trainView.do" />
 			<mvc:exclude-mapping path="/user/codePic.do" />
+			<mvc:exclude-mapping path="/user/checkPassenger.do" />
 			<!-- 3. 指定拦截器类 -->
 			<bean class="spring.interceptor.UserInterceptor" />
 		</mvc:interceptor>

@@ -3,10 +3,13 @@ package service;
 import dao.CityDao;
 import dao.UserDao;
 import entity.User;
+import spring.mapper.CitizenMapper;
 
 public class UserService {
 	
 	private UserDao userDao;
+	
+	private CitizenMapper citizenMapper;
 	
 	public UserService() {
 		userDao = new UserDao();

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace：与当前xml文件对应的java接口 -->
+<mapper namespace="spring.mapper.CitizenMapper">
+   <select id = "queryIsExist" resultType = "java.lang.Integer">
+      SELECT
+        count(*)
+      FROM
+        tule_citizen
+      WHERE
+        name = #{name,jdbcType = VARCHAR}
+      AND
+        personal_id = #{code,jdbcType = VARCHAR}
+      AND
+        paper_type = #{type,jdbcType = VARCHAR}
+   </select>
+</mapper>

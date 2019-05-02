@@ -118,7 +118,7 @@
 				</div>
 				<div class="name">
 					<span class="left" >姓名</span>					
-					<input type="text" name="username">
+					<input type="text" name="username" onblur = "checkPersonalDetail(this)">
 					<span style="color:red;display:none">姓名不能为空</span>
 					<img src="image/train_yc.jpg" onmouseover="xm1(this)" onmouseout="xm2(this)" class="xmxx">
 					<div class="xm" style="display: none;">
@@ -131,14 +131,15 @@
 				<br class="br"><span class="lx">成人票</span>
 				<div class="zjlx">
 					<span class="left">证件类型：</span>
-					<select class="select" name="bodytype">
+					<select class="select" name="bodytype" onblur = "checkPersonalDetail(this)">
 						<option>请选择证件类型</option>
 						<option>二代身份证</option>
 						<option>军官证</option>
 					</select>										
-					<input type="text" name="number">
+					<input type="text" name="number" class = "numberCode">
 					<span style="color:red;display:none">请选择证件类型</span>
 					<span style="color:red;display:none">证件号码不能为空</span>
+					<span style="color:red;display:none">请输入正确的用户信息</span>
 					<img src="image/train_yc.jpg" onmouseover="zjxx1(this)" onmouseout="zjxx2(this)">
 					<div class="zjxx" style="display: none;">
 						请您仔细核对后输入，如填写错误，可能导致出票错误，产生退票费用！

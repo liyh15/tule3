@@ -55,10 +55,11 @@ public class OrderDetailServlet extends HttpServlet {
 			int trafficDateArrangeId = trainArrange.getId(); // 交通日期安排编号
 			String trainName = trainArrange.getTrainName();
 			String[] price = getPrice(seatType, userNames.length, trainArrange);
-			addPassenger(userNames, bodyTypes, numbers, user); // 添加乘客
+			addPassenger(userNames, bodyTypes, numbers, user,request,response); // 添加乘客
 			Integer[] passId = dao.getPassengerIdByPassNumber(userId, numbers); // 获得乘客编号
 			String type = "火车票";
 			String reservation = "电脑预定";
+			// 获取火车座位(核心思想展示处)
 			String[] explain = returnSeatArrange(userNames.length, trainDao, trafficDateArrangeId, seatType);
 			Order order = new Order();
 			order.setContactPhone(phone);
@@ -101,8 +102,11 @@ public class OrderDetailServlet extends HttpServlet {
 
 	/**
 	 * 添加乘客的集合
+	 * @throws IOException 
+	 * @throws ServletException 
 	 */
-	private void addPassenger(String[] userNames, String[] bodyTypes, String[] numbers, User user) {
+	private void addPassenger(String[] userNames, String[] bodyTypes, String[] numbers, User user,
+			HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 		PassengerDao dao = new PassengerDao();
 		ArrayList<Passenger> passengers = new ArrayList<Passenger>();
 		for (int i = 0; i < userNames.length; i++) {

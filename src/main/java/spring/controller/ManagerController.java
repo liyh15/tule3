@@ -102,4 +102,13 @@ public class ManagerController extends BaseController {
 	public String managerLoginView(){
 		return "manager_login";
 	}
+	
+	/**
+	 * 转发到管理员的主界面
+	 * @return
+	 */
+	@RequestMapping("mainView.do")
+	public String managerMainView(){
+		return "redirect:../index.jsp";
+	}
 }

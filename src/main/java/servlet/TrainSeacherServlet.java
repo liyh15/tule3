@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang.StringUtils;
+
 import dao.TrainDao;
 import entity.TrainArrange;
 public class TrainSeacherServlet extends HttpServlet {
@@ -21,13 +24,29 @@ public class TrainSeacherServlet extends HttpServlet {
 		List<TrainArrange> trainArranges=trainDao.findTrain(startArea, endArea, date);
 		HttpSession session=request.getSession();
 		String contextPath=request.getContextPath();
+		session.removeAttribute("line");
 		if(trainArranges.size()>0){
 			session.setAttribute("trainArranges", trainArranges);
 			request.setAttribute("start", startArea);
 			request.setAttribute("end", endArea);
 			request.getRequestDispatcher("WEB-INF/train_detail.jsp").forward(request, response);
 		}else{
-			request.setAttribute("line", "当前路线暂未开通");
+			if(StringUtils.isEmpty(startArea)) {
+				session.setAttribute("line", "出发城市不能为空");
+				response.sendRedirect("user/trainView.do");
+				return;
+			}
+			if(StringUtils.isEmpty(endArea)) {
+				session.setAttribute("line", "到达城市不能为空");
+				response.sendRedirect("user/trainView.do");	
+				return;
+			}
+			if(StringUtils.isEmpty(date)) {
+				session.setAttribute("line", "出发时间不能为空");
+				response.sendRedirect("user/trainView.do");	
+				return;
+			}
+			session.setAttribute("line", "当前车次未开通");
 			response.sendRedirect("user/trainView.do");			
 		}		
 	}

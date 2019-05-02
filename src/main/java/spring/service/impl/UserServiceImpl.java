@@ -2,19 +2,32 @@ package spring.service.impl;
 import java.io.File;
 import java.util.UUID;
 
+import javax.sql.rowset.serial.SerialException;
+
+import org.apache.ibatis.annotations.One;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import entity.User;
+import spring.mapper.CitizenMapper;
 import spring.mapper.UserMapper;
 import spring.service.IUserService;
 import spring.service.ex.PassErrorException;
+import spring.service.ex.ServiceException;
+import spring.service.ex.SystemException;
 @Service("userService")
 public class UserServiceImpl implements IUserService {
+	
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private CitizenMapper citizenMapper;
+	
+	private final static Integer ONE = 1;
+	 
 	@Value("#{user.headImage}")
 	public String userImageUrl;
 	/**
@@ -101,5 +114,20 @@ public class UserServiceImpl implements IUserService {
 	public Integer putHeadImage(Integer id, String imageUrl) {
 		Integer state = userMapper.putHeadImage(id, imageUrl);
 		return state;
+	}
+	
+	/**
+	 * 检查哟用户填写的信息是否正确
+	 * @param name 用户姓名
+	 * @param type 用户证件类型
+	 * @param userCode 用户证件号码
+	 * @return
+	 */
+	public void checkPersonalCode(String name,String type,String userCode) throws ServiceException {
+		
+		Integer count = citizenMapper.queryIsExist(name, type, userCode);		
+		if(count < ONE) {
+			throw new SystemException("用户不存在");
+		}
 	}
 }

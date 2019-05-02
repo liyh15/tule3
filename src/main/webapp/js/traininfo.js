@@ -6,12 +6,65 @@ var isAllow=false;
 var isSafe=false;
 var seatType;
 $(function(){
+	
 	sss=parseInt($(".je").text());
 	isAllow=false;
 	$(".dui").css("background-color","white");
 	$(".ty_right").css("background-color","#ddd");
+	$(".numberCode").blur(function() {
+		// 证件号码框失去焦点之后会进行服务器的判断
+		var before = $(this).prev();
+		var name;
+		var type;
+		var code;
+		if($(this).val() == null || $(this).val() == "") {
+			
+			 before.next().next().next().css("display","inline");
+			 before.next().next().css("display","none");
+			 before.next().next().next().next().css("display","none");
+			 isAllow=false;			 
+		} else {			
+			before.next().next().next().css("display","none");
+			code = $(this).val();
+			if(before.val()=="请选择证件类型") {
+				  
+				  before.next().next().next().next().css("display","none");
+	        	  before.next().next().next().css("display","none");
+				  before.next().next().css("display","inline");
+				  isAllow=false;
+	        } else {
+	        	
+	        	before.next().next().next().next().css("display","none");
+	        	before.next().next().css("display","none");
+	        	type = before.val();
+	        	var username = $(this).parent().prev().prev().prev().children().eq(1);  
+	        	if(username.val() == null || username.val() == "") {     
+	        		username.next().css("display","inline");
+	        		isAllow=false;
+	        	} else {
+	        		username.next().css("display","none");
+	        		name = username.val();
+	        		$.ajax({
+	            		"url":"user/checkPersonalCode.do",
+	            		"data":"name="+name+"&type="+type+"&code="+code,
+	            		"dataType":"json",
+	            		"type":"post",     		
+	            		"success":function(data){
+	            		   if(data.state == 400) {
+	            			   isAllow = false;
+	            			   before.next().next().next().next().css("display","inline");
+	            		   } else if(data.state == 200) {
+	            			   before.next().next().next().next().css("display","none");
+	            			   isAllow = true;
+	            		   }
+	            	}
+	        		});
+	        	}
+	        }				
+		}      
+	});
 });
-//点击我已完成阅读所触发的事件函数
+
 
 function bc(){
 	var c1=bcc%2;
@@ -28,10 +81,10 @@ function bc(){
 	}	
 }
 
-//提交订单时所触发的事件
-function allowConfirm()
-{
-	isAllow=true;
+//提交订单时所触发的事件(用于判断用户填写信息是否正确)
+function allowConfirm() {
+	
+	// 判断名字用户名是否为空
 	var name=$('input[name="username"]');
 	$.each(name,function(index,value){
 		if($(value).val()=="" || $(value).val()==null)
@@ -44,8 +97,13 @@ function allowConfirm()
 			$(value).next().css("display","none");
 			}
 	});
+	// 判断证件类型和证件号码是否正确
 	var bodytype=$('select[name="bodytype"]');
 	$.each(bodytype,function(index,value){
+		
+		$(value).next().next().next().next().css("display","none");
+		$(value).next().next().next().css("display","none");
+		$(value).next().next().css("display","none");			
 		if($(value).val()=="请选择证件类型")
 			{
 			  $(value).next().next().next().css("display","none");
@@ -65,8 +123,31 @@ function allowConfirm()
 			else
 				{
 				   number.next().next().css("display","none");
+				   // 进行用户信息是否正确的判断
+				   var username = $(value).parent().prev().prev().prev().children().eq(1); 
+				   var name;
+				   var type;
+				   var code;
+				   name = username.val();
+				   type = $(value).val();
+				   code = number.val();
+				   $.ajax({
+	            		"url":"user/checkPersonalCode.do",
+	            		"data":"name="+name+"&type="+type+"&code="+code,
+	            		"dataType":"json",
+	            		"type":"post",     		
+	            		"success":function(data){
+	            		   if(data.state == 400) {
+	            			   isAllow = false;
+	            			   $(value).next().next().next().next().css("display","inline");
+	            		   } else if(data.state == 200) {
+	            			   before.next().next().next().next().css("display","none");
+	            			   isAllow = true;
+	            		   }
+	            	}
+	        		});
 				}
-			}
+			}				
 	});
 	
 	var phone=$('input[name="phone"]');
@@ -81,6 +162,9 @@ function allowConfirm()
 		}	
 	return isAllow&&isSafe;
 }
+
+
+
 function addfn(){
 				count++;
 				$(".money").text("￥"+sss+"x"+count);	
@@ -103,7 +187,7 @@ function addfn(){
 					var divnum=$("<div class='num'><span>"+"第"+"<strong>"+count+"</strong>"+"位"+"</span><br></div>");
 					var divname=$("<div class='name'><span class='left'>姓名：</span><input type='text'name='username'><span style='color:red;display:none'>姓名不能为空</span><img src='image/train_yc.jpg' onmouseover='xm1(this)' onmouseout='xm2(this)'><div class='xm' style='display: none;'>1.乘客姓名与证件号必须与乘车时使用证件上的名字和号码一致，如有中文名，请填写中文名。<br>2.如名字中包含生僻字可直接输入拼音代替。例如：'王鬳'可输入为'王yan'。<br>3.姓名中最多输入不超过30个字符(一个汉字记为2个字符)，如果超过30个字符，请按姓名中第一个汉字或者英文字符开始顺序连续输入30个字符(空格字符不输入)。<br>4.姓名中有'.'或'。'时，请仔细辨认身份证原件上的'.'或'。',正确输入。</div></div>");
 					var span=$("<span class='lx'>成人票</span>");
-					var select=$("<div class='zjlx'><span class='left'>证件类型：</span><select class='select'name='bodytype'><option>请选择证件类型</option><option>二代身份证</option><option>军官证</option></select><input type='text'name='number'><span style='color:red;display:none'>请选择证件类型</span><span style='color:red;display:none'>证件号码不能为空</span><img src='image/train_yc.jpg' onmouseover='zjxx1(this)' onmouseout='zjxx2(this)'><div class='zjxx' style='display: none;'>请您仔细核对后输入，如填写错误，可能导致出票错误，产生退票费用！</div></div>");
+					var select=$("<div class='zjlx'><span class='left'>证件类型：</span><select class='select'name='bodytype'><option>请选择证件类型</option><option>二代身份证</option><option>军官证</option></select><input type='text'name='number'class='numberCode' onblur = 'checkPersonal(this)'><span style='color:red;display:none'>请选择证件类型</span><span style='color:red;display:none'>证件号码不能为空</span><span style='color:red;display:none'>请输入正确的用户信息</span><img src='image/train_yc.jpg' onmouseover='zjxx1(this)' onmouseout='zjxx2(this)'><div class='zjxx' style='display: none;'>请您仔细核对后输入，如填写错误，可能导致出票错误，产生退票费用！</div></div>");
 					var divtj=$("<div class='tj'><img src='image/train_tj.jpg' class='jia' onclick=''><span style='font-size: 12px;'>添加儿童票(暂未开放)</span><span style='font-size: 12px;margin-left: 55px;'>每名成年乘客可免费携1名1.2米的儿童，该儿童可不用购票</span><span onclick='gpsm(this)' style='font-size: 12px;margin-left: 5px;color: #56AC32;cursor: pointer;'>购票说明<img class='tjsm'></span><div class='gpsm' style='display: none;'>&nbsp&nbsp&nbsp&nbsp&nbsp低于1.5米低于1.5米儿童可购儿童票，但须跟成人票一起购买，使用同行成人证件购票并凭此证件取票。高于1.5米高于1.5米的儿童须购全价票。如果儿童无有效证件，则只能在线下售票窗口购买。儿童票按实际订单票价收取，出票成功后，如产生差价退款，会在3-7个工作日返回您的支付账户。购买儿童票时，乘车儿童有有效身份证件的，请填写本人有效身份证件信息。乘车儿童没有有效身份证件的，使用同行成年人的有效身份证件信息；购票时不受第一条限制，但购票后、开车前须办理换票手续方可进站乘车。备注：请根据儿童实际身高购票，途牛不承担因儿童身高与所购车票不符而无法进站的责任。</div></div>");
 					var del=$("<div style='width:35px;background:#ddd;padding:5px;margin-left:800px;margin-bottom:10px;cursor:pointer;' onclick='del(this)'>删除</div>");
 					var br=$("<br>");
@@ -141,7 +225,7 @@ function addfn1(){
 					var divnum=$("<div class='num'><span>"+"第"+"<strong>"+count+"</strong>"+"位"+"</span><br></div>");
 					var divname=$("<div class='name'><span class='left'>姓名：</span><input type='text'name='username'><img src='image/train_yc.jpg' onmouseover='xm1(this)' onmouseout='xm2(this)'><div class='xm' style='display: none;'>1.乘客姓名与证件号必须与乘车时使用证件上的名字和号码一致，如有中文名，请填写中文名。<br>2.如名字中包含生僻字可直接输入拼音代替。例如：'王鬳'可输入为'王yan'。<br>3.姓名中最多输入不超过30个字符(一个汉字记为2个字符)，如果超过30个字符，请按姓名中第一个汉字或者英文字符开始顺序连续输入30个字符(空格字符不输入)。<br>4.姓名中有'.'或'。'时，请仔细辨认身份证原件上的'.'或'。',正确输入。</div></div>");
 					var span=$("<span class='lx'>儿童票</span>");
-					var select=$("<div class='zjlx' style='margin-bottom:20px;'><span class='left'>证件类型：</span><select class='select'name='bodytype'><option>请选择证件类型</option><option>二代身份证</option><option>军官证</option></select><input type='text' name='number'><img src='image/train_yc.jpg' onmouseover='zjxx1(this)' onmouseout='zjxx2(this)'><div class='zjxx' style='display: none;'>请您仔细核对后输入，如填写错误，可能导致出票错误，产生退票费用！</div></div>");
+					var select=$("<div class='zjlx' style='margin-bottom:20px;'><span class='left'>证件类型：</span><select class='select'name='bodytype'><option>请选择证件类型</option><option>二代身份证</option><option>军官证</option></select><input type='text' name='number' class='numberCode'><img src='image/train_yc.jpg' onmouseover='zjxx1(this)' onmouseout='zjxx2(this)'><div class='zjxx' style='display: none;'>请您仔细核对后输入，如填写错误，可能导致出票错误，产生退票费用！</div></div>");
 					var br=$("<br>");
 					var del=$("<div style='width:35px;background:#ddd;padding:5px;margin-left:800px;margin-bottom:10px;cursor:pointer;' onclick='del(this)'>删除</div>");
 					$(div).append(divnum);
@@ -296,3 +380,56 @@ function change1(){
 	$(".qp_left").css("background","#F8F8F8");
 }
 
+function checkPersonal(sub) {
+	
+	// 证件号码框失去焦点之后会进行服务器的判断
+	var before = $(sub).prev();
+	var name;
+	var type;
+	var code;
+	if($(sub).val() == null || $(sub).val() == "") {
+		
+		 before.next().next().next().css("display","inline");
+		 before.next().next().css("display","none");
+		 before.next().next().next().next().css("display","none");
+		 isAllow=false;			 
+	} else {			
+		before.next().next().next().css("display","none");
+		code = $(sub).val();
+		if(before.val()=="请选择证件类型") {
+			  
+			  before.next().next().next().next().css("display","none");
+        	  before.next().next().next().css("display","none");
+			  before.next().next().css("display","inline");
+			  isAllow=false;
+        } else {
+        	
+        	before.next().next().next().next().css("display","none");
+        	before.next().next().css("display","none");
+        	type = before.val();
+        	var username = $(sub).parent().prev().prev().prev().children().eq(1);  
+        	if(username.val() == null || username.val() == "") {     
+        		username.next().css("display","inline");
+        		isAllow=false;
+        	} else {
+        		username.next().css("display","none");
+        		name = username.val();
+        		$.ajax({
+            		"url":"user/checkPersonalCode.do",
+            		"data":"name="+name+"&type="+type+"&code="+code,
+            		"dataType":"json",
+            		"type":"post",     		
+            		"success":function(data){
+            		   if(data.state == 400) {
+            			   isAllow = false;
+            			   before.next().next().next().next().css("display","inline");
+            		   } else if(data.state == 200) {
+            			   before.next().next().next().next().css("display","none");
+            			   isAllow = true;
+            		   }
+            	}
+        		});
+        	}
+        }				
+	}      
+}

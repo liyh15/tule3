@@ -1,16 +1,17 @@
 package spring.controller;
 import java.awt.image.RenderedImage;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.jws.soap.SOAPBinding.Use;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -21,11 +22,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
+import dao.PassengerDao;
+import entity.Passenger;
+import entity.PassengerList;
 import entity.User;
+import service.UserService;
 import spring.service.IUserService;
+import spring.service.ex.ServiceException;
 import spring.service.ex.SystemException;
 import utils.CodeUtil;
+
 /**
  * 用户方面的控制器类
  * @author 李元浩
@@ -33,9 +39,17 @@ import utils.CodeUtil;
 @Controller
 @RequestMapping("/user")
 public class UserController extends BaseController {	
+	
 	@Autowired
 	@Qualifier("userService")
 	private IUserService service;
+	
+	@Autowired
+	private PassengerDao passengerDao;
+	
+	@Autowired
+	private UserService userService;
+	
 	/**
 	 * 转发到登录界面
 	 * @param session
@@ -56,8 +70,10 @@ public class UserController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("mainView.do")
-	public String mainView()
+	public String mainView(HttpSession session)
 	{
+		User user = userService.getUser("15720786592");
+		session.setAttribute("user", user);
 		return "main";
 	}
 	
@@ -191,6 +207,20 @@ public class UserController extends BaseController {
 			resultResponse.setMessage("请上传jpg或者png类型的图片文件");
 			return resultResponse;
 		}
-
+	}
+	
+	/**
+	 * 检查用户的证件号码是否正确
+	 * @param name 用户名称
+	 * @param type 用户证件类型
+	 * @param code 用户证件号码
+	 * @return
+	 */
+	@RequestMapping(value = "/checkPersonalCode.do",method = RequestMethod.POST)
+	@ResponseBody
+	public ResultResponse<String> checkPersonalCode(String name,String type,String code) {
+		
+		service.checkPersonalCode(name, type, code);
+		return new ResultResponse<String>();
 	}
 }
