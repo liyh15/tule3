@@ -1,5 +1,7 @@
 package utils;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 /**
  * 关于订单的工具方法与常量
  * @author 李元浩
@@ -16,6 +18,10 @@ public class OrderUtil {
 	public static String BACK = "3"; // 订单退票
 	
 	public static String NOPAY = "4"; // 未付款
+	
+	public static String HAS_COMMENT = "1"; // 已经评论
+	
+	public static String NO_COMMENT = "2"; // 未评论
 	
 	/**
 	 * 通过状态码获取状态描述
@@ -35,5 +41,18 @@ public class OrderUtil {
 	    	return "未付款";
 	    }
 	    return null;
+	}
+	
+	/**
+	 * 通过评论状态获取订单评论描述
+	 * @return
+	 */
+	public static String getCommentByName(String name) {
+		 if("1".equals(name)){
+		    	return "已评论";
+		    } else if("2".equals(name)){
+		    	return "未评论";
+		    }
+	   return null;
 	}
 }

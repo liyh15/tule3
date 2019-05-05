@@ -24,7 +24,9 @@ public class Order implements Serializable {
     private String dAddress;//配送地址
     private String contactPhone;//练习人手机号     
     private String timeClose; // 订单截止时间
-    private String created;
+    private String created; // 订单创建时间
+    private String commentStatus; // 订单评论状态
+    private String comment; // 订单评论
 	public int getId() {
 		return id;
 	}
@@ -124,6 +126,16 @@ public class Order implements Serializable {
 	public void setCreated(String created) {
 		this.created = created;
 	}
-	
-	
+	public String getCommentStatus() {
+		return commentStatus;
+	}
+	public void setCommentStatus(String commentStatus) {
+		this.commentStatus = commentStatus;
+	}
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 }

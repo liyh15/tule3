@@ -40,10 +40,6 @@
 		<div id="search_one">
 			<img src="${pageContext.request.contextPath }/image/logo.png" id="logo"> 
 			<img src="${pageContext.request.contextPath }/image/title.png"id="title"> 
-			<input type="text" id="search_input"> 
-			<a href="#" id="search_button">
-			     <img src="${pageContext.request.contextPath }/image/search.png">
-			</a>
 			<div id="tel">
 				<img src="${pageContext.request.contextPath }/image/tel.png">
 				<span class="tel_a">24h客户服务电话</span>
@@ -73,186 +69,67 @@
 							<img src="${pageContext.request.contextPath }/image/train2.png"></br>火车票
 						</div>
 				</a></li>
-				<li><a href="air.jsp">
-						<div class="plane">
-							<img src="${pageContext.request.contextPath }/image/plane2.png"></br> 飞机票
-						</div>
-				</a></li>
-				<li><a href="BusIndex1.jsp">
+				<li><a href="../orderlist">
 						<div>
-							<img src="${pageContext.request.contextPath }/image/plane2.png"></br>汽车票
-						</div>
-				</a></li>
-				<li><a href="person.jsp">
-						<div>
-							<img src="${pageContext.request.contextPath }/image/plane2.png"></br>我的途乐
+							<img src="${pageContext.request.contextPath }/image/per_center.png"></br>我的途乐
 						</div>
 				</a></li>
 			</ul>
 		</div>
 		<div id="main_image">
-			<img src="${pageContext.request.contextPath }/image/main.png">
+			<img src="${pageContext.request.contextPath }/image/main.jpg">
 		</div>
 	</div>
 	<div class="foot">
-		<span><img src="${pageContext.request.contextPath }/image/hot.png"></span>热门汽车票 <span>
-			<ul class="city">
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-			</ul>
-		</span>
-	</div>
-	<div class="foot">
-	     <ul class="foot_list">
-	        <li>
-	           <ul>
-	               <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	           </ul>
-	        </li>
-	        <li>
-	           <ul>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	           </ul>
-	        </li>
-	        <li>
-	            <ul>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	           </ul>
-	        </li>
-	       <li>
-	            <ul>
-	                 <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	           </ul>
-	        </li>
-	     </ul>
-	</div>
-	
-	
-	<div class="foot">
-		<span><img src="${pageContext.request.contextPath }/image/hot.png"></span>热门飞机票 <span>
-			<ul class="city">
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-			</ul>
-		</span>
-	</div>
-	<div class="foot">
-	     <ul class="foot_list">
-	        <li>
-	           <ul>
-	               <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	           </ul>
-	        </li>
-	        <li>
-	           <ul>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	           </ul>
-	        </li>
-	        <li>
-	            <ul>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	           </ul>
-	        </li>
-	       <li>
-	            <ul>
-	                 <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	           </ul>
-	        </li>
-	     </ul>
-	     <div class="foot">
 		<span><img src="${pageContext.request.contextPath }/image/hot.png"></span>热门火车票 <span>
 			<ul class="city">
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
-				<li><a href="#">重庆</a></li>
+				<li><a href="#">徐州</a></li>
+				<li><a href="#">徐州</a></li>
+				<li><a href="#">徐州</a></li>
+				<li><a href="#">徐州</a></li>
+				<li><a href="#">徐州</a></li>
+				<li><a href="#">徐州</a></li>
+				<li><a href="#">徐州</a></li>
+				<li><a href="#">徐州</a></li>
 			</ul>
 		</span>
-	</div>
+	</div>		
 	<div class="foot">
 	     <ul class="foot_list">
 	        <li>
 	           <ul>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
+	                <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
+	                <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
+	                <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
+	                <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
+	                <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
 	           </ul>
 	        </li>
 	        <li>
 	           <ul>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
+	                <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
+	                <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
+	                <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
+	                <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
+	                <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
 	           </ul>
 	        </li>
 	        <li>
 	            <ul>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
+	                <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
+	                <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
+	                <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
+	                <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
+	                <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
 	           </ul>
 	        </li>
 	       <li>
 	            <ul>
-	                 <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
-	                <li><a href="#">重庆-大足<span class="money">￥2</span><span>元</span></a></li>
+	                 <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
+	                <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
+	                <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
+	                <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
+	                <li><a href="#">徐州-南京<span class="money">￥2</span><span>元</span></a></li>
 	           </ul>
 	        </li>
 	     </ul>

@@ -18,7 +18,9 @@
        IN
           <foreach item = "item" collection="ids" index="index" open="(" separator="," close=")">
               #{item}
-          </foreach>       
+          </foreach>   
+        AND
+          state = 1        
    </select>
    
    <!-- 根据乘客的编号获取乘客的信息 -->
@@ -32,6 +34,26 @@
        FROM 
           tule_passenger 
        WHERE
-          id = #{id}    
+          id = #{id}  
+       AND
+          state = 1      
    </select>
+   
+   <!-- 通过证件号码和证件类型获取所有乘客的集合 -->
+   <select id = "getPassengersByCodeAndType" resultType="entity.Passenger">
+        SELECT
+          id,
+          name,
+          personal_id personalId,
+          type,
+          user_id userId 
+       FROM 
+          tule_passenger 
+       WHERE
+          type = #{type,jdbcType = VARCHAR}
+       AND
+          personal_id = #{code,jdbcType = VARCHAR}
+       AND
+          state = 1    
+   </select>  
 </mapper>

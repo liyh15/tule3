@@ -48,10 +48,6 @@
 		<div id="search_one">
 			<img src="${pageContext.request.contextPath }/image/logo.png" id="logo"> 
 			<img src="${pageContext.request.contextPath }/image/title.png"id="title"> 
-			<input type="text" id="search_input"> 
-			<a href="#" id="search_button">
-			     <img src="${pageContext.request.contextPath }/image/search.png">
-			</a>
 			<div id="tel">
 				<img src="${pageContext.request.contextPath }/image/tel.png">
 				<span class="tel_a">24h客户服务电话</span>
@@ -63,7 +59,7 @@
 	    <div id="menu_list">
 	       <ul>
 	          <li><a href="mainView.do">首页</a></li>
-	          <li><a href="train_main.jsp">火车票</a></li>
+	          <li><a href="trainView.do">火车票</a></li>
 	       </ul>
 	    </div>
 	</div>
@@ -82,13 +78,13 @@
 					<input type="text" placeholder="请输入城市" id="p2" name="endArea" class="inputcityb" autocomplete="off" value = "南京"><br>					
 					<img src="${pageContext.request.contextPath }/image/huan1.jpg" id="huan" onclick="huanfn()">
 					<input type="date" placeholder="请选择时间" name="date"><br>
-					<div class="all">仅搜索高铁和动车
+					<!-- <div class="all">仅搜索高铁和动车
 					<div class="div1 open1">
     					<span class="left"></span>
     					<span class="right"></span>
     					<div class="div2 open2"></div>
 					</div>
-					</div>
+					</div> -->
 					<input type="submit" value="搜索列车" id="search" >
 				</form>
 			</div>
@@ -98,8 +94,8 @@
 		<div id="article">
 			<div id="article-top">
 				<span class="art_s1">热门火车票</span>
-				<a href="#"><span class="art_s2">上海</span></a>
-				<a href="#"><span class="art_s3">北京</span></a>
+				<a href="#"><span class="art_s2">徐州</span></a>
+				<a href="#"><span class="art_s3">南京</span></a>
 				<a href="#"><span class="art_s3">杭州</span></a>
 				<a href="#"><span class="art_s3">广州</span></a>
 				<a href="#"><span class="art_s3">南京</span></a>
@@ -108,28 +104,28 @@
 			</div>
 			<div id="article-context">
 				<div class="square">
-					<a href="#"><p>上海-北京<span><i>￥</i>177.5<em>起</em></span></p></a>
-					<a href="#"><p>上海-北京<span><i>￥</i>177.5<em>起</em></span></p></a>
-					<a href="#"><p>上海-北京<span><i>￥</i>177.5<em>起</em></span></p></a>
-					<a href="#"><p>上海-北京<span><i>￥</i>177.5<em>起</em></span></p></a>
+					<a href="#"><p>徐州-南京<span><i>￥</i>177.5<em>起</em></span></p></a>
+					<a href="#"><p>徐州-南京<span><i>￥</i>177.5<em>起</em></span></p></a>
+					<a href="#"><p>徐州-南京<span><i>￥</i>177.5<em>起</em></span></p></a>
+					<a href="#"><p>徐州-南京<span><i>￥</i>177.5<em>起</em></span></p></a>
 				</div>
 				<div class="square">
-					<a href="#"><p>上海-北京<span><i>￥</i>177.5<em>起</em></span></p></a>
-					<a href="#"><p>上海-北京<span><i>￥</i>177.5<em>起</em></span></p></a>
-					<a href="#"><p>上海-北京<span><i>￥</i>177.5<em>起</em></span></p></a>
-					<a href="#"><p>上海-北京<span><i>￥</i>177.5<em>起</em></span></p></a>
+					<a href="#"><p>徐州-南京<span><i>￥</i>177.5<em>起</em></span></p></a>
+					<a href="#"><p>徐州-南京<span><i>￥</i>177.5<em>起</em></span></p></a>
+					<a href="#"><p>徐州-南京<span><i>￥</i>177.5<em>起</em></span></p></a>
+					<a href="#"><p>徐州-南京<span><i>￥</i>177.5<em>起</em></span></p></a>
 				</div>
 				<div class="square">
-					<a href="#"><p>上海-北京<span><i>￥</i>177.5<em>起</em></span></p></a>
-					<a href="#"><p>上海-北京<span><i>￥</i>177.5<em>起</em></span></p></a>
-					<a href="#"><p>上海-北京<span><i>￥</i>177.5<em>起</em></span></p></a>
-					<a href="#"><p>上海-北京<span><i>￥</i>177.5<em>起</em></span></p></a>
+					<a href="#"><p>徐州-南京<span><i>￥</i>177.5<em>起</em></span></p></a>
+					<a href="#"><p>徐州-南京<span><i>￥</i>177.5<em>起</em></span></p></a>
+					<a href="#"><p>徐州-南京<span><i>￥</i>177.5<em>起</em></span></p></a>
+					<a href="#"><p>徐州-南京<span><i>￥</i>177.5<em>起</em></span></p></a>
 				</div>
 				<div class="square">
-					<a href="#"><p>上海-北京<span><i>￥</i>177.5<em>起</em></span></p></a>
-					<a href="#"><p>上海-北京<span><i>￥</i>177.5<em>起</em></span></p></a>
-					<a href="#"><p>上海-北京<span><i>￥</i>177.5<em>起</em></span></p></a>
-					<a href="#"><p>上海-北京<span><i>￥</i>177.5<em>起</em></span></p></a>
+					<a href="#"><p>徐州-南京<span><i>￥</i>177.5<em>起</em></span></p></a>
+					<a href="#"><p>徐州-南京<span><i>￥</i>177.5<em>起</em></span></p></a>
+					<a href="#"><p>徐州-南京<span><i>￥</i>177.5<em>起</em></span></p></a>
+					<a href="#"><p>徐州-南京<span><i>￥</i>177.5<em>起</em></span></p></a>
 				</div>
 			</div>
 		</div>

@@ -2,7 +2,9 @@ package test;
 
 public class ArrayTest {
 public static void main(String[] args) {
-	System.out.println(new ArrayTest().aaa());
+	String a = "&aa&bb&";
+	String [] as = a.split("&");
+	System.out.println(as[0].equals(""));
 }
 
 public int aaa(){

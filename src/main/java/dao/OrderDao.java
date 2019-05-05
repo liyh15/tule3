@@ -42,6 +42,8 @@ public class OrderDao {
 				int returnPrice=resultSet.getInt("return_price");
 				String address=resultSet.getString("distribution_address");
 				String contactPhone=resultSet.getString("contact_phone");
+				String comment = resultSet.getString("comment");
+				String commentStatus = resultSet.getString("comment_status");
 				Order order=new Order();
 				order.setId(id);
 				order.setCreateTime(created.substring(0, 19));
@@ -56,6 +58,8 @@ public class OrderDao {
 				order.setReturnPrice(returnPrice);
 				order.setdAddress(address);
 				order.setContactPhone(contactPhone);
+				order.setComment(comment);
+				order.setCommentStatus(commentStatus);
 				orders.add(order);
 			}
 			return orders;
@@ -94,10 +98,10 @@ public class OrderDao {
 			statement.setInt(1, userId);
 			statement.setString(2, status);
 			statement.setInt(3, trafficDateArrangeId);
-			statement.setString(4, connectArray(totlePrice));
+			statement.setString(4, connectArrayB(totlePrice));
 			statement.setString(5, connectArray(passengerId));
 			statement.setString(6, type);
-			statement.setString(7, connectArray(explain));
+			statement.setString(7, connectArrayB(explain));
 			statement.setString(8, reservation);
 			statement.setInt(9, returnPrice);
 			statement.setString(10,dAddress);
@@ -117,19 +121,38 @@ public class OrderDao {
 	  */
 	 private String connectArray(Object [] obj)
 	 {
+		 StringBuffer stringBuffer=new StringBuffer("&");
+		 for(int i=0;i<obj.length;i++)
+		 {
+			 stringBuffer.append(obj[i]);
+			 stringBuffer.append("&");	
+		 }
+		 return stringBuffer.toString();
+	 }
+	 
+	 /**
+	  * 价格方面拼接数组
+	  * @param obj
+	  * @return
+	  */
+	 private String connectArrayB(Object [] obj){
+		 
 		 StringBuffer stringBuffer=new StringBuffer();
 		 for(int i=0;i<obj.length;i++)
 		 {
 			 stringBuffer.append(obj[i]);
-			 if(i!=obj.length-1)
-			 {
-				 stringBuffer.append("&");
-			 }		
+			 if(i != obj.length-1) {
+				 stringBuffer.append("&");	
+			 }			
 		 }
 		 return stringBuffer.toString();
 	 }
+	 
+	 
+	 
+	 
 	 /**
-	  * 把字符串分割成字符串数组
+	  * 把字符串分割成字符串数组,负责价格
 	  * @param line
 	  * @return
 	  */
@@ -146,11 +169,14 @@ public class OrderDao {
 	 private Integer[] getArrayB(String line)
 	 {
 		 String [] lines=line.split("&");
-		 Integer[] a=new Integer[lines.length];
-		 for(int i=0;i<lines.length;i++)
+		 String [] lines2 = new String[lines.length-1];
+		 System.arraycopy(lines, 1, lines2, 0, lines2.length);
+		 Integer[] a=new Integer[lines2.length];
+		 for(int i=0;i<lines2.length;i++)
 		 {
-			 a[i]=Integer.parseInt(lines[i]);
+			 a[i]=Integer.parseInt(lines2[i]);
 		 }
+		 
 		 return a;
 	 }
 	 public static void main(String[] args) {

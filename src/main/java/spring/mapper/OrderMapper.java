@@ -11,6 +11,7 @@ import entity.Order;
  * 订单的mabatis的mapper层
  * @author 李元浩
  */
+import entity.Passenger;
 public interface OrderMapper {
 	
 	/**
@@ -40,4 +41,18 @@ public interface OrderMapper {
 	 */
 	public Integer deleteOrderById(@Param("id") Integer id);
 	
+	/**
+	 * 对订单进行付款
+	 * @param id 订单编号
+	 * @param status 订单状态
+	 * @return
+	 */
+	public Integer payForOrder(@Param("id") Integer id,@Param("status") String status);
+	
+	/**
+	 * 通过乘客所有所有的关联的订单
+	 * @param passengers 乘客集合
+	 * @return 订单集合
+	 */
+	public List<MapperOrder> getOrderByPassenger(@Param("passengers") List<Passenger> passengers);
 }

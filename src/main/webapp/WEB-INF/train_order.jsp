@@ -29,7 +29,7 @@
 		 </c:choose>
 		    
 			<ul>
-				<li><a href="mainView.do" class="head_right">途乐首页</a></li>
+				<li><a href="../user/mainView.do" class="head_right">途乐首页</a></li>
 				<li><a href="../orderlist" class="head_right">我的途乐</a></li>
 				<li class="menu"><a href="../orderlist" class="head_right my_order">我的订单</a>
 					<ul class="menu_list">
@@ -45,10 +45,6 @@
 		<div id="search_one">
 			<img src="${pageContext.request.contextPath }/image/logo.png" id="logo"> 
 			<img src="${pageContext.request.contextPath }/image/title.png"id="title"> 
-			<input type="text" id="search_input"> 
-			<a href="#" id="search_button">
-			     <img src="${pageContext.request.contextPath }/image/search.png">
-			</a>
 			<div id="tel">
 				<img src="${pageContext.request.contextPath }/image/tel.png">
 				<span class="tel_a">24h客户服务电话</span>
@@ -96,7 +92,7 @@
 					        out.print(p);
 					    %>
 					</span>
-					<span class="jemx">金额明细</span><br>
+<br>
 					<span class="fkdjs">付款倒计时：</span><span class="sjian" style="color: red;"></span>
 					<span class="sjiann">请在剩余时间内完成付款，逾期将自动取消</span><br>
 					<span class="zysx">途乐不保证一定购票成功哦，但若购票失败，票款会立即退回</span>

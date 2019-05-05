@@ -240,7 +240,7 @@ main {
 }
 .type
 {
-	margin-left:87px;
+	margin-left:232px;
 }
 #right_bottom_navigation .number{
 	margin-left: 47px;
@@ -335,4 +335,7 @@ main {
 	margin-left: 840px;
 	color:red;
 	cursor: pointer;
+}
+.remainTime{
+	margin-left: 106px;
 }

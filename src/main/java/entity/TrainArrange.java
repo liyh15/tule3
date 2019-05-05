@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class TrainArrange implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	private int id;     //火车安排编号
+	private int id;     //火车日期安排编号
      private String date;// 开始日期
      private String endDate;// 到达日期
      private String trainName;//火车名称

@@ -19,18 +19,20 @@ ul li
 }
 #body_menu
 {
-	width:150px;
+	width:50px;
 	height:420px;
+	margin-left:113px;
+	margin-bottom: 10px;
 	float:left;
 }
 #body_menu ul li
 {
-	height:82px;
+	height:137px;
 }
 #body_menu div
 {
-	width: 150px;
-	height: 83px;
+	width: 57px;
+	height: 145px;
 	color:white;
 	border-bottom:1px dashed black;
 	background-color:#d3dadc;	

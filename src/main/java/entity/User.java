@@ -18,8 +18,9 @@ public class User implements Serializable {
     private String passQuestion;//密保问题
     private String personalId;//证件名称
     private String paperType;//证件类型
-    private String sex;
-    private String salt;
+    private String sex; // 用户性别
+    private String salt; // 用户密码盐值
+    private int money; // 用户账户余额
     
 	public String getSex() {
 		return sex;
@@ -126,13 +127,10 @@ public class User implements Serializable {
 	public void setSalt(String salt) {
 		this.salt = salt;
 	}
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", nickName=" + nickName + ", name=" + name + ", phone=" + phone + ", birthday="
-				+ birthday + ", email=" + email + ", liveCity=" + liveCity + ", address=" + address + ", married="
-				+ married + ", job=" + job + ", education=" + education + ", password=" + password + ", passQuestion="
-				+ passQuestion + ", personalId=" + personalId + ", paperType=" + paperType + ", sex=" + sex + ", salt="
-				+ salt + "]";
+	public int getMoney() {
+		return money;
 	}
-  
+	public void setMoney(int money) {
+		this.money = money;
+	}	
 }

@@ -27,7 +27,7 @@
 		    </c:otherwise>		
 		 </c:choose>
 			<ul>
-				<li><a href="main.jsp" class="head_right">途乐首页</a></li>
+				<li><a href="user/mainView.do" class="head_right">途乐首页</a></li>
 				<li><a href="orderlist" class="head_right">我的途乐</a></li>
 				<li class="menu"><a href="orderlist"
 					class="head_right my_order">我的订单</a>
@@ -43,9 +43,7 @@
 	<div id="search">
 		<div id="search_one">
 			<img src="${pageContext.request.contextPath }/image/logo.png" id="logo"> <img src="${pageContext.request.contextPath }/image/title.png"
-				id="title"> <input type="text" id="search_input"> <a
-				href="#" id="search_button"> <img src="${pageContext.request.contextPath }/image/search.png">
-			</a>
+				id="title"> 
 			<div id="tel">
 				<img src="${pageContext.request.contextPath }/image/tel.png"> <span class="tel_a">24h客户服务电话</span>
 				<span class="tel_b">157-2078-6592</span>
@@ -99,9 +97,6 @@
 								<ul class="APP_buy_icon">
 									<li class="nav_item"><i class="header_icon"></i></li>
 								</ul>
-								<span class="APP_buy_title" onmouseover="moveon()"
-									onmouseout="remove()">APP购票专享优惠</span> <span class="APP_arrow"
-									onmouseover="moveon()" onmouseout="remove()">▼</span>
 								<div class="APP_buy_detail" style="display: none;">
 									<img src="${pageContext.request.contextPath }/image/ewm.jpg" />
 								</div>

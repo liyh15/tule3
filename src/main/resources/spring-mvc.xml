@@ -92,6 +92,14 @@
 			<bean class="spring.interceptor.OrderInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
+	
+	<!-- 注解驱动，注解@Transactional这个注解 -->
+    <!--transaction-manager是下面注解的id  -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!-- 配置事务管理器,事务要成功的话必须没有抛出任何异常时才成功（异常指定为RuntimeException异常） -->
+    <bean id="transactionManager"  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+           <property name="dataSource" ref="dataSource"></property>    
+    </bean>
 </beans>
 
 

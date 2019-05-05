@@ -38,6 +38,7 @@
 		</div>
 	</div>
 	<form action="orderdetail" method="get" onsubmit="return allowConfirm()">
+	    <span style="display:none" id = "trafficId">${trainArrange.id}</span>
 		<div class="wrapper clearfix">
 		<div class="content clearfix J-flag">
 			<div class="order_box">
@@ -92,13 +93,10 @@
 				       </c:choose>		         		        
 					</div>
 				    </c:forEach>
-					<br><span class="ry">
-						<input type="checkbox" name="ry" id="wp"><label for="wp">若无票，愿意接受无坐票</label>
-					</span>
+					<br>
 				</div>
 			</div>
 			<div class="bd">
-				<span class="bd1">绑定12306，出票更快速！</span><a href="#" class="bd2">马上绑定</a>
 			</div>
 			<div class="pass panel mt20">
 			<div class="panel_head clearfix">
@@ -107,7 +105,6 @@
 						<span class="icon pass_icon mr10 vm"></span>
 						<span class="vm">乘车人信息</span>
 					</h2>
-					<div class="tnbnt">途乐帮你填</div>
 				</div>
 			</div>
 			<span class="person">
@@ -118,7 +115,7 @@
 				</div>
 				<div class="name">
 					<span class="left" >姓名</span>					
-					<input type="text" name="username" onblur = "checkPersonalDetail(this)">
+					<input type="text" name="username" class = "username" onblur = "checkPersonalTwo(this)">
 					<span style="color:red;display:none">姓名不能为空</span>
 					<img src="image/train_yc.jpg" onmouseover="xm1(this)" onmouseout="xm2(this)" class="xmxx">
 					<div class="xm" style="display: none;">
@@ -131,12 +128,12 @@
 				<br class="br"><span class="lx">成人票</span>
 				<div class="zjlx">
 					<span class="left">证件类型：</span>
-					<select class="select" name="bodytype" onblur = "checkPersonalDetail(this)">
+					<select class="select" name="bodytype" onchange = "checkPersonThree(this)">
 						<option>请选择证件类型</option>
 						<option>二代身份证</option>
 						<option>军官证</option>
 					</select>										
-					<input type="text" name="number" class = "numberCode">
+					<input type="text" name="number" class = "numberCode" onblur = "checkPersonal(this)">
 					<span style="color:red;display:none">请选择证件类型</span>
 					<span style="color:red;display:none">证件号码不能为空</span>
 					<span style="color:red;display:none">请输入正确的用户信息</span>
@@ -161,12 +158,7 @@
 				</div>
 			</div>
 			<div class="tjck" style="margin-left: 85px;border-top: 1px solid #eee;">
-				<div class="tjkc_btn" onclick="addfn()">+添加乘客</div><span class="sy">你还可以添加4个乘客</span><br>
-				<select class="bx">
-					<option>不购买保险</option>
-					<option>购买4元保险</option>
-					<option>购买6元保险</option>
-				</select>
+				<div class="tjkc_btn" onclick="addfn()">+添加乘客</div><span class="sy">你还可以添加4个乘客</span><br>				
 			</div>
 		</div>
 		<div class="qp">
@@ -180,16 +172,7 @@
 						4.儿童票需要换取纸质车票才可以进站乘车
 					</div>
 				</div>
-				<div class="qp_right" onclick="">
-					<img src="image/train_piao2.jpg"><span class="zqp">送票上门(暂未开放)</span>
-					<img src="image/train_yc.jpg" class="qupiao" onmouseover="spsm1()" onmouseout="spsm2()">
-					<div class="spsm" style="display: none;">
-						1.送票上门预售期是28天，付款后会尽快出票，出票成功后2-3个工作日送达，节假日顺延。<br>
-						2.请务必准确填写配送地址，不在选择范围内的地区请勿下单，如地址错误导致无法送达，责任自行承担。<br>
-						3.选择该服务，如需办理退票或改签，请携带纸质车票和购票有效证件前往火车站办理。<br>
-						4.部分乡镇及偏远地区不能保证送达，请选择市、区、县内地址。
-					</div>
-				</div>
+
 				<div class="left_zqp" style="display: block;">
 					<span class="phone">手机号码：</span><input type="text" name="phone" value="123"><span style="color:red;display:none">手机号不能为空</span>
 					<img src="image/train_yc.jpg" class="qupiao1" onmouseover="phone1()" onmouseout="phone2()">

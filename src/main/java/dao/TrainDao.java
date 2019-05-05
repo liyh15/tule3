@@ -70,7 +70,7 @@ public class TrainDao {
 			while (resultSet.next()) {
 				String trainName = resultSet.getString("name");
 				String day = resultSet.getString("day");
-				int id = resultSet.getInt("id");
+				int id = resultSet.getInt("td.id");
 				String startTime = resultSet.getString("start_time");
 				String endTime = resultSet.getString("end_time");
 				String startStation = resultSet.getString("tsa.name");
@@ -530,7 +530,7 @@ public class TrainDao {
 	 * @param type
 	 *            座位类型编号
 	 * @param sation
-	 *            沿途停靠信息集合
+	 *            列车沿途停靠信息集合
 	 * @param seat
 	 *            已购买的座位编号
 	 * @param groupId

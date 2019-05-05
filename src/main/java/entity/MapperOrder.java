@@ -23,6 +23,8 @@ public class MapperOrder implements Serializable {
 	private String contactPhone;
 	private String createTime;
 	private String timeClose;
+	private String comment;
+	private String commentStatus;
 	public Integer getId() {
 		return id;
 	}
@@ -108,13 +110,17 @@ public class MapperOrder implements Serializable {
 	public void setTimeClose(String timeClose) {
 		this.timeClose = timeClose;
 	}
-	@Override
-	public String toString() {
-		return "MapperOrder [id=" + id + ", userId=" + userId + ", status=" + status + ", trafficDateArrangeId="
-				+ trafficDateArrangeId + ", totlePrice=" + totlePrice + ", passengerId=" + passengerId + ", type="
-				+ type + ", oexplain=" + oexplain + ", reservation=" + reservation + ", returnPrice=" + returnPrice
-				+ ", distributionAddress=" + distributionAddress + ", contactPhone=" + contactPhone + ", createTime="
-				+ createTime + "]";
-	}
 	
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	public String getCommentStatus() {
+		return commentStatus;
+	}
+	public void setCommentStatus(String commentStatus) {
+		this.commentStatus = commentStatus;
+	}	
 }

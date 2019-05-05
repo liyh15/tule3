@@ -130,4 +130,16 @@ public class UserServiceImpl implements IUserService {
 			throw new SystemException("用户不存在");
 		}
 	}
+	
+	/**
+	 * 用户付款操作
+	 * @param money 付款额度
+	 */
+	public void reduceMoney(Integer money,Integer id) {
+		
+		Integer line = userMapper.payForMoney(money, id);
+		if(line < ONE) {
+			throw new SystemException("用户付款失败,请重试");
+		}
+	}
 }

@@ -39,4 +39,16 @@ public class PasengerServiceImpl implements IPassengerService{
 		return passengerMapper.getPassengerById(id);
 	}
 
+	/**
+	 * 通过证件号码获取乘客的所有信息
+	 * @param type 证件类型
+	 * @param code 证件号码
+	 * @return
+	 */
+	public List<Passenger> getPassengerByCodeAndType(String type, String code) {	
+		
+		List<Passenger> passengers = passengerMapper.getPassengersByCodeAndType(type, code);
+		return passengers;
+	}
+
 }

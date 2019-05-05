@@ -20,17 +20,12 @@
 		<div id="navigation">
 			<a href="#" id="icon">途乐</a>
 			<ul>
-				<li><a href="main.jsp">会员首页</a></li>
+				<li><a href="user/mainView.do">途乐首页</a></li>
 				<li class="second"><a>账户设置</a>
 					<ul>
 						<li><a target="person_detail.jsp">个人资料</a></li>
-						<li><a target="#">站内信息</a></li>
 						<li><a target="setting.jsp">密码设置</a></li>
 						<li><a target="security.jsp">账户安全</a></li>
-						<li><a target="#">我的银行卡</a></li>
-						<li><a target="#">常用旅客信息</a></li>
-						<li><a target="#">常用配送地址</a></li>
-						<li><a target="#">常用发票信息</a></li>
 					</ul>
 				</li>
 				<li class="second"><a href="#">社区互动</a>
@@ -40,8 +35,6 @@
 						<li><a target="#">我的游记</a></li>
 					</ul>
 				</li>
-				<li><a href="#">会员俱乐部</a></li>
-				<li><a href="#">积分商城</a></li>
 			</ul>
 			<a href="user/mainView.do" id="back">返回途乐首页</a>
 		</div>
@@ -50,40 +43,21 @@
 			<ul>
 				<li class="second" onclick="showSecond()">我的订单
 					<ul>
-						<li><a href="#">旅游订单</a></li>
-						<li><a href="#">旅游券订单</a></li>
-					</ul>
-				</li>
-				<li class="second" onclick="showSecond()">我的资产
-					<ul>
-						<li><a href="#">优惠券</a></li>
-						<li><a href="#">旅游券</a></li>
-						<li><a href="#">抵用券</a></li>
-						<li><a href="#">第三方券</a></li>
-						<li><a href="#">我的银行卡</a></li>
+						<li><a href="orderlist">旅游订单</a></li>
 					</ul>
 				</li>
 				<li class="second" onclick="showSecond()">个人中心
 					<ul>
-						<li><a href="#">个人资料</a></li>
-						<li><a href="#">安全资料</a></li>
-						<li><a href="#">密码设置</a></li>
-					</ul>
-				</li>
-				<li class="second" onclick="showSecond()">常用信息
-					<ul>
-						<li><a href="#">游客信息</a></li>
-						<li><a href="#">常用发票信息</a></li>
+						<li><a target="person_detail.jsp">个人资料</a></li>
+						<li><a target="setting.jsp">密码设置</a></li>
+						<li><a target="security.jsp">账户安全</a></li>
 					</ul>
 				</li>
 				<li class="second" onclick="showSecond()">常用工具
 					<ul>
-						<li><a href="#">我的收藏</a></li>
 						<li><a href="#">我的点评</a></li>
 					</ul>
 				</li>
-				<li><a href="#">社区互动</a></li>
-				<li><a href="#">会员俱乐部</a></li>
 			</ul>
 		</div>
 		<div id="left_bottom_navigation">
@@ -97,29 +71,21 @@
 		<div id="right">
 			<div id="right_navigation">
 				<ul>
-					<li id="all_order" onclick="change()">全部订单</li>
-					<li onclick="change()">待付款(0)</li>
-					<li onclick="change()">待出行/收货(0)</li>
-					<li onclick="change()">待点评(0)</li>
+					<li id="all_order" onclick="change(0)">全部订单</li>
+					<li onclick="change(1)">待付款</li>
+					<li onclick="change(2)">待出行</li>
+					<li onclick="change(3)">待点评</li>
 				</ul>
 			</div>
 			<div id="right_bottom_navigation">
 				<ul>
 					<li class="title">产品信息</li>
-					<li>
-						<select name="" id="order">
-							<option value="" selected="selected">全部订单</option>
-							<option value="">订单1</option>
-							<option value="">订单2</option>
-							<option value="">订单3</option>
-						</select>
-					</li>
 					<li class="type">车票类型</li>
 					<li class="number">数量</li>
-					<li class="remain-time">时间</li>
+					<li class="remainTime">时间</li>
 					<li class="price">订单金额</li>
 					<li class="status">状态</li>
-					<li class="operation">操作</li>
+					<li class="operat">操作</li>
 				</ul>
 			</div>
 			<div id="ticket">
@@ -154,7 +120,7 @@
 										${order.status}
 									</span>
 									<c:if test="${order.status == '未付款'}">
-									   <a href=""><span class="operation">去付款</span></a>
+									   <a href=""><span aotopostback = "false" class="operation" oid="${order.id}">去付款</span></a>
 									</c:if>
 									<c:if test="${order.status != '未付款'}">
 									   <span class="deleteorder" oid="${order.id}">删除订单</span>

@@ -27,4 +27,12 @@ public interface PassengerMapper {
 	 * @return 返回乘客们信息
 	 */
 	public List<Passenger> getPassengersById(@Param("ids") Integer [] id);
+	
+	/**
+	 * 通过证件号码和证件类型获取所有乘客的集合
+	 * @param type 证件类型
+	 * @param code 证件号码
+	 * @return
+	 */
+	public List<Passenger> getPassengersByCodeAndType(@Param("type") String type, @Param("code") String code);
 }

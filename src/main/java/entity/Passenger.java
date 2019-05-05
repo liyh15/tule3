@@ -42,5 +42,10 @@ public class Passenger implements Serializable {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+	@Override
+	public String toString() {
+		return "Passenger [id=" + id + ", name=" + name + ", personalId=" + personalId + ", type=" + type + ", userId="
+				+ userId + "]";
+	}
     
 }

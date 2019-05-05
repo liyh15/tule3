@@ -19,7 +19,9 @@
 			distribution_address distributionAddress,
 			contact_phone contactPhone,
 			create_time createTime,
-			time_close timeClose
+			time_close timeClose,
+			comment,
+			comment_status commentStatus
 		FROM
 		    tule_order
 		WHERE
@@ -73,4 +75,48 @@
 		AND
 		  state = 1
 	</update>
+	
+	<update id = "payForOrder" >
+	   UPDATE
+	     tule_order
+	   SET
+	     <if test="status != null">
+	       STATUS = #{status,jdbcType = VARCHAR}
+	     </if>	     
+	   WHERE
+	     <if test="id != null" >
+             id = #{id}
+         </if>		     
+	</update>
+	<!-- 通过乘客获取所有关联的订单 -->
+	<select id = "getOrderByPassenger" resultType="entity.MapperOrder">
+	    SELECT
+			id,
+			user_id userId,
+			status,
+			traffic_date_arrange_id trafficDateArrangeId,
+			totle_price totlePrice,
+			passenger_id passengerId,
+			type,
+			oexplain,
+			reservation,
+			return_price returnPrice,
+			distribution_address distributionAddress,
+			contact_phone contactPhone,
+			create_time createTime,
+			time_close timeClose,
+			comment,
+			comment_status commentStatus
+		FROM
+		    tule_order
+		<where>
+		     <foreach collection="passengers" item="item" separator="or">
+		         passenger_id like concat('%&amp;',#{item.id,jdbcType = VARCHAR},'&amp;%')
+		     </foreach>
+		     AND 
+		       state = 1
+		     AND
+		       status NOT IN ('0','2','3')
+		</where>		   
+	</select>
 </mapper>

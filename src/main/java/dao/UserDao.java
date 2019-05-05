@@ -205,6 +205,7 @@ public class UserDao {
 				String paperType=resultSet.getString("paper_type");
 				String sex=resultSet.getString("sex");
 				String salt=resultSet.getString("salt");
+				int money = resultSet.getInt("money");
 				user.setId(id);
 				user.setNickName(nickName);
 				user.setName(name);
@@ -222,6 +223,7 @@ public class UserDao {
 				user.setPaperType(paperType);
 				user.setSex(sex);
 				user.setSalt(salt);
+				user.setMoney(money);
 				return user;
 			}
 		} catch (SQLException e) {

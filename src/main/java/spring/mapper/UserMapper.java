@@ -34,5 +34,13 @@ public interface UserMapper {
 	 * @return
 	 */
 	public Integer putHeadImage(@Param("id") Integer id, @Param("image") String imageUrl);
+	
+	/**
+	 * 用户付款操作
+	 * @param money 付款额度
+	 * @param id 用户id
+	 * @return
+	 */
+	public Integer payForMoney(@Param("money") Integer money,@Param("id") Integer id);
     
 }

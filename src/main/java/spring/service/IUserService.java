@@ -27,4 +27,11 @@ public interface IUserService {
 	 * @return
 	 */
 	public void checkPersonalCode(String name,String type,String userCode) throws ServiceException;
+	
+	/**
+	 * 用户付款操作
+	 * @param money 付款额度
+	 * @param id 用户编号
+	 */
+	public void reduceMoney(Integer money,Integer id);
 }

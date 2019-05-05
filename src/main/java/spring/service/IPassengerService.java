@@ -22,4 +22,12 @@ public interface IPassengerService {
 	 * @return
 	 */
 	public Passenger getPassengerById(Integer id);
+	
+	/**
+	 * 通过证件号码获取乘客的所有信息
+	 * @param type
+	 * @param code
+	 * @return
+	 */
+	public List<Passenger> getPassengerByCodeAndType(String type,String code);
 }

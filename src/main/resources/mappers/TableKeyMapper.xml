@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace：与当前xml文件对应的java接口 -->
+<mapper namespace="spring.mapper.TableKeyMapper">
+   <select id = "getTableKeyByTableName" resultType = "entity.TableKey">
+      SELECT
+        id,
+        table_name tableName,
+        start_key startKey,
+        add_num addNum,
+        key_num keyNum
+      FROM
+        tule_key
+      WHERE
+        table_name = #{tableName,jdbcType = VARCHAR}
+      AND
+        state = 1
+   </select>
+   
+   <update id = "updateTableKey" parameterType = "entity.TableKey">
+       UPDATE
+         tule_key
+       SET
+       <trim suffixOverrides=",">
+         <if test = "startKey != null">
+            start_key = #{startKey,jdbcType = INTEGER},
+         </if>
+         <if test = "addNum != null">
+            add_num = #{addNum,jdbcType = INTEGER},
+         </if>
+         <if test = "keyNum != null">
+            key_num = #{keyNum,jdbcType = INTEGER},
+         </if>
+       </trim>
+       WHERE
+         table_name = #{tableName,jdbcType = VARCHAR} 
+   </update>
+</mapper>

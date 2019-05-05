@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.sql.Date;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,15 +25,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import com.mysql.jdbc.log.Log;
+
 import dao.PassengerDao;
+import entity.MapperOrder;
+import entity.Order;
 import entity.Passenger;
 import entity.PassengerList;
+import entity.TrainArrange;
+import entity.TrainDateArrange;
 import entity.User;
+import service.OrderService;
 import service.UserService;
+import spring.service.IOrderService;
+import spring.service.IPassengerService;
+import spring.service.ITrainService;
 import spring.service.IUserService;
 import spring.service.ex.ServiceException;
 import spring.service.ex.SystemException;
 import utils.CodeUtil;
+import utils.ConstantUtil;
+import utils.DateUtil;
+import utils.OrderUtil;
 
 /**
  * 用户方面的控制器类
@@ -49,6 +66,15 @@ public class UserController extends BaseController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private IOrderService orderService;
+	
+	@Autowired
+	private IPassengerService passengerService;
+	
+	@Autowired
+	private ITrainService iTrainService;
 	
 	/**
 	 * 转发到登录界面
@@ -222,5 +248,89 @@ public class UserController extends BaseController {
 		
 		service.checkPersonalCode(name, type, code);
 		return new ResultResponse<String>();
+	}
+	
+	/**
+	 * 判断当前乘客是否可以购买当前车次(行程的时间间隔不能小于两小时)
+	 * @param trafficId 火车日期安排编号
+	 * @param type 乘客证件类型
+	 * @param code 乘客证件号码
+	 * @return
+	 * @throws ParseException 
+	 */
+	@RequestMapping(value = "/checkPersonalTwo.do",method = RequestMethod.POST)
+	@ResponseBody
+	public ResultResponse<String> checkPersonalTwo(Integer trafficId,String type,String code) throws ParseException {
+		
+		// 先查出证件号码和证件对应的乘客信息
+		List<Passenger> passengers = passengerService.getPassengerByCodeAndType(type, code);
+		System.out.println("乘客的数量:"+passengers.size());
+		if(null != passengers && passengers.size() >= 1) {
+			
+			// 查询出改用户所有的订单
+		    List<MapperOrder> mapperOrders = orderService.getOrderByPassenger(passengers);
+		    System.out.println("有订单的数量:"+mapperOrders.size());
+		    TrainDateArrange trainDateArrangeOne = iTrainService.getTrainDateArrangeById(trafficId);
+		    TrainArrange trainArrangeOne = iTrainService.getTrainArrangeById(trainDateArrangeOne.getTrainArrangeId());
+		    
+		    Long startTimeOne = DateUtil.getTimeByDate(trainDateArrangeOne.getDay()+" "+trainArrangeOne.getStartTime(), DateUtil.YYMMRRHHMMSS);
+		    Long endTimeOne = DateUtil.getTimeByDate(trainDateArrangeOne.getEndDay()+" "+trainArrangeOne.getEndTime(), DateUtil.YYMMRRHHMMSS);
+
+		    for(MapperOrder mapperOrder : mapperOrders) {
+		    	// 循环取出其中的日期安排编号
+		    	Integer trafficDateId = mapperOrder.getTrafficDateArrangeId();
+		    	if(trafficDateId == trafficDateId) {
+		    		throw new SystemException("该乘客不能重复购买相同车次的车票");
+		    	}
+		    	// 获得该行程的日期安排类
+		    	TrainDateArrange trainDateArrange = iTrainService.getTrainDateArrangeById(trafficDateId);
+		    	// 获得该行程的安排类
+		    	TrainArrange trainArrange = iTrainService.getTrainArrangeById(trainDateArrange.getTrainArrangeId());
+		    	
+		    	Long startTime = DateUtil.getTimeByDate(trainDateArrange.getDay()+" "+trainArrange.getStartTime(), DateUtil.YYMMRRHHMMSS);
+			    Long endTime = DateUtil.getTimeByDate(trainDateArrange.getEndDay()+" "+trainArrange.getEndTime(), DateUtil.YYMMRRHHMMSS);
+		    	if(startTimeOne < endTime+ConstantUtil.OutTime.TWOHOUR && endTimeOne > startTime-ConstantUtil.OutTime.TWOHOUR) {
+		    		throw new SystemException("该乘客有一个时间间隔过近的行程安排，不允许购票");
+		    	}
+		    }		    
+		}
+		return new ResultResponse<String>();
+	}
+	
+	
+	/**
+	 * 用户付款操作
+	 * @param orderId 订单id
+	 * @return
+	 */
+	@RequestMapping(value = "/payForOrder.do",method = RequestMethod.POST)
+	@ResponseBody
+	@Transactional
+	public ResultResponse<String> payForOrder(Integer orderId,HttpSession session) {
+		
+		ResultResponse<String> response = new ResultResponse<String>();
+		Order order = orderService.getOrderByOrderId(orderId);
+		if(null == order) {
+			throw new SystemException("订单已经不存在");
+		}
+		if(!OrderUtil.NOPAY.equals(order.getStatus())) {
+			throw new SystemException("当前订单出单处于"+OrderUtil.getDisByName(order.getStatus())+"状态，不能进行付款");
+		}	
+		String [] totlePrice = order.getTotlePrice();
+		User us = (User) session.getAttribute("user");
+		User user = userService.getUser(us.getPhone());
+		Integer money = 0;
+		for(String price : totlePrice) {
+			
+			money += Integer.valueOf(price.split(":")[1]);			
+		}
+		System.out.println(user.getMoney());
+		if(user.getMoney() < money) {
+			throw new SystemException("当前用户余额不足，请充值后重试");
+		}
+		// 更新订单状态为已付款和修改用户的账户余额，这里需要开启事务 
+		orderService.payForOrder(orderId);
+		service.reduceMoney(money, user.getId());
+		return response;
 	}
 }

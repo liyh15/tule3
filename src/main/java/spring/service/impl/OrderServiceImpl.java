@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 import dao.TrainDao;
 import entity.MapperOrder;
 import entity.Order;
+import entity.Passenger;
 import entity.TrainSeat;
 import spring.mapper.OrderMapper;
 import spring.service.IOrderService;
 import spring.service.ex.SystemException;
+import utils.OrderUtil;
 /**
  * 订单服务层实现类
  * @author 李元浩
@@ -28,7 +30,10 @@ public class OrderServiceImpl implements IOrderService {
      */
 	public Order getOrderByOrderId(Integer id) {
 		MapperOrder mapperOrder = orderMapper.getOrderByOrderId(id);
-		Order order = changeMapperOrderToOrder(mapperOrder);		
+		Order order = null;
+		if(null != mapperOrder) {
+			order = changeMapperOrderToOrder(mapperOrder);		
+		}		
 		return order;
 	}
 	
@@ -42,8 +47,8 @@ public class OrderServiceImpl implements IOrderService {
 		order.setUserId(mapperOrder.getUserId());
 		order.setStatus(mapperOrder.getStatus());
 		order.setTrafficDateArrangeId(mapperOrder.getTrafficDateArrangeId());
-		order.setTotlePrice(mapperOrder.getTotlePrice().split(","));
-		order.setPassengerId(changeStringToInteger(mapperOrder.getPassengerId().split("&")));
+		order.setTotlePrice(mapperOrder.getTotlePrice().split("&"));
+		order.setPassengerId(getArrayB(mapperOrder.getPassengerId()));
 		order.setType(mapperOrder.getType());
 		order.setExplain(mapperOrder.getOexplain().split("&"));
 		order.setReservation(mapperOrder.getReservation());;
@@ -52,8 +57,29 @@ public class OrderServiceImpl implements IOrderService {
 		order.setContactPhone(mapperOrder.getContactPhone());
 		order.setCreateTime(mapperOrder.getCreateTime());
 		order.setTimeClose(mapperOrder.getTimeClose());
+		
 		return order;
 	}
+	
+	/**
+	 * 转换订单乘客编号
+	 * @param line
+	 * @return
+	 */
+	 private Integer[] getArrayB(String line)
+	 {
+		 String [] lines=line.split("&");
+		 String [] lines2 = new String[lines.length-1];
+		 System.arraycopy(lines, 1, lines2, 0, lines2.length);
+		 Integer[] a=new Integer[lines2.length];
+		 for(int i=0;i<lines2.length;i++)
+		 {
+			 a[i]=Integer.parseInt(lines2[i]);
+		 }
+		 
+		 return a;
+	 }
+	
 	
 	/**
 	 * 将String类型数组转化为Integer类型数组
@@ -84,7 +110,7 @@ public class OrderServiceImpl implements IOrderService {
 				throw new SystemException("系统出现异常，请稍后重试");
 			}
 		}		
-		// 将次订单的状态置为已取消
+		// 将此订单的状态置为已取消
 		return orderMapper.cancelOrderById(id);
 	}
 
@@ -109,7 +135,28 @@ public class OrderServiceImpl implements IOrderService {
 		return orderMapper.deleteOrderById(id);
 	}
 
-
+	/**
+	 * 为订单付款
+	 * @param id 订单编号
+	 */
+	public void payForOrder(Integer id) {
+		
+	    Integer line = orderMapper.payForOrder(id, OrderUtil.DEAL);
+	    if(line < 1) {
+	    	throw new SystemException("订单付款失败，请重试");
+	    }
+	}
+	
+	/**
+	 * 通过乘客获取所有的订单信息
+	 * @param passengers 乘客信息集合
+	 * @return
+	 */
+	public List<MapperOrder> getOrderByPassenger(List<Passenger> passengers) {
+		
+		List<MapperOrder> mapperOrders = orderMapper.getOrderByPassenger(passengers);
+		return mapperOrders;
+	}
 }
 
 

@@ -32,5 +32,5 @@ public class BaseController {
 			response.setMessage(exception.getMessage());
 		}
 		return response;		
-	}
+	}	
 }

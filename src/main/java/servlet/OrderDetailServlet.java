@@ -71,6 +71,7 @@ public class OrderDetailServlet extends HttpServlet {
 			order.setType(type);
 			order.setExplain(explain);
 			order.setReservation(reservation);
+			order.setCommentStatus(OrderUtil.NO_COMMENT);
 			// 设置订单超时时间
 			Long time = 20L*60*1000;
 			Date data = new Date(new Date().getTime()+time);
@@ -114,7 +115,6 @@ public class OrderDetailServlet extends HttpServlet {
 			passenger.setName(userNames[i]);
 			passenger.setPersonalId(numbers[i]);
 			passenger.setType(bodyTypes[i]);
-
 			passenger.setUserId(user.getId());
 			passengers.add(passenger);
 		}
