@@ -42,5 +42,12 @@ public interface UserMapper {
 	 * @return
 	 */
 	public Integer payForMoney(@Param("money") Integer money,@Param("id") Integer id);
-    
+	
+	/**
+	 * 用户退款操作
+	 * @param money 退款的钱
+	 * @param id 用户编号
+	 * @return
+	 */
+	public Integer returnForMoney(@Param("money") Integer money,@Param("id") Integer id);  
 }

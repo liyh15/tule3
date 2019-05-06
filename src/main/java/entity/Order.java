@@ -22,7 +22,7 @@ public class Order implements Serializable {
     private String reservation;//预定方式
     private int returnPrice;//退还金额
     private String dAddress;//配送地址
-    private String contactPhone;//练习人手机号     
+    private String contactPhone;// 联系人手机号     
     private String timeClose; // 订单截止时间
     private String created; // 订单创建时间
     private String commentStatus; // 订单评论状态

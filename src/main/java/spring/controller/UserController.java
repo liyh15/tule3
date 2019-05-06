@@ -279,7 +279,7 @@ public class UserController extends BaseController {
 		    for(MapperOrder mapperOrder : mapperOrders) {
 		    	// 循环取出其中的日期安排编号
 		    	Integer trafficDateId = mapperOrder.getTrafficDateArrangeId();
-		    	if(trafficDateId == trafficDateId) {
+		    	if(trafficId == trafficDateId) {
 		    		throw new SystemException("该乘客不能重复购买相同车次的车票");
 		    	}
 		    	// 获得该行程的日期安排类

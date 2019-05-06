@@ -59,7 +59,7 @@
 	   WHERE
 	     id = #{id}
 	</update>
-	
+	<!-- 用户进行付款  -->
 	<update id = "payForMoney">
 	  UPDATE
 	    tule_user
@@ -69,5 +69,14 @@
 	    id = #{id,jdbcType = INTEGER}
 	  AND
 	    money - #{money,jdbcType = INTEGER} >= 0
+	</update>
+	<!-- 用户的退款操作 -->
+	<update id="returnForMoney">
+	  UPDATE
+	    tule_user
+	  SET
+	    money = money + #{money,jdbcType = INTEGER}
+	  WHERE
+	    id = #{id,jdbcType = INTEGER}
 	</update>
 </mapper>

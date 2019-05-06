@@ -55,4 +55,22 @@ public interface OrderMapper {
 	 * @return 订单集合
 	 */
 	public List<MapperOrder> getOrderByPassenger(@Param("passengers") List<Passenger> passengers);
+	
+	/**
+	 * 将订单状态设置为退票状态
+	 * @param id
+	 * @return
+	 */
+	public Integer returnTicket(@Param("id") Integer id);
+	
+	/**
+	 * 更新改签中的订单
+	 * @param trafficDateId 交通日期安排编号
+	 * @param totlePrice 总价格描述
+	 * @param explain 座位类型描述
+	 * @param id 订单编号
+	 * @return
+	 */
+	public Integer updateChangeTicketOrder(@Param("trafficDateId")Integer trafficDateId, 
+			@Param("totlePrice") String totlePrice, @Param("explain") String explain,@Param("id") Integer id);
 }

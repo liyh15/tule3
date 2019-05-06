@@ -92,6 +92,9 @@
 					        out.print(p);
 					    %>
 					</span>
+					<span style = "color:red;font-size:15px;display:none;margin-left:100px;cursor:pointer" class = "returnTicket">退票</span>
+					<span style = "color:red;font-size:15px;display:none;margin-left:20px;cursor:pointer" class = "changeTicket">改签</span>	
+					<span><input type = "date" class = "changedate" style = "display:none"/><input type = "button" class = "putchange" value = "确定" style = "display:none"></span>				
 <br>
 					<span class="fkdjs">付款倒计时：</span><span class="sjian" style="color: red;"></span>
 					<span class="sjiann">请在剩余时间内完成付款，逾期将自动取消</span><br>
@@ -206,31 +209,45 @@
 			var timeClose="${timeClose}";
 			var minate;
 			var second;
-			
+			var date; // 订单的发车日期
 			var myDate;
-			ref = setInterval(function(){
-				myDate = (new Date()).valueOf();
-				time = timeClose - myDate; // 获取与规定过期时间的时间差
-				if(time > 0){
-					minate = parseInt(time / 1000 / 60);
-					second = parseInt((time - (minate * 60 * 1000)) / 1000);
-	                 $(".sjian").text(minate+"分"+second+"秒");     
-	                 if(minate == 0 && second == 0){
-	                	 clearInterval(ref);
-	                	 cancelOrder();
-	                 }
-				} else {
-					 clearInterval(ref);
-					 $(".zt").text("已取消");
-					 $(".fkdjs").remove();
-					 $(".sjian").remove();
-					 $(".sjiann").remove();
-					 $(".zysx").remove();
-					 $(".qfk").remove();
-					 $(".zysx1").remove();
-					 $(".qxdd").remove();
-				}		
-			},500);
+			if( $(".zt").text() == "未付款") {
+				$(".returnTicket").css("display","none");
+				$(".changeTicket").css("display","none");
+				ref = setInterval(function(){
+					myDate = (new Date()).valueOf();
+					time = timeClose - myDate; // 获取与规定过期时间的时间差
+					if(time > 0){
+						minate = parseInt(time / 1000 / 60);
+						second = parseInt((time - (minate * 60 * 1000)) / 1000);
+		                 $(".sjian").text(minate+"分"+second+"秒");     
+		                 if(minate == 0 && second == 0){
+		                	 clearInterval(ref);
+		                	 cancelOrder();
+		                 }
+					} else {
+						 clearInterval(ref);
+						 $(".zt").text("已取消");
+						 $(".fkdjs").remove();
+						 $(".sjian").remove();
+						 $(".sjiann").remove();
+						 $(".zysx").remove();
+						 $(".qfk").remove();
+						 $(".zysx1").remove();
+						 $(".qxdd").remove();
+					}		
+				},500);
+			} else {				
+				 $(".returnTicket").css("display","inline-block");
+				 $(".changeTicket").css("display","inline-block");
+				 $(".fkdjs").remove();
+				 $(".sjian").remove();
+				 $(".sjiann").remove();
+				 $(".zysx").remove();
+				 $(".qfk").remove();
+				 $(".zysx1").remove();
+				 $(".qxdd").remove();
+			}			
 		});
 	    
 	    $(".qxdd").click(function(){
@@ -253,5 +270,61 @@
 	    	    }
 	    	});
 	    }
+	    
+	    $(".returnTicket").click(function(){
+	    	
+	    	// 获取火车日期安排编号
+	    	var orderId = "${order.id}";
+	    	if(confirm("您确定要退票吗？")) {
+	    		$.ajax({
+		    		"url": "returnTicket.do",
+		    	    "data":"id="+orderId,
+		    	    "dataType":"json",
+		    	    "type":"post",
+		    	    "success":function(data){
+		    	    	  alert(data.message);
+		    	    	  if(data.state == 200){
+		    	    		     window.location.reload();
+		    	    	  }                	
+		    	    }
+		    	});
+	    	}
+	    });
+	    $(".changeTicket").click(function(){
+	    	
+	    	// 获取火车日期安排编号
+	    	var orderId = "${order.id}";
+	    	alert("请选择改签的日期，只能当前车次日期向后的日期");
+	    	$(".changedate").css("display","inline-block");
+	    	$(".putchange").css("display","inline-block");	 	 
+	    	$.ajax({
+	    		"url": "getOrderDate.do",
+	    	    "data":"id="+orderId,
+	    	    "dataType":"json",
+	    	    "type":"post",
+	    	    "success":function(data){
+	    	    	  if(data.state == 200){
+	    	    		    date = data.param;
+	    	    	  }                	
+	    	    }
+	    	});
+	    });
+	    
+	    // 点击改签确定按钮
+	    $(".putchange").click(function(){
+	    	
+	    	// 获取火车日期安排编号
+	    	var orderId = "${order.id}";
+	    	var changeDate = $(".changedate").val();
+	    	if(date == null || date == "") {
+	    		alert("时间不能为空");
+	    	} else {
+	    		if(changeDate < date) {
+	    			alert("选择的时间不能小于本车次的发车时间");
+	    		} else {
+	    			window.location.href="changeTicket.do?id="+orderId+"&date="+changeDate;
+	    		}
+	    	}
+	    });
 	 </script>
 </html>

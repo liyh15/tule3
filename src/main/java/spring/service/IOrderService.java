@@ -1,5 +1,6 @@
 package spring.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import entity.MapperOrder;
@@ -51,4 +52,19 @@ public interface IOrderService {
 	 * @return
 	 */
 	public List<MapperOrder> getOrderByPassenger(List<Passenger> passengers);
+	
+	/**
+	 * 通过订单编号进行退票操作
+	 * @param id 订单编号
+	 */
+	public void returnTicket(Integer id) throws ParseException;
+	
+	/**
+	 * 改签中更新订单的操作
+	 * @param trafficDateId 交通安排日期编号
+	 * @param totlePrice 总价格描述
+	 * @param explain 座位安排描述
+	 * @param order 订单实体
+	 */
+	public void updateOrder(Integer trafficDateId,String totlePrice,String explain,Order order);
 }

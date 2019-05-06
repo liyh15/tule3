@@ -135,6 +135,8 @@ function allowConfirm() {
 			// 如果在之前的判断不被允许
 			if(falseDes != null) {
 				alert(falseDes);
+			} else {
+				alert("请输入正确的用户信息");
 			}
 	}	
 	return isAllow&&isSafe;

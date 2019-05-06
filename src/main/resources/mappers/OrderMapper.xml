@@ -88,7 +88,7 @@
              id = #{id}
          </if>		     
 	</update>
-	<!-- 通过乘客获取所有关联的订单 -->
+	<!-- 通过乘客编号获取所有关联的订单，用于购票乘客信息筛选 -->
 	<select id = "getOrderByPassenger" resultType="entity.MapperOrder">
 	    SELECT
 			id,
@@ -119,4 +119,34 @@
 		       status NOT IN ('0','2','3')
 		</where>		   
 	</select>
+	<!-- 退票中修改订单状态 -->
+	<update id="returnTicket">
+	   UPDATE
+	     tule_order
+	   SET
+		  status = 3
+	   WHERE
+		 <if test="id != null" >
+             id = #{id}
+         </if>	
+	   AND
+		  status = 1
+	   AND
+		  state = 1
+	</update>
+	<!-- 改前后修改订单 -->
+	<update id = "updateChangeTicketOrder">
+	   UPDATE
+	     tule_order
+	   SET
+	     traffic_date_arrange_id = #{trafficDateId,jdbcType = INTEGER},
+	     totle_price = #{totlePrice,jdbcType = VARCHAR},
+	     oexplain = #{explain,jdbcType = VARCHAR}
+	   WHERE
+	     id = #{id,jdbcType = INTEGER}
+	   AND
+	     status = 1
+	   AND
+	     state = 1
+	</update>
 </mapper>
