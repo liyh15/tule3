@@ -36,26 +36,35 @@ function change(num) {
 		}
 	}
 	$(".remain-time").each(function(index,value){
+		
 		if(num == 0) {
+			// 如果选择全部订单，则显示全部的订单
 			$(value).parent().parent().css("display","inline-block");
 		} else if(num == 1) {
+			// 如果选择代付款，则选择未付款的订单
 			$(value).parent().parent().css("display","inline-block");
 			if($(value).text().indexOf("未付款") == -1) {
 				$(value).parent().parent().css("display","none");
 			}
 		} else if(num == 2) {
-			$(value).parent().parent().css("display","inline-block");
-			if($(value).text().indexOf("已成交") == -1) {
-				$(value).parent().parent().css("display","none");
-			}
+			// 如果选择未出行的订单
+			var id = $(value).prev().text();
+			$.ajax({
+				"url": "order/checkOrderStartTime.do",
+			    "data":"id="+id,
+			    "dataType":"json",
+			    "type":"post",
+			    "success":function(data){
+		           if(data.state == 400) {
+		        	   $(value).parent().parent().css("display","none");
+		           } else {
+		        	   $(value).parent().parent().css("display","inline-block");
+		           }
+			    }
+			});
 		}
-	});
-	
-	// 订单筛选下拉框发生变化
-	$("#order").change(function() {
-		
-		alert("change");
-	});
+		// 还有待点评的订单还没有开始弄
+	});	
 }
 $(function() {
 	$(".second").children().eq(1).children().click(function() {

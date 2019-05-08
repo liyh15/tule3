@@ -290,13 +290,13 @@
 		    	});
 	    	}
 	    });
+	    
+	    // 点击改签按钮
 	    $(".changeTicket").click(function(){
 	    	
 	    	// 获取火车日期安排编号
 	    	var orderId = "${order.id}";
-	    	alert("请选择改签的日期，只能当前车次日期向后的日期");
-	    	$(".changedate").css("display","inline-block");
-	    	$(".putchange").css("display","inline-block");	 	 
+	    		 
 	    	$.ajax({
 	    		"url": "getOrderDate.do",
 	    	    "data":"id="+orderId,
@@ -305,6 +305,11 @@
 	    	    "success":function(data){
 	    	    	  if(data.state == 200){
 	    	    		    date = data.param;
+	    	    		    alert("请选择改签的日期，只能当前车次日期向后的日期");
+	    	    	    	$(".changedate").css("display","inline-block");
+	    	    	    	$(".putchange").css("display","inline-block");	 
+	    	    	  } else {
+	    	    		  alert(data.message);
 	    	    	  }                	
 	    	    }
 	    	});

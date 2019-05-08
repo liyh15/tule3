@@ -272,6 +272,25 @@ public class OrderServiceImpl implements IOrderService {
 			throw new SystemException("系统出现异常，请稍后重试");
 		}
 	}
+
+	/**
+	 * 对改签的车次信息进行检查
+	 * @param order
+	 * @throws ParseException 
+	 */
+	public void checkChangeTicket(Order order) throws ParseException {
+		
+		TrainDateArrange trainDateArrangeOne = trainMapper.getTrainDateArrangeById(order.getTrafficDateArrangeId());
+		TrainArrange trainArrangeOne = trainMapper.getTrainArrangeById(trainDateArrangeOne.getTrainArrangeId());	
+	    // 火车开车时间
+	    Long startTimeOne = DateUtil.getTimeByDate(trainDateArrangeOne.getDay()+" "+trainArrangeOne.getStartTime(), DateUtil.YYMMRRHHMMSS);
+		
+	    Date date = new Date();
+	    Long time = date.getTime();
+	    if(time > startTimeOne) {
+	    	throw new SystemException("该车次已经发车，不允许进行改签");
+	    }
+	}
 }
 
 

@@ -164,12 +164,23 @@ public class OrderController extends BaseController {
 	 /**
 	  * 获取订单的发车日期
 	  * @return
+	 * @throws ParseException 
 	  */
 	 @RequestMapping("/getOrderDate.do")
 	 @ResponseBody
-	 public ResultResponse<String> getOrderDate(@RequestParam("id") Integer id) {
+	 public ResultResponse<String> getOrderDate(@RequestParam("id") Integer id) throws ParseException {
 		 
 		 Order order = orderService.getOrderByOrderId(id);
+		 // 判断订单是否存在或者订单的状态是否允许进行改签(只有已成交的订单才可以进行改签)
+		 if(null == order) {
+			 throw new SystemException("当前订单已被删除");
+		 }
+		 if(!OrderUtil.DEAL.equals(order.getStatus())) {
+			 // 如果订单的状态不为已成交状态
+			 throw new SystemException("当前订单状态为:"+OrderUtil.getDisByName(order.getStatus())+"不允许进行改签操作");
+		 }
+		 // 对订单进行发车时间检查，看是否超出发车时间
+		 orderService.checkChangeTicket(order);
 		 TrainDateArrange trainDateArrange = trainService.getTrainDateArrangeById(order.getTrafficDateArrangeId());
 		 String date = trainDateArrange.getDay();
 		 ResultResponse<String> response = new ResultResponse<String>();
@@ -223,6 +234,22 @@ public class OrderController extends BaseController {
 			orderService.updateOrder(tArrange.getId(), totalPrice, explain, order);			
 		    return new ResultResponse<String>();
 	 }
+	 
+	 /**
+	  * 判断订单是否已经发车
+	  * @param id
+	  * @return
+	 * @throws ParseException 
+	  */
+	 @RequestMapping("/checkOrderStartTime.do")
+	 @ResponseBody
+	 public ResultResponse<String> checkOrderStartTime(Integer id) throws ParseException {
+		 
+		 Order order = orderService.getOrderByOrderId(id);
+		 orderService.checkChangeTicket(order);
+		 return new ResultResponse<String>();		 
+	 }
+	 
 	 /**
 	  * 添加定时器，定时更新订单的状态
 	  * 定时器适合4.3.9版本的spring

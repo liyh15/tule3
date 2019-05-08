@@ -1,9 +1,16 @@
 package spring.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
+import entity.StopOverSation;
+import entity.StopOverStationRequest;
+import entity.Train;
 import entity.TrainArrange;
 import entity.TrainDateArrange;
+import entity.TrainStation;
 
 /**
  * 火车类型的服务
@@ -26,4 +33,40 @@ public interface ITrainService {
 	 */
 	public TrainDateArrange getTrainDateArrangeById(Integer id);
 	
+	/**
+	 * 获取所有的列车
+	 * @return
+	 */
+	public List<Train> getAllTrain();	
+	
+	/**
+	 * 添加列车
+	 * @param trainName
+	 */
+	public void addTrain(String trainName);
+	
+	/**
+	 * 编辑列车
+	 * @param name 列车名称
+	 * @param id 列车标号
+	 */
+	public void editTrain(String name,Integer id);
+	
+	/**
+	 * 获得所有的列车的行程
+	 * @return
+	 */
+	public Map<Integer, List<StopOverSation>> getTrainTrip();
+	
+	/**
+	 * 获得所有的火车站
+	 * @return
+	 */
+	public List<TrainStation> getTrainStation();
+	
+	/**
+	 * 更新车次行程
+	 * @param requests
+	 */
+	public void updateTrainTrip(List<StopOverStationRequest> requests);
 }

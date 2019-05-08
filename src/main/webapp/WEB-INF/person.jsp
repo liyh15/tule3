@@ -116,6 +116,7 @@
 									<span class="price">
 									￥ <d:mySplit ex=":" params="${order.totlePrice }"/>
 									</span>
+									<span style = "display:none">${order.id}</span>
 									<span class="remain-time">
 										${order.status}
 									</span>

@@ -24,36 +24,35 @@
                 <img src="${pageContext.request.contextPath }/image/title.png" alt="">
                 <span>途乐管理员登录界面</span>
             </div>
-
             <div>
-                <form action="">
+                <form action="login.do" id = "form_data">
                     <div class="br-content">
 
                          <div class="input-group mb-4 bootint">
                              <div class="input-group-prepend">
                                  <span class="input-group-text"><i class="fa fa-user"></i></span>
                              </div>
-                             <input type="text" class="form-control" placeholder="Username">
+                             <input type="text" class="form-control" placeholder="请输入账号" name = "phone">
                          </div>
 
                          <div class="input-group mb-4 bootint">
                              <div class="input-group-prepend">
                                  <span class="input-group-text"><i class="fa fa-unlock-alt"></i></span>
                              </div>
-                             <input type="password" class="form-control" placeholder="Your Password">
+                             <input type="password" class="form-control" placeholder="请输入密码" name = "password">
+                             
+                         </div>                         
+                         <div class="input-group mb-4 bootint">      
+                                       
+                             <input type="code" class="form-control" placeholder="验证码" name = "code" id = "codeInput"> 
+                             <img src="codePic.do" class = "codeImage"/>
+                             <span style = "font-size:12px;cursor:pointer" class = "changeCode">看不清，换一张</span>                
                          </div>
-
-                        <div class="br-text">
-                            <p>
-                                <span>忘记密码?</span>
-                                <a href="">找回</a>
-                            </p>
-                        </div>
+                        
                         <div style="padding-top: 10px">
                             <input type="button" class="btn" value="登录">
                         </div>
-                        <div class="be-con">
-                            <span>2018 - 2019</span>
+                        <div class="be-con">                           
                         </div>
                     </div>
                 </form>
@@ -63,4 +62,34 @@
     </div>
 	
 </body>
+<script type="text/javascript">
+
+    $(".btn").click(function(){    	
+    	var form = $("#form_data").serialize();
+    	$.ajax({
+			"url": "login.do",
+		    "data":form,
+		    "dataType":"json",
+		    "type":"post",
+		    "success":function(data){
+	           if(data.state == 400) {
+	        	   alert(data.message);
+	           } else {
+	        	   // 登录成功跳转到管理员主界面
+	        	   window.location.href="mainView.do";
+	           }
+		    }
+		});
+    });
+    
+    // 更换验证码
+    $(".changeCode").click(function(){
+    	$.ajax({
+			"url": "codePic.do",
+		    "type":"post"
+		});
+    	$(".codeImage").remove();
+    	$("#codeInput").after("<img src='codePic.do' class = 'codeImage'/>");
+    });
+</script>
 </html>

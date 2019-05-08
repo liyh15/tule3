@@ -67,4 +67,10 @@ public interface IOrderService {
 	 * @param order 订单实体
 	 */
 	public void updateOrder(Integer trafficDateId,String totlePrice,String explain,Order order);
+	
+	/**
+	 * 对改签的车次信息进行检查
+	 * @param order
+	 */
+	public void checkChangeTicket(Order order) throws ParseException;
 }

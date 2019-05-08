@@ -42,4 +42,69 @@
 		WHERE
 		id = #{id,jdbcType = INTEGER}
 	</select>
+	
+	<!-- 查询所有的火车票 -->
+	<select id="getAllTrain" resultType="entity.Train">
+	    SELECT
+	       id,
+	       name
+	    FROM
+	       tule_train       
+	</select>
+	
+	<!-- 添加列车 -->
+	<insert id="addTrain">
+	  INSERT INTO
+	    tule_train(name,deptno)
+	  VALUES(#{name},1)	  
+	</insert>
+	
+	<!-- 通过列车查询列车车次 -->
+	<select id = "getTrainById" resultType="entity.Train">
+	   SELECT
+	       id,
+	       name
+	   FROM
+	       tule_train  
+	   WHERE
+	       id = #{id}     
+	</select>
+	
+	<!-- 更新列车 -->
+	<update id="updateTrainById">
+	   UPDATE
+	      tule_train 
+	   SET
+	      name = #{name}
+	   WHERE
+	      id = #{id}
+	</update>
+	
+	<!-- 获得所有的火车行程 -->
+	<select id = "getAllTrainTrip" resultType="entity.TrainTrip">
+	   SELECT
+	      id,
+	      `explain` trip
+	   FROM
+	      tule_train_trip
+	</select>
+	
+	<!-- 获得所有的车站 -->
+	<select id="getAllTrainStation" resultType="entity.TrainStation">
+	   SELECT
+	     id,
+	     name
+	   FROM
+	     tule_train_station  
+	</select>	
+	<!-- 通过行程编号获得指定的行程 -->
+	<select id="getTrainTripById" resultType="entity.TrainTrip">
+	    SELECT
+	      id,
+	      `explain` trip
+	    FROM
+	      tule_train_trip
+	    WHERE
+	      id = #{id}
+	</select>
 </mapper>

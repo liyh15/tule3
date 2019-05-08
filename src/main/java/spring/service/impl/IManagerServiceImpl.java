@@ -35,7 +35,9 @@ public class IManagerServiceImpl implements IManagerService {
 	 * @return
 	 */
 	public boolean confirmPassword(String passowrd,String cpassword,String salt){
+		System.out.println(salt);
 		String pass = getMd5Password(passowrd, salt);
+		System.out.println(pass);
 		if(pass.equals(cpassword)) {
 			return true;
 		} else {
@@ -78,12 +80,16 @@ public class IManagerServiceImpl implements IManagerService {
 		return DigestUtils.md5DigestAsHex(str.getBytes()).toUpperCase();
 	}
 
+	public String  aaa() {		
+		return getMd5Password("123","B6ED8BC0-41F7-4728-B21E-CB1D50FC9886");
+	}
+	
 	/**
 	 * 创建一个管理员
 	 */
 	public void createManager() {
         String salt = getSalt();
         String password = getMd5Password("123456", salt);
-        managerMapper.createManager("10001", password, salt);
+        managerMapper.createManager("10002", password, salt);
 	}
 }
