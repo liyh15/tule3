@@ -30,18 +30,28 @@
    <div id = "head">
        <img src = "../image/logo.png" style = "width: 100px;height: 100px"></br>
        <span class = "title">途乐车票管理系统</span></br></br>
-       <button id = "addTrain" class = "btn">编辑列车</button></br>
-       <button id = "addTrainTrip" class = "btn">编辑列车行程</button>
+       <button id = "editTrain" class = "btn">编辑列车</button></br>
+       <button id = "editTrainTrip" class = "btn">编辑列车行程</button></br>
+       <button id = "editTrainStation" class = "btn">编辑火车站</button></br>
+       <button id = "editTrainArrange" class = "btn">编辑火车安排</button>
    </div>
 </body>
 <script type="text/javascript">
-   $("#addTrain").click(function(){
+   $("#editTrain").click(function(){
 	   // 转发到编辑列车界面
 	   window.location.href="editTrainView.do";
    });
-   $("#addTrainTrip").click(function(){
+   $("#editTrainTrip").click(function(){
 	   // 转发到编辑列车行程界面
 	   window.location.href="editTrainTripView.do";
    });
+   $("#editTrainStation").click(function(){
+	   // 转发到编辑列车行程界面
+	   window.location.href="editTrainStaionView.do";
+   });
+   $("#editTrainArrange").click(function(){
+	   // 转发到添加火车安排界面
+	   window.location.href="editTrainArrangeView.do";
+   })
 </script>
 </html>

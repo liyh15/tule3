@@ -16,7 +16,7 @@ public class StopOverSation implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String station;  //站名
     private String arriveTime;//到达时间
-    private String startTime;//出发事件
+    private String startTime;//出发时间
     private String stopTime; //停留时间
 	public String getStation() {
 		return station;

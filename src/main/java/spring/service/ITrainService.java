@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import entity.EditTrainArrange;
+import entity.EditTrainStaion;
 import entity.StopOverSation;
 import entity.StopOverStationRequest;
 import entity.Train;
@@ -69,4 +71,43 @@ public interface ITrainService {
 	 * @param requests
 	 */
 	public void updateTrainTrip(List<StopOverStationRequest> requests);
+	
+	/**
+	 * 添加车次行程
+	 * @param stopOverSations
+	 */
+	public void addTrainTrip(List<StopOverSation> stopOverSations);
+	
+	/**
+	 * 获得所有的火车站
+	 * @return
+	 */
+	public List<EditTrainStaion> getAllEditTrainStaions();
+	
+	/**
+	 * 添加火车站
+	 * @param stationName 火车站名称
+	 * @param cityName 城市名称
+	 */
+	public void addTrainStaion(String stationName,Integer cityId);
+	
+	/**
+	 * 获得所有的火车安排
+	 * @return
+	 */
+	public List<EditTrainArrange> getAllTrainArrange();
+	
+	/**
+	 * 添加火车安排
+	 * @param startId 起始站编号
+	 * @param endId 到达站编号
+	 * @param trainId 火车编号
+	 * @param trainTripId 火车行程编号
+	 * @param startTime 开始时间
+	 * @param endTime 到达时间
+	 * @param totleTime 总时间
+	 */
+	public void addTrainArrange(Integer startId,
+			Integer endId,Integer trainId,Integer trainTripId,
+			String startTime,String endTime,String totleTime);
 }

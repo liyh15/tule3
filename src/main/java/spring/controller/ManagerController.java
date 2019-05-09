@@ -3,24 +3,39 @@ package spring.controller;
 import java.awt.image.RenderedImage;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import entity.City;
+import entity.EditTrainArrange;
+import entity.EditTrainStaion;
 import entity.Manager;
 import entity.StopOverSation;
 import entity.StopOverStationRequest;
+import entity.TableTrainArrange;
 import entity.Train;
+import entity.TrainArrange;
 import entity.TrainStation;
 import spring.service.IManagerService;
 import spring.service.ITrainService;
@@ -42,6 +57,10 @@ public class ManagerController extends BaseController {
 	
 	@Autowired
 	private ITrainService trainService;
+	
+	 @Autowired
+	 @Qualifier("redisTemplate")
+	 private RedisTemplate redisTemplate;
 	
 	/**
 	 * 管理员登录控制器
@@ -188,4 +207,174 @@ public class ManagerController extends BaseController {
 		trainService.updateTrainTrip(stopOverSations);
 		return new ResultResponse<String>();
 	}
+	
+	/**
+	 * 添加行程接口
+	 * @param stopOverSations
+	 * @return
+	 */
+	@RequestMapping("/addTrainTrip.do")
+	@ResponseBody
+	public ResultResponse<String> addTrainTrip(@RequestBody List<StopOverSation> stopOverSations) {
+		
+		trainService.addTrainTrip(stopOverSations);
+		return new ResultResponse<String>();
+	}
+	
+	/**
+	 * 转发到编辑火车站的界面
+	 * @return
+	 */
+	@RequestMapping("/editTrainStaionView.do")
+	public String editTrainStaionView(HttpSession session) {
+		
+		List<City> cities=(List<City>) redisTemplate.opsForValue().get("tule_CITY");
+		List<EditTrainStaion> editTrainStaions = trainService.getAllEditTrainStaions();
+		session.setAttribute("stations", editTrainStaions);
+		session.setAttribute("citys", cities);
+		return "edit_train_station";
+	}
+	
+	/**
+	 * 进行火车的站的添加
+	 * @param stationName
+	 * @param cityName
+	 * @return
+	 */
+	@RequestMapping("/editTrainStaion.do")
+	@ResponseBody
+	public ResultResponse<String> editTrainStaion(String stationName,String cityName) {
+		
+		if(StringUtils.isEmpty(stationName)) {
+			throw new SystemException("火车站名称不能为空");
+		}
+		if(StringUtils.isEmpty(cityName)) {
+			throw new SystemException("城市名称不能为空");
+		}
+		List<TrainStation> trainStations = trainService.getTrainStation();
+		for(TrainStation trainStation : trainStations) {
+			if(trainStation.getName().equals(stationName+"站")) {
+				throw new SystemException("此火车站已经存在");
+			}
+		}
+		List<City> cities=(List<City>) redisTemplate.opsForValue().get("tule_CITY");
+		Integer cityId = null;
+		for(City city : cities) {
+			if(city.getName().equals(cityName)) {
+				cityId = city.getId();
+			}
+		}
+		trainService.addTrainStaion(stationName+"站", cityId);
+		return new ResultResponse<String>();
+	}
+	
+	/**
+	 * 转发到编辑火车安排界面
+	 * @return
+	 */
+	@RequestMapping("/editTrainArrangeView.do")
+	public String editTrainArrange(HttpSession session){
+		
+		List<EditTrainArrange> editTrainArranges = trainService.getAllTrainArrange();
+		List<TableTrainArrange> tableTrainArranges = new ArrayList<TableTrainArrange>();
+		Map<String, Map<Integer,List<EditTrainArrange>>> map = new HashMap<String, Map<Integer,List<EditTrainArrange>>>();
+		for(EditTrainArrange editTrainArrange : editTrainArranges) {
+			
+			String trainName = editTrainArrange.getTrainName();
+			Integer tripId = editTrainArrange.getTripId();
+			if(map.containsKey(trainName)) {
+				Map<Integer,List<EditTrainArrange>> map2 = map.get(trainName);
+				if(map2.containsKey(tripId)) {
+					map2.get(tripId).add(editTrainArrange);
+				} else {
+					ArrayList<EditTrainArrange> editTrainArranges2 = new ArrayList<EditTrainArrange>();
+					editTrainArranges2.add(editTrainArrange);
+					map2.put(tripId,editTrainArranges2);
+				}
+			} else {
+				
+				Map<Integer,List<EditTrainArrange>> map2 = new HashMap<Integer, List<EditTrainArrange>>();
+				ArrayList<EditTrainArrange> editTrainArranges2 = new ArrayList<EditTrainArrange>();
+				editTrainArranges2.add(editTrainArrange);
+				map2.put(tripId, editTrainArranges2);
+				map.put(trainName, map2);
+			}
+		}
+		List<Train> trains = trainService.getAllTrain();
+		Map<Integer, List<StopOverSation>> tripMaps = trainService.getTrainTrip();
+		
+		session.setAttribute("arranges", map);
+		session.setAttribute("trains",trains);
+		session.setAttribute("tripMaps",tripMaps);
+		return "edit_train_arrange";
+	}
+	
+	/**
+	 * 添加火车安排
+	 * @return
+	 * @throws ParseException 
+	 */
+	@RequestMapping("/addTrainArrange.do")
+	@ResponseBody
+	public ResultResponse<String> addTrainArrange(String trainName,String trip) throws ParseException {
+		
+		if(StringUtils.isEmpty(trip)) {
+			throw new SystemException("请选择行程");
+		}
+		// 首先判断此列车是否已经安排了此行程
+		List<EditTrainArrange> trainArranges = trainService.getAllTrainArrange();
+		
+		for(EditTrainArrange editTrainArrange : trainArranges) {	
+			
+			if(editTrainArrange.getTrainName().equals(trainName) || editTrainArrange.getTripId() == Integer.valueOf(trip)) {
+				throw new SystemException("该列车已经已经安排了此行程");
+			}
+		}
+		Map<Integer, List<StopOverSation>> tMap = trainService.getTrainTrip();
+		// 获得当前行程的停靠信息
+		List<StopOverSation> sations = tMap.get(Integer.valueOf(trip));
+		// 获得所有车站的信息
+		List<TrainStation> trainStations = trainService.getTrainStation();
+		// 获得所有的火车的信息
+		List<Train> trains = trainService.getAllTrain();
+		Integer trainId = null;
+		SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+		for(Train train : trains) {
+			if(train.getName().equals(trainName)) {
+				trainId = train.getId();
+			}
+		}	
+		for(int i = 0;i < sations.size();i++) {
+			if(i != sations.size()-1) {
+				for(int j = i+1;j < sations.size();j++) {
+					// 分别获得一次安排的起始站和终点站
+					String startStation = sations.get(i).getStation();
+					String endStation = sations.get(j).getStation();
+					String startTime = sations.get(i).getStartTime();
+					String endTime = sations.get(j).getArriveTime();
+					Long reduce = format.parse(endTime).getTime()-format.parse(startTime).getTime();
+					
+					Double totleTime = Double.valueOf(reduce)/1000/60/60;
+					BigDecimal bg = new BigDecimal(totleTime).setScale(1, RoundingMode.UP);
+					Integer startId = null;
+					Integer endId = null;
+					for(TrainStation trainStation : trainStations) {
+						if(trainStation.getName().equals(startStation)) {
+							startId = trainStation.getId();
+						}
+						if(trainStation.getName().equals(endStation)) {
+							endId = trainStation.getId();
+						}
+					}
+					trainService.addTrainArrange(startId, endId, trainId, Integer.valueOf(trip), startTime, endTime, bg.doubleValue()+"小时");
+				}
+			}			
+		}
+		return new ResultResponse<String>();
+	}
 }
+
+
+
+
+

@@ -29,6 +29,34 @@
 		WHERE
 		tta.id = #{id,jdbcType = INTEGER}
 	</select>
+	
+    <!-- 获得所有的火车安排 -->
+    <select id="getAllTrainArrange" resultType="entity.EditTrainArrange">
+        SELECT
+        tta.id,
+        tta.train_trip_id tripId,
+		tt.name trainName,
+		tta.start_time startTime,
+		tta.end_time endTime,
+		tta.t_time totalTime,
+		ttsa.`name` startStation,
+		ttsb.name endStation
+		FROM
+		tule_train_arrange tta
+		JOIN
+		tule_train tt
+		ON
+		tt.id = tta.train_id
+		JOIN
+		tule_train_station ttsa
+		ON
+		tta.start_id = ttsa.id
+		JOIN
+		tule_train_station ttsb
+		ON
+		tta.end_id = ttsb.id  
+    </select>
+
 
 	<select id="getTrainDateArrangeById" resultType="entity.TrainDateArrange">
 		SELECT
@@ -97,6 +125,7 @@
 	   FROM
 	     tule_train_station  
 	</select>	
+	
 	<!-- 通过行程编号获得指定的行程 -->
 	<select id="getTrainTripById" resultType="entity.TrainTrip">
 	    SELECT
@@ -107,4 +136,49 @@
 	    WHERE
 	      id = #{id}
 	</select>
+	
+	<!-- 更新火车行程 -->
+	<update id="updateTrainTripById">
+	   UPDATE
+	     tule_train_trip
+	   SET
+	     `explain` = #{explain}
+	   WHERE
+	      id = #{id}
+	</update>
+	
+	<!-- 添加列车行程 -->
+	<insert id="addTrainTrip">
+	   INSERT INTO
+	      tule_train_trip(`explain`)	 
+	   VALUES(#{explain})
+	</insert>
+	
+	<!-- 获得所有的火车站 -->
+	<select id="getEditTrainStaions" resultType="entity.EditTrainStaion">
+	   SELECT
+	      ts.id,
+	      ts.name stationName,
+	      tc.name cityName
+	   FROM
+	      tule_train_station ts
+	   LEFT JOIN
+	      tule_city tc
+	   ON
+	      ts.city_id = tc.id	        
+	</select>
+	
+	<!-- 添加火车站 -->
+	<insert id="addTrainStaion">
+	   INSERT INTO
+	      tule_train_station(name,city_id)
+	   VALUES(#{name},#{id})
+	</insert>
+	
+	<!-- 添加火车安排 -->
+	<insert id="addTrainArrange">
+	   INSERT INTO
+	      tule_train_arrange(start_id,end_id,train_id,train_trip_id,start_time,end_time,t_time)
+	   VALUES(#{startId},#{endId},#{trainId},#{trainTripId},#{startTime},#{endTime},#{totleTime})	
+	</insert>
 </mapper>
