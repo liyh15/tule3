@@ -33,7 +33,8 @@
        <button id = "editTrain" class = "btn">编辑列车</button></br>
        <button id = "editTrainTrip" class = "btn">编辑列车行程</button></br>
        <button id = "editTrainStation" class = "btn">编辑火车站</button></br>
-       <button id = "editTrainArrange" class = "btn">编辑火车安排</button>
+       <button id = "editTrainArrange" class = "btn">编辑火车安排</button></br>
+       <button id = "editTrainDateArrange" class = "btn">编辑火车日期安排</button>
    </div>
 </body>
 <script type="text/javascript">
@@ -52,6 +53,10 @@
    $("#editTrainArrange").click(function(){
 	   // 转发到添加火车安排界面
 	   window.location.href="editTrainArrangeView.do";
+   })
+   $("#editTrainDateArrange").click(function(){
+	   // 转发到编辑火车日期安排界面
+	   window.location.href="editTrainDateArrangeView.do";
    })
 </script>
 </html>

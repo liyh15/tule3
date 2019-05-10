@@ -126,5 +126,16 @@ public interface TrainMapper {
 	public Integer addTrainArrange(@Param("startId")Integer startId,
 			@Param("endId")Integer endId, @Param("trainId") Integer trainId, @Param("trainTripId") Integer trainTripId,
 			@Param("startTime") String startTime, @Param("endTime") String endTime, @Param("totleTime") String totleTime);
+	
+	/**
+	 * 通过火车名称查询火车所有的日期安排
+	 * @param trainName
+	 * @return
+	 */
+	public List<TrainArrange> queryTrainDateArrangeByTrainName(@Param("id") Integer trainId);
+	
+	public Integer addTrainDateArrange(@Param("startDay")String startDay, 
+			@Param("arrangeId") Integer arrangeId, 
+			@Param("explain") String explain, @Param("endDay") String endDay, @Param("groupId") Integer groupId);
 }
 

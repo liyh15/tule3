@@ -18,6 +18,10 @@ public class TrainArrange implements Serializable {
      private String totalTime;//总时间
      private ArrayList<TrainSeat> trainSeats;//舱段的价格及剩余座位类
      private ArrayList<StopOverSation> stopOverSations;//经停站集合  
+     private int tripId;
+     private String trainSeat;
+     private int groupId;
+     private int arrangeId;
 	public int getId() {
 		return id;
 	}
@@ -85,6 +89,34 @@ public class TrainArrange implements Serializable {
 	}
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+	
+	public int getTripId() {
+		return tripId;
+	}
+	public void setTripId(int tripId) {
+		this.tripId = tripId;
+	}
+	public String getTrainSeat() {
+		return trainSeat;
+	}
+	public void setTrainSeat(String trainSeat) {
+		this.trainSeat = trainSeat;
+	}
+	
+	
+	public int getGroupId() {
+		return groupId;
+	}
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
+	}
+	
+	public int getArrangeId() {
+		return arrangeId;
+	}
+	public void setArrangeId(int arrangeId) {
+		this.arrangeId = arrangeId;
 	}
 	@Override
 	public String toString() {

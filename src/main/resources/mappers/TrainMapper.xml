@@ -181,4 +181,43 @@
 	      tule_train_arrange(start_id,end_id,train_id,train_trip_id,start_time,end_time,t_time)
 	   VALUES(#{startId},#{endId},#{trainId},#{trainTripId},#{startTime},#{endTime},#{totleTime})	
 	</insert>
+	
+	<!--通过火车名称查询火车所有的日期安排-->
+	<select id="queryTrainDateArrangeByTrainName" resultType="entity.TrainArrange">
+	   SELECT
+		 tda.id id,
+		 tda.`day` date,
+		 tda.end_day endDate,
+		 ta.start_time startTime,
+		 ta.end_time endTime,
+		 tsa.`name` startStation,
+		 tsb.`name` endStation,
+		 ta.t_time totalTime,
+		 ta.train_trip_id tripId,
+		 tda.`explain` trainSeat,
+		 tda.group_id groupId,
+		 ta.id arrangeId
+	   FROM
+		 tule_train_date_arrange tda
+		JOIN
+		 tule_train_arrange ta
+	   ON
+		 tda.train_arrange_id = ta.id
+	   JOIN
+		 tule_train_station tsa
+	   ON
+		 ta.start_id  =tsa.id
+       JOIN
+		 tule_train_station tsb
+	   ON 
+		 ta.end_id = tsb.id
+	   WHERE
+		 ta.train_id = #{id}
+	</select>
+	<!-- 添加火车日期安排 -->
+	<insert id = "addTrainDateArrange">
+	  INSERT INTO
+	     tule_train_date_arrange(day,train_arrange_id,`explain`,group_id,end_day)
+	  VALUES(#{startDay},#{arrangeId},#{explain},#{groupId},#{endDay})	  
+	</insert>
 </mapper>

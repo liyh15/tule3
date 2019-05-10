@@ -110,4 +110,20 @@ public interface ITrainService {
 	public void addTrainArrange(Integer startId,
 			Integer endId,Integer trainId,Integer trainTripId,
 			String startTime,String endTime,String totleTime);
+	
+	/**
+	 * 通过火车名称查询火车日期安排
+	 * @param trainName
+	 * @return
+	 */
+	public List<TrainArrange> queryTrainDateArrangeByTrainName(Integer trainId);
+	
+	/**
+	 * 添加火车日期安排
+	 * @param startDay
+	 * @param arrangeId
+	 * @param explain
+	 * @param endDay
+	 */
+	public void addTrainDateArrange(String startDay,Integer arrangeId,String explain,String endDay,Integer groupId);
 }

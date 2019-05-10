@@ -34,6 +34,10 @@ public class TrainDao {
 	private int version;
 	// 更改后的查询的行程票数剩余情况
 	private String exp;
+	
+	private int trainIdt;
+	
+	private int trainTripIdt;
 	/**
 	 * 通过起始站和终点站的名字和日期查找火车安排
 	 * 
@@ -317,12 +321,16 @@ public class TrainDao {
 		while (resultSet.next()) {
 			String explain = resultSet.getString("tda.explain");
 			int arrangeId = resultSet.getInt("tda.train_arrange_id");
+			int trainId = resultSet.getInt("tta.train_id");
+			int trainTripId = resultSet.getInt("tta.train_trip_id");
+			trainIdt=trainId;
+			trainTripIdt=trainTripId;
 			JSONArray jsonArray = JSONArray.fromObject(explain);
 			// 获得每种座位的剩余情况集合
 			ArrayList<TrainSeat> trainSeatss = (ArrayList<TrainSeat>) jsonArray.toList(jsonArray, TrainSeat.class);
 			// 获得所指定的座位实体类
 			TrainSeat trainSeat = trainSeatss.get(type);
-			// 将剩余座位的个数减1
+			// 将该类型的该座位占掉
 			trainSeat.reduceSeat(seat);
 			// 将座位集合重新打包成json对象
 			explain = JSONArray.fromObject(trainSeatss).toString();
@@ -331,7 +339,7 @@ public class TrainDao {
 				// 当遍历到所购买的行程时
 				exp=explain;
 			}else{
-				updateTrainSeat(one, two, groupId, explain, connection,type);
+				updateTrainSeat(one, two, groupId, explain, connection,type,trainId,trainTripId);
 			}
 		}		
 	}
@@ -349,7 +357,7 @@ public class TrainDao {
 	 *            火车安排座位情况json字符串
 	 * @throws SQLException
 	 */
-	private void updateTrainSeat(String one, String two, int groupId, String explain, Connection connection,int type)
+	private void updateTrainSeat(String one, String two, int groupId, String explain, Connection connection,int type,int trainId,int trainTripId)
 			throws SQLException {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -357,12 +365,14 @@ public class TrainDao {
 		String sql = "update tule_train_date_arrange set `explain`=?,version"+type+"=version"+type+"+1 where group_id=? and train_arrange_id="
 				+ "(select id from tule_train_arrange where start_id="
 				+ "(select id from tule_train_station where name=?) and end_id="
-				+ "(select id from tule_train_station where name=?));";
+				+ "(select id from tule_train_station where name=?) and train_id=? and train_trip_id=?);";
 		statement = connection.prepareStatement(sql);
 		statement.setString(1, explain);
 		statement.setInt(2, groupId);
 		statement.setString(3, one);
 		statement.setString(4, two);
+		statement.setInt(5, trainId);
+		statement.setInt(6, trainTripId);
 		statement.executeUpdate();
 	}
 
@@ -384,15 +394,17 @@ public class TrainDao {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		
-		String sql = "update tule_train_date_arrange set `explain`=?,version"+type+"=version"+type+"+1 where group_id=? and train_arrange_id="
+		String sql = "update tule_train_date_arrange set `explain`=?,version"+type+"=version"+type+"+1 where group_id=? and version"+type+"="+version+" and train_arrange_id="
 				+ "(select id from tule_train_arrange where start_id="
-				+ "(select id from tule_train_station where name=?) and version"+type+"="+version+" and end_id="
-				+ "(select id from tule_train_station where name=?));";
+				+ "(select id from tule_train_station where name=?) and end_id="
+				+ "(select id from tule_train_station where name=?) and train_id=? and train_trip_id=?)";
 		statement = connection.prepareStatement(sql);
 		statement.setString(1, explain);
 		statement.setInt(2, groupId);
 		statement.setString(3, one);
 		statement.setString(4, two);
+		statement.setInt(5, trainIdt);
+		statement.setInt(6, trainTripIdt);
 		// 获取受影响行数，如果为零则表示事务执行行已被更改，执行回滚
 		int rows=statement.executeUpdate();
 		if(rows == 0){
@@ -606,6 +618,10 @@ public class TrainDao {
 		while (resultSet.next()) {
 			String explain = resultSet.getString("tda.explain");
 			int arrangeId = resultSet.getInt("tda.train_arrange_id");
+			int trainId = resultSet.getInt("tta.train_id");
+			int trainTripId = resultSet.getInt("tta.train_trip_id");
+			trainIdt=trainId;
+			trainTripIdt=trainTripId;
 			JSONArray jsonArray = JSONArray.fromObject(explain);
 			// 获得每种座位的剩余情况集合
 			ArrayList<TrainSeat> trainSeatss = (ArrayList<TrainSeat>) jsonArray.toList(jsonArray, TrainSeat.class);
@@ -620,7 +636,7 @@ public class TrainDao {
 				// 当遍历到所购买的行程时
 				exp=explain;
 			}else{
-				updateTrainSeat(one, two, groupId, explain, connection,type);
+				updateTrainSeat(one, two, groupId, explain, connection,type,trainId,trainTripId);
 			}
 		}		
 	}

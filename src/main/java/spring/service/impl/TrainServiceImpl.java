@@ -7,6 +7,8 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import entity.EditTrainArrange;
@@ -30,6 +32,11 @@ public class TrainServiceImpl implements ITrainService {
 	private final static String MINUTE = "分钟";
 	
 	private final static String BASETIME = "zz:zz:zz";
+	
+	@Autowired
+	@Qualifier("redisTemplate")
+	private RedisTemplate redisTemplate;
+	
 	@Autowired
 	private TrainMapper trainMapper;
 	/**
@@ -287,6 +294,33 @@ public class TrainServiceImpl implements ITrainService {
 		Integer line = trainMapper.addTrainArrange(startId, endId, trainId, trainTripId, startTime, endTime, totleTime);
 		if(line < 1) {
 			throw new SystemException("添加火车安排失败，请重试");
+		}
+	}
+
+	/**
+	 * 通过火车名称查询火车日期安排
+	 * @param trainName
+	 * @return
+	 */
+	public List<TrainArrange> queryTrainDateArrangeByTrainName(Integer trainId) {
+		
+		List<TrainArrange> tArranges = trainMapper.queryTrainDateArrangeByTrainName(trainId);
+		
+		return tArranges;
+	}
+
+	/**
+	 * 添加火车日期安排
+	 * @param startDay
+	 * @param arrangeId
+	 * @param explain
+	 * @param endDay
+	 */
+	public void addTrainDateArrange(String startDay, Integer arrangeId, String explain, String endDay,Integer groupId) {
+
+		Integer line = trainMapper.addTrainDateArrange(startDay, arrangeId, explain, endDay, groupId);
+		if(line < 1) {
+			throw new SystemException("添加火车日期安排失败，请重试");
 		}
 	}	
 }

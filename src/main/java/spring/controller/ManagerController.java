@@ -8,6 +8,7 @@ import java.math.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,9 @@ import entity.StopOverStationRequest;
 import entity.TableTrainArrange;
 import entity.Train;
 import entity.TrainArrange;
+import entity.TrainSeat;
 import entity.TrainStation;
+import net.sf.json.JSONArray;
 import spring.service.IManagerService;
 import spring.service.ITrainService;
 import spring.service.ex.SystemException;
@@ -326,7 +330,7 @@ public class ManagerController extends BaseController {
 		
 		for(EditTrainArrange editTrainArrange : trainArranges) {	
 			
-			if(editTrainArrange.getTrainName().equals(trainName) || editTrainArrange.getTripId() == Integer.valueOf(trip)) {
+			if(editTrainArrange.getTrainName().equals(trainName) && editTrainArrange.getTripId() == Integer.valueOf(trip)) {
 				throw new SystemException("该列车已经已经安排了此行程");
 			}
 		}
@@ -370,6 +374,187 @@ public class ManagerController extends BaseController {
 				}
 			}			
 		}
+		return new ResultResponse<String>();
+	}
+	
+	/**
+	 * 转发到编辑火车日期安排界面
+	 * @return
+	 */
+	@RequestMapping("/editTrainDateArrangeView.do")
+	public String editTrainDateArrangeView(HttpSession session) {
+		
+		List<Train> trains = trainService.getAllTrain();
+		session.setAttribute("trains", trains);
+		return "edit_train_date_arrange";
+	}
+	
+	/**
+	 * 通过列车名称查询此列车所有的火车日期安排
+	 * @param trainName
+	 * @return
+	 */
+	@RequestMapping("/queryTrainDateArrangeByName.do")
+	@ResponseBody
+	public ResultResponse<Map<Integer, Map<Integer, List<TrainArrange>>>> queryTrainDateArrangeByName(String trainName) {
+		
+		List<Train> trains = trainService.getAllTrain();
+		Integer trainId = null;
+		for(Train train : trains) {
+			if(train.getName().equals(trainName)) {
+				trainId = train.getId();
+			}
+		}
+		List<TrainArrange> tArranges = trainService.queryTrainDateArrangeByTrainName(trainId);
+		
+		Map<Integer, Map<Integer, List<TrainArrange>>> map = new HashMap<Integer, Map<Integer,List<TrainArrange>>>();
+		
+		for(TrainArrange trainArrange : tArranges) {
+			
+			JSONArray jsonArray = JSONArray.fromObject(trainArrange.getTrainSeat());
+			ArrayList<TrainSeat> trainSeats = (ArrayList<TrainSeat>) jsonArray.toList(jsonArray, TrainSeat.class);
+			trainArrange.setTrainSeats(trainSeats);
+			if(map.containsKey(trainArrange.getTripId())) {
+				
+				Map<Integer, List<TrainArrange>> map2 = map.get(trainArrange.getTripId());
+				if(map2.containsKey(trainArrange.getGroupId())) {
+					map2.get(trainArrange.getGroupId()).add(trainArrange);
+				} else {
+					List<TrainArrange> list = new ArrayList<TrainArrange>();
+					list.add(trainArrange);
+					map2.put(trainArrange.getGroupId(), list);
+				}				
+			} else {
+				// 如果集合map不包含这个行程编号
+				Map<Integer, List<TrainArrange>> map2 = new HashMap<Integer, List<TrainArrange>>();
+				List<TrainArrange> list = new ArrayList<TrainArrange>();
+				list.add(trainArrange);
+				map2.put(trainArrange.getGroupId(), list);
+				map.put(trainArrange.getTripId(), map2);
+			}
+		}			
+		ResultResponse<Map<Integer, Map<Integer, List<TrainArrange>>>> response = new ResultResponse<Map<Integer,Map<Integer,List<TrainArrange>>>>();
+		response.setParam(map);
+		return response;
+	}
+	
+	/**
+	 * 查询指定火车的所有安排
+	 * @return
+	 */
+	@RequestMapping("/queryTrainArrangeByTrain.do")
+	@ResponseBody
+	public ResultResponse<Map<Integer, List<EditTrainArrange>>> queryTrainArrangeByTrain(String trainName) {
+		
+		// 查询出所有的该车次安排
+	    List<EditTrainArrange> trainArranges = trainService.getAllTrainArrange();
+	    Map<Integer, List<EditTrainArrange>> map = new HashMap<Integer, List<EditTrainArrange>>();
+	    for(EditTrainArrange editTrainArrange : trainArranges) {
+	    	
+	    	if(editTrainArrange.getTrainName().equals(trainName)) {
+	    		if(map.containsKey(editTrainArrange.getTripId())) {
+	    			map.get(editTrainArrange.getTripId()).add(editTrainArrange);
+	    		} else {
+	    			ArrayList<EditTrainArrange> list = new ArrayList<EditTrainArrange>();
+	    			list.add(editTrainArrange);
+	    			map.put(editTrainArrange.getTripId(),list);
+	    		}
+	    	}
+	    }
+	    ResultResponse<Map<Integer, List<EditTrainArrange>>> response = new ResultResponse<Map<Integer,List<EditTrainArrange>>>();
+	    response.setParam(map);
+		return response;
+	}
+	
+	@RequestMapping("/addTrainDateArrange.do")
+	@ResponseBody
+	public ResultResponse<String> addTrainDateArrange(Integer tripId,String trainName,String date) throws ParseException {
+		
+		if(null == tripId || "".equals(tripId)) {
+			throw new SystemException("没有指定行程编号");
+		}
+		if(null == date || "".equals(date)) {
+			throw new SystemException("没有选择时间");
+		}
+		Integer groupId = (Integer) redisTemplate.opsForValue().get("dateGroupId");
+		if(null == groupId) {
+			groupId = 3;
+			redisTemplate.opsForValue().set("dateGroupId", 3);
+		} else {
+			redisTemplate.opsForValue().set("dateGroupId", groupId+1);
+		}
+		// 查询出所有的该车次安排
+	    List<EditTrainArrange> trainArranges = trainService.getAllTrainArrange();
+	    List<EditTrainArrange> tArranges = new ArrayList<EditTrainArrange>();
+	    for(EditTrainArrange editTrainArrange : trainArranges) {
+	    	if(editTrainArrange.getTrainName().equals(trainName) && editTrainArrange.getTripId() == tripId) {
+	    		tArranges.add(editTrainArrange);
+	    	}
+	    }
+	    
+	    List<Train> trains = trainService.getAllTrain();
+		Integer trainId = null;
+		for(Train train : trains) {
+			if(train.getName().equals(trainName)) {
+				trainId = train.getId();
+			}
+		}
+		List<TrainArrange> trainArranges2 = trainService.queryTrainDateArrangeByTrainName(trainId);
+        for(TrainArrange trainArrange : trainArranges2) {
+        	
+        	for(EditTrainArrange editTrainArrange : tArranges) {
+        		if(editTrainArrange.getId() == trainArrange.getArrangeId() || date.equals(trainArrange.getDate())) {
+        			throw new SystemException("该列车已经安排了本次行程");
+        		}
+        	}
+        }
+	    
+	    
+	    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    for(EditTrainArrange editTrainArrange : tArranges) {
+	    	String startDay = date;
+	    	String endDay = date;
+	    	Integer arrangeId = editTrainArrange.getId();
+	    	String trainSeat = null;
+	    	if(trainName.startsWith("G") || trainName.startsWith("D")) {
+	    		TrainSeat seat1=new TrainSeat();
+	    		TrainSeat seat2=new TrainSeat();
+	    		TrainSeat seat3=new TrainSeat();
+	    		seat1.setSeatType("商务座");
+	    		seat2.setSeatType("一等座");
+	    		seat3.setSeatType("二等座");
+	    		seat1.setPrice(300);
+	    		seat2.setPrice(200);
+	    		seat3.setPrice(100);
+	    		List<TrainSeat> trainSeats=new ArrayList<TrainSeat>();
+	    		trainSeats.add(seat1);
+	    		trainSeats.add(seat2);
+	    		trainSeats.add(seat3);
+	    		JSONArray jsonArray=JSONArray.fromObject(trainSeats);
+	    		trainSeat = jsonArray.toString();
+	    	} else {
+	    		TrainSeat seat1=new TrainSeat();
+	    		TrainSeat seat2=new TrainSeat();
+	    		TrainSeat seat3=new TrainSeat();
+	    		TrainSeat seat4=new TrainSeat();
+	    		seat1.setSeatType("硬座");
+	    		seat2.setSeatType("硬卧");
+	    		seat3.setSeatType("软卧");
+	    		seat4.setSeatType("无座");
+	    		seat1.setPrice(300);
+	    		seat2.setPrice(200);
+	    		seat3.setPrice(100);
+	    		seat4.setPrice(50);
+	    		List<TrainSeat> trainSeats=new ArrayList<TrainSeat>();
+	    		trainSeats.add(seat1);
+	    		trainSeats.add(seat2);
+	    		trainSeats.add(seat3);
+	    		trainSeats.add(seat4);
+	    		JSONArray jsonArray=JSONArray.fromObject(trainSeats);
+	    		trainSeat = jsonArray.toString();
+	    	}
+	    	trainService.addTrainDateArrange(startDay, arrangeId, trainSeat, endDay,groupId);
+	    }
 		return new ResultResponse<String>();
 	}
 }
