@@ -23,6 +23,7 @@ tr td {
 		</c:forEach>
 	</select>
 	<button id="checkArrange">确定</button>
+	 <button class = "returnMain">返回主页</button>
 	<table border="1" cellspacing="0" width="100%" height="10%" id="table">
 		<tr>
 			<th>火车行程编号</th>
@@ -155,6 +156,10 @@ tr td {
 				alert(data.message);
 			}
 		});
-	})
+	});
+	
+	$(".returnMain").click(function(){
+		   window.location.href = "mainView.do";
+	   })
 </script>
 </html>

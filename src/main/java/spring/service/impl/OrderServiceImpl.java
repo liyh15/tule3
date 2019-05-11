@@ -208,11 +208,11 @@ public class OrderServiceImpl implements IOrderService {
 			}
 			if((nowTime + ConstantUtil.OutTime.FIFTEENDAY) > startTimeOne
 					&& (nowTime + ConstantUtil.OutTime.FOUREIGHTHOUR) < startTimeOne) {
-				// 当时间大于发车时间15天，小于发车时间48小时
+				// 当时间大于发车时间48小时
 				money = (int) (money * 0.95);
 			} else if((nowTime + ConstantUtil.OutTime.FOUREIGHTHOUR) >= startTimeOne
 					&&(nowTime + ConstantUtil.OutTime.ONEDAY) < startTimeOne) {
-				// 如果时间大于开车前48小时，小于24小时
+				// 如果时间小于开车前48小时，大于24小时
 				money = (int) (money * 0.90);
 			} else if((nowTime + ConstantUtil.OutTime.ONEDAY) >= startTimeOne) {
 				// 如果时间小于开车前24小时

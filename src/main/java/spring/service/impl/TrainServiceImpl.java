@@ -90,9 +90,16 @@ public class TrainServiceImpl implements ITrainService {
 	 */
 	public void editTrain(String name, Integer id) {
 		
+		List<Train> trains = trainMapper.getAllTrain();		
 		Train train = trainMapper.getTrainById(id);
 		String trainName = train.getName();
 		String newName = trainName.substring(0,1)+name;
+		for(Train train2 : trains) {
+			String tn = train2.getName();
+			if(tn.equals(newName)) {
+				throw new SystemException("列车名字重复");
+			}
+		}
 		Integer line = trainMapper.updateTrainById(newName, id);
 		if(line < 1) {
 			throw new SystemException("编辑列车失败");
@@ -139,6 +146,13 @@ public class TrainServiceImpl implements ITrainService {
 		
 		// 获得本次行程的编号
 		Integer id = requests.get(0).getId();
+		List<EditTrainArrange> editTrainArranges = trainMapper.getAllTrainArrange();
+		for(EditTrainArrange editTrainArrange : editTrainArranges) {
+			// 判断此行程是否绑定了火车安排
+			if(editTrainArrange.getTripId() == id) {
+				throw new SystemException("此行程已绑定车次安排，不可进行修改");
+			}
+		}		
 		TrainTrip trainTrip = trainMapper.getTrainTripById(id);
 		JSONArray jsonArray = JSONArray.fromObject(trainTrip.getTrip());
 		ArrayList<StopOverSation> sation = (ArrayList<StopOverSation>) jsonArray.toList(jsonArray,

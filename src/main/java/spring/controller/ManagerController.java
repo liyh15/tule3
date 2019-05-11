@@ -45,6 +45,7 @@ import spring.service.IManagerService;
 import spring.service.ITrainService;
 import spring.service.ex.SystemException;
 import utils.CodeUtil;
+import utils.ConstantUtil;
 import utils.TrainUtil;
 
 /**
@@ -168,6 +169,9 @@ public class ManagerController extends BaseController {
 	@ResponseBody
 	public ResultResponse<String> addTrain(String name,String type) {
 		
+		if(StringUtils.isEmpty(name)) {
+			throw new SystemException("列车名字不能为空");
+		}
 		String typed = TrainUtil.getTypeByName(type);
 		String trainName = typed+name;
 		trainService.addTrain(trainName);
@@ -182,6 +186,9 @@ public class ManagerController extends BaseController {
 	@ResponseBody
 	public ResultResponse<String> editTrain(String name,Integer id) {
 		
+		if(StringUtils.isEmpty(name)) {
+			throw new SystemException("列车名字不能为空");
+		}
 		trainService.editTrain(name, id);
 		return new ResultResponse<String>();
 	}
@@ -466,6 +473,14 @@ public class ManagerController extends BaseController {
 		return response;
 	}
 	
+	/**
+	 * 添加火车日期安排
+	 * @param tripId 行程编号
+	 * @param trainName 火车名称
+	 * @param date 日期
+	 * @return
+	 * @throws ParseException
+	 */
 	@RequestMapping("/addTrainDateArrange.do")
 	@ResponseBody
 	public ResultResponse<String> addTrainDateArrange(Integer tripId,String trainName,String date) throws ParseException {
@@ -476,6 +491,13 @@ public class ManagerController extends BaseController {
 		if(null == date || "".equals(date)) {
 			throw new SystemException("没有选择时间");
 		}
+		
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		if((new Date().getTime() + ConstantUtil.OutTime.ONEDAY) > simpleDateFormat.parse(date).getTime()) {
+			throw new SystemException("选择的日期小于当前的日期后一天");
+		}
+		
 		Integer groupId = (Integer) redisTemplate.opsForValue().get("dateGroupId");
 		if(null == groupId) {
 			groupId = 3;
@@ -503,14 +525,12 @@ public class ManagerController extends BaseController {
         for(TrainArrange trainArrange : trainArranges2) {
         	
         	for(EditTrainArrange editTrainArrange : tArranges) {
-        		if(editTrainArrange.getId() == trainArrange.getArrangeId() || date.equals(trainArrange.getDate())) {
+        		if(editTrainArrange.getId() == trainArrange.getArrangeId() && date.equals(trainArrange.getDate())) {
         			throw new SystemException("该列车已经安排了本次行程");
         		}
         	}
         }
 	    
-	    
-	    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	    for(EditTrainArrange editTrainArrange : tArranges) {
 	    	String startDay = date;
 	    	String endDay = date;

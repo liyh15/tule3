@@ -26,8 +26,9 @@ tr td {
 <body>
 	<%
 		List<Train> train = (List<Train>) session.getAttribute("train");
-	%>
+	%>	
 	<div id="body">
+	<h1>编辑火车界面</h1>
 		<table border="1" cellspacing="0" width="100%" height="10%">
 			<tr>
 				<th>列车编号</th>

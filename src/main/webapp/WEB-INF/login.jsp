@@ -87,18 +87,6 @@
 
 
 			<div id="th_part">
-				<hr>
-				<i>第三方登录</i>
-				<hr>
-				<div>
-					<a href="#"><img
-						src="${pageContext.request.contextPath }/image/QQ.png"
-						alt="QQ图片加载中..."></a> <a href="#"><img
-						src="${pageContext.request.contextPath }/image/WeChat.png"
-						alt="WeChat图片加载中..."></a> <a href="#"><img
-						src="${pageContext.request.contextPath }/image/Alipay.png"
-						alt="Alipay图片加载中..."></a>
-				</div>
 			</div>
 		</div>
 	</div>

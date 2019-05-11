@@ -107,27 +107,6 @@
 			</div>
 		</div>
 		<div class="pkg_main">
-			<div class="flight" style="display: block;">
-				<span>更多特价机票></span>
-			</div>
-			<div class="re-flight" style="display: block;">
-				<span class="flight-title">
-					<div class="flight-icon"></div>
-					<div class="flight-name">特价机票</div>
-				</span> <span class="flight-date">
-					<div class="startDate">10-05</div>
-				</span> <span class="flight-city">
-					<div class="orgcity">${trainArranges[0].startStation}</div>
-					<div class="arrow"></div>
-					<div class="dstcity">${trainArranges[0].endStation}</div>
-				</span> <span class="flight-price">
-					<div class="logo">￥</div>
-					<div class="price">410</div>
-					<div class="start">起</div>
-				</span> <span class="flight-btn">
-					<div class="btn">查看</div>
-				</span>
-			</div>
 			<div class="pkg_main_inner" style="display: block;">
 				<div class="pkg_filter">
 					<div class="pkg_filter_con" style="display: block;">
@@ -138,49 +117,6 @@
 							<span class="pkg_startdate">${trainArranges[0].date}</span> <span> （共<em
 								id="alltrain"><%=trainArranges.size()%></em>个车次）
 							</span>
-						</div>
-						<div class="pkg_date_select">
-							<div class="pkg_date_prev">
-								<a href=""> <i class="icon"></i>
-								</a>
-							</div>
-							<div class="pkg_date_list">
-								<ul class="clearfix" style="left: 0px;">
-									<li class="pkg_date_single current"><a href="#"> <strong>10-05</strong>
-											<span>周五</span>
-									</a></li>
-									<li class="pkg_date_single"><a href="#"> <strong>10-06</strong>
-											<span>周六</span>
-									</a></li>
-									<li class="pkg_date_single"><a href="#"> <strong>10-07</strong>
-											<span>周日</span>
-									</a></li>
-									<li class="pkg_date_single"><a href="#"> <strong>10-08</strong>
-											<span>周一</span>
-									</a></li>
-									<li class="pkg_date_single"><a href="#"> <strong>10-09</strong>
-											<span>周二</span>
-									</a></li>
-									<li class="pkg_date_single"><a href="#"> <strong>10-10</strong>
-											<span>周三</span>
-									</a></li>
-									<li class="pkg_date_single"><a href="#"> <strong>10-11</strong>
-											<span>周四</span>
-									</a></li>
-									<li class="pkg_date_single"><a href="#"> <strong>10-12</strong>
-											<span>周五</span>
-									</a></li>
-								</ul>
-							</div>
-							<div class="pkg_date_next">
-								<a href="#"> <i class="icon"></i>
-								</a>
-							</div>
-							<div class="pkg_date_calendar">
-								<a href="#" class="pkg_date_calendar_btn"> <i class="icon"></i>
-									<span>日历</span>
-								</a>
-							</div>
 						</div>
 						<div class="pkg_filter_item" style="height: 308px;">
 							<dl>

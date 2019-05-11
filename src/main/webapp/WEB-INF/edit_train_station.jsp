@@ -15,6 +15,7 @@ tr td {
 }
 </style>
 <body>
+    <h1>编辑火车站界面</h1>
 	<table border="1" cellspacing="0" width="100%" height="10%">
 		<tr>
 			<th>火车站编号</th>
@@ -30,6 +31,7 @@ tr td {
 		</c:forEach>		
     </table>
     <button class = "addStation">添加车站</button>
+    <button class = "returnMain">返回主页</button>
     <input type = "text" class = "stationName aaa" style = "width:100px"placeholder = "请输入车站名称"><span class  ="aaa">站</span>
     <select style = "height:24px;width:110px" class = "cityName aaa">
         <c:forEach items="${citys}" var="ct" varStatus="cts">
@@ -71,5 +73,9 @@ tr td {
 	         }
          });
    });
+   
+   $(".returnMain").click(function(){
+	   window.location.href = "mainView.do";
+   })
 </script>
 </html>

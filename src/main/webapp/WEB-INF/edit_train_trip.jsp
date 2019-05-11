@@ -28,6 +28,7 @@ tr td {
 		Map<Integer, List<StopOverSation>> maps = (Map<Integer, List<StopOverSation>>) session.getAttribute("map");
 	%>
 	<div id="body">
+	<h1>编辑火车行程界面</h1>
 		<table border="1" cellspacing="0" width="100%" height="10%">
 			<tr>
 				<th>行程编号</th>

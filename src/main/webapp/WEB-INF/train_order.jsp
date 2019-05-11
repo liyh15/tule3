@@ -35,8 +35,6 @@
 					<ul class="menu_list">
 						<li><a href="orderlist">全部订单</a></li>
 						<li><a href="#">火车票订单</a></li>
-						<li><a href="#">飞机票订单</a></li>
-						<li><a href="#">汽车票订单</a></li>
 					</ul></li>
 			</ul>
 		</div>
@@ -55,21 +53,19 @@
 	<div id="menu">
 	    <div id="menu_list">
 	       <ul>
-	          <li><a href="main.jsp">首页</a></li>
-	          <li><a href="air.jsp">机票</a></li>
-	          <li><a href="trainView.do">火车票</a></li>
-	          <li><a href="BusIndex1.jsp">汽车票</a></li>
+	          <li><a href="../user/mainView.do">首页</a></li>
+	          <li><a href="../user/trainView.do">火车票</a></li>
 	       </ul>
 	    </div>
 	</div>	
 		<div id="main">
 			<div class="top">
 				<span>你的位置：</span>
-				<a href="#"><span class="sp">首页</span></a>
+				<a href="../user/mainView.do"><span class="sp">首页</span></a>
 				<span class="sp1">></span>
-				<a href="#"><span class="sp">会员中心</span></a>
+				<a href="../orderlist"><span class="sp">会员中心</span></a>
 				<span class="sp1">></span>
-				<a href="#"><span class="sp1">我的订单</span></a>
+				<a href="../orderlist"><span class="sp1">我的订单</span></a>
 			</div>
 			<div class="handle">
 				<div class="handle_top">

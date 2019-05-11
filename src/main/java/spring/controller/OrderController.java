@@ -162,7 +162,7 @@ public class OrderController extends BaseController {
 	 }
 	 
 	 /**
-	  * 获取订单的发车日期
+	  * 获取订单的发车日期(用于改签中判断是否选择了大于当前订单的发车时间)
 	  * @return
 	 * @throws ParseException 
 	  */

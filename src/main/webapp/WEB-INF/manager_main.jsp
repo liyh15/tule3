@@ -11,7 +11,7 @@
    #head {
       width : 500px;
       height: 500px;
-      border: 1px solid red;
+      border: 5px inset black;
       margin: 0 auto;
    }
    .title {    
@@ -29,7 +29,7 @@
 <body>
    <div id = "head">
        <img src = "../image/logo.png" style = "width: 100px;height: 100px"></br>
-       <span class = "title">途乐车票管理系统</span></br></br>
+       <h1 class = "title">途乐车票管理系统</h1></br></br>
        <button id = "editTrain" class = "btn">编辑列车</button></br>
        <button id = "editTrainTrip" class = "btn">编辑列车行程</button></br>
        <button id = "editTrainStation" class = "btn">编辑火车站</button></br>

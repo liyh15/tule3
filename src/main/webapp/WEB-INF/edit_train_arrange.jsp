@@ -15,6 +15,7 @@ tr td {
 }
 </style>
 <body>
+    <h1>编辑火车安排界面</h1>
 	<table border="1" cellspacing="0" width="100%" height="10%">
 		<tr>
 			<th>列车编号</th>
@@ -47,6 +48,7 @@ tr td {
 		</c:forEach>
 	</table>
 	<button class="add">添加车次安排</button>
+	<button class = "returnMain">返回主页</button>
 	<form id = "form_id">
 	    <button class="cancel">取消</button>	
 	<select class = "aaa" style = "display:none" name = "trainName">
@@ -111,5 +113,8 @@ tr td {
 	         }
           });
 	});
+	$(".returnMain").click(function(){
+		   window.location.href = "mainView.do";
+	   })
 </script>
 </html>
